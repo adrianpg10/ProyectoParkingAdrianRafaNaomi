@@ -139,7 +139,7 @@ public class PlazasDAO implements IPlazas {
 
     @Override
     public int deletePlazas() throws SQLException {
-        String sql = "delete from parking";
+        String sql = "delete from plazas";
 
         int nfilas = 0;
 
