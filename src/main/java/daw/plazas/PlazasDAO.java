@@ -55,31 +55,130 @@ public class PlazasDAO implements IPlazas {
 
     @Override
     public PlazasVO findByPk(int numplaza) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+         ResultSet res = null;
+        PlazasVO plazas = new PlazasVO();
+
+        String sql = "select * from plazas where numplaza=?";
+
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
+            // Preparamos la sentencia parametrizada
+            prest.setInt(1, numplaza);
+
+            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
+            res = prest.executeQuery();
+
+            // Nos posicionamos en el primer registro del Resultset. Sólo debe haber una fila
+            // si existe esa pk
+            if (res.first()) {
+                // Recogemos los datos de la persona, guardamos en un objeto
+                plazas.setNumplaza(res.getInt("numplaza"));
+                plazas.setTipoPlaza(res.getString("tipoPlaza"));
+                plazas.setEstadoplaza(res.getString("estadoplaza"));
+                plazas.setTarifa(res.getDouble("tarifa"));
+                return plazas;
+            }
+
+            return null;
+        }
     }
 
     @Override
-    public int insertCategorias(PlazasVO plazas) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int insertPlazas(PlazasVO plazas) throws SQLException {
+       int numFilas = 0;
+        String sql = "insert into plazas values (?,?,?,?)";
+
+        if (findByPk(plazas.getNumplaza()) != null) {
+            // Existe un registro con esa pk
+            // No se hace la inserción
+            return numFilas;
+        } else {
+            // Instanciamos el objeto PreparedStatement para inserción
+            // de datos. Sentencia parametrizada
+            try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+                // Establecemos los parámetros de la sentencia
+                prest.setInt(1, plazas.getNumplaza());
+                prest.setString(2, plazas.getTipoPlaza());
+                 prest.setString(3, plazas.getEstadoplaza());
+                 prest.setDouble(4, plazas.getTarifa());
+
+                numFilas = prest.executeUpdate();
+            }
+            return numFilas;
+        }
     }
 
     @Override
-    public int insertCategorias(List<PlazasVO> lista) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int insertPlazas(List<PlazasVO> lista) throws SQLException {
+        int numFilas = 0;
+
+        for (PlazasVO tmp : lista) {
+            numFilas += insertPlazas(tmp);
+        }
+
+        return numFilas;
     }
 
     @Override
-    public int deleteCategorias(PlazasVO p) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int deletePlazas(PlazasVO p) throws SQLException {
+        int numFilas = 0;
+
+        String sql = "delete from parking where numplaza = ?";
+
+        // Sentencia parametrizada
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+            // Establecemos los parámetros de la sentencia
+            prest.setInt(1, p.getNumplaza());
+            // Ejecutamos la sentencia
+            numFilas = prest.executeUpdate();
+        }
+        return numFilas;
     }
 
     @Override
-    public int deleteCategorias() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int deletePlazas() throws SQLException {
+        String sql = "delete from parking";
+
+        int nfilas = 0;
+
+        // Preparamos el borrado de datos  mediante un Statement
+        // No hay parámetros en la sentencia SQL
+        try (Statement st = con.createStatement()) {
+            // Ejecución de la sentencia
+            nfilas = st.executeUpdate(sql);
+        }
+
+        // El borrado se realizó con éxito, devolvemos filas afectadas
+        return nfilas;
     }
 
     @Override
-    public int updateCategorias(int codcat, PlazasVO nuevosDatos) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int updatePlazas(int numplaza, PlazasVO nuevosDatos) throws SQLException {
+        int numFilas = 0;
+        String sql = "update plazas set tipoPlaza = ?, estadoplaza = ?, tarifa = ?  where numplaza=?";
+
+        if (findByPk(numplaza) == null) {
+            // La persona a actualizar no existe
+            return numFilas;
+        } else {
+            // Instanciamos el objeto PreparedStatement para inserción
+            // de datos. Sentencia parametrizada
+            try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+                // Establecemos los parámetros de la sentencia
+                prest.setString(1, nuevosDatos.getTipoPlaza());
+                prest.setString(2, nuevosDatos.getEstadoplaza());
+                prest.setDouble(3, nuevosDatos.getTarifa());
+                prest.setInt(4, numplaza);
+
+                numFilas = prest.executeUpdate();
+            }
+            return numFilas;
+        }
     }
+
+  
+    
 }

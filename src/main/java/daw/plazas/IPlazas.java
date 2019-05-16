@@ -20,18 +20,18 @@ public interface IPlazas {
     PlazasVO findByPk(int numplaza) throws SQLException;
     
     // Método para insertar un registro
-    int insertCategorias (PlazasVO plazas) throws SQLException;
+    int insertPlazas (PlazasVO plazas) throws SQLException;
     
     // Método para insertar varios registros
-    int insertCategorias (List<PlazasVO> lista) throws SQLException;
+    int insertPlazas (List<PlazasVO> lista) throws SQLException;
     
     // Método para borrar una categoria
-    int deleteCategorias (PlazasVO p) throws SQLException;
+    int deletePlazas (PlazasVO p) throws SQLException;
     
     // Método para borrar toda la tabla
-    int deleteCategorias() throws SQLException;
+    int deletePlazas() throws SQLException;
     
     // Método para modificar una persona. Se modifica a la persona que tenga esa 'pk'
     // con los nuevos datos que traiga la persona 'nuevosDatos'
-    int updateCategorias (int codcat, PlazasVO nuevosDatos) throws SQLException;
+    int updatePlazas (int numplaza, PlazasVO nuevosDatos) throws SQLException;
 }
