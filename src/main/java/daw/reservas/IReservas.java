@@ -18,7 +18,7 @@ public interface IReservas {
     List<ReservasVO> getAll() throws SQLException;
     
     // Méodo para obtener un registro a partir de la PK
-    ReservasVO findByPk(int matricula) throws SQLException;
+    ReservasVO findByPk(String matricula, int numplaza) throws SQLException;
     
     // Método para insertar un registro
     int insertReservas (ReservasVO reservas) throws SQLException;
@@ -34,5 +34,5 @@ public interface IReservas {
     
     // Método para modificar una reservas. Se modifica a la persona que tenga esa 'pk'
     // con los nuevos datos que traiga la persona 'nuevosDatos'
-    int updateReservas (int matricula, ReservasVO nuevosDatos) throws SQLException;
+    int updateReservas (String matricula,int numplaza , ReservasVO nuevosDatos) throws SQLException;
 }
