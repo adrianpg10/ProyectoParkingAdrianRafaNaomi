@@ -99,7 +99,7 @@ public class ReservasDAO implements IReservas {
     public int deleteReservas(ReservasVO r) throws SQLException {
          int numFilas = 0;
 
-        String sql = "delete from reservas where matricula = ?, numplaza= ?";
+        String sql = "delete from reservas where matricula = ? and numplaza= ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
@@ -136,7 +136,7 @@ public class ReservasDAO implements IReservas {
          ResultSet res = null;
         ReservasVO reservas = new ReservasVO();
 
-        String sql = "select * from reservas where matricula=?, numplaza=?";
+        String sql = "select * from reservas where matricula=? and numplaza=?";
 
         try (PreparedStatement prest = con.prepareStatement(sql)) {
             // Preparamos la sentencia parametrizada
@@ -166,7 +166,7 @@ public class ReservasDAO implements IReservas {
     @Override
     public int updateReservas(String matricula, int numplaza, ReservasVO nuevosDatos) throws SQLException {
           int numFilas = 0;
-        String sql = "update reservas set pin_fijo = ?, feciniabono = ?,fecfinabono =?  where matricula=?, numplaza=?";
+        String sql = "update reservas set pin_fijo = ?, feciniabono = ?,fecfinabono =?  where matricula=? and numplaza=?";
 
         if (findByPk(matricula,numplaza) == null) {
             // La persona a actualizar no existe
