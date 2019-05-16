@@ -124,7 +124,7 @@ public class PlazasDAO implements IPlazas {
     public int deletePlazas(PlazasVO p) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from parking where numplaza = ?";
+        String sql = "delete from plazas where numplaza = ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
