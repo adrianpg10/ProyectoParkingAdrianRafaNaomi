@@ -181,7 +181,7 @@ public class ReservasDAO implements IReservas {
                 prest.setString(2, nuevosDatos.getFeciniabono().format(DateTimeFormatter.ISO_DATE));
                 prest.setString(3, nuevosDatos.getFecfinabono().format(DateTimeFormatter.ISO_DATE));
                 prest.setString(4, matricula);
-                prest.setInt(4, numplaza);
+                prest.setInt(5, numplaza);
 
                 numFilas = prest.executeUpdate();
             }
