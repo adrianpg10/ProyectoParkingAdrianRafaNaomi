@@ -15,17 +15,17 @@ public class ClientesVO {
     private String nombre;
     private String apellido1;
     private String apellido2;
-    private String numTarjetaCreadito;
+    private String numTarjetaCredito;
     private String tipoAbono;
     private String email;
 
-    public ClientesVO(String matricula, String dni, String nombre, String apellido1, String apellido2, String numTarjetaCreadito, String tipoAbono, String email) {
+    public ClientesVO(String matricula, String dni, String nombre, String apellido1, String apellido2, String numTarjetaCredito, String tipoAbono, String email) {
         this.matricula = matricula;
         this.dni = dni;
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
-        this.numTarjetaCreadito = numTarjetaCreadito;
+        this.numTarjetaCredito = numTarjetaCredito;
         this.tipoAbono = tipoAbono;
         this.email = email;
     }
@@ -73,12 +73,12 @@ public class ClientesVO {
         this.apellido2 = apellido2;
     }
 
-    public String getNumTarjetaCreadito() {
-        return numTarjetaCreadito;
+    public String getNumTarjetaCredito() {
+        return numTarjetaCredito;
     }
 
-    public void setNumTarjetaCreadito(String numTarjetaCreadito) {
-        this.numTarjetaCreadito = numTarjetaCreadito;
+    public void setNumTarjetaCredito(String numTarjetaCredito) {
+        this.numTarjetaCredito = numTarjetaCredito;
     }
 
     public String getTipoAbono() {
@@ -99,7 +99,7 @@ public class ClientesVO {
 
     @Override
     public String toString() {
-        return "matricula:" + matricula + ", dni:" + dni + ", nombre:" + nombre + ", apellido1:" + apellido1 + ", apellido2:" + apellido2 + ", numTarjetaCreadito:" + numTarjetaCreadito + ", tipoAbono:" + tipoAbono + ", email:" + email;
+        return "matricula:" + matricula + ", dni:" + dni + ", nombre:" + nombre + ", apellido1:" + apellido1 + ", apellido2:" + apellido2 + ", numTarjetaCreadito:" + numTarjetaCredito + ", tipoAbono:" + tipoAbono + ", email:" + email;
     }
     
     
