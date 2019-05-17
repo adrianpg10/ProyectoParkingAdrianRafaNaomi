@@ -18,7 +18,7 @@ public interface ITickets {
     List<TicketsVO> getAll() throws SQLException;
     
     // Méodo para obtener un registro a partir de la PK
-    TicketsVO findByPk(int numplaza, String matricula) throws SQLException;
+    TicketsVO findByPk(int codticket, String matricula) throws SQLException;
     
     // Método para insertar un registro
     int insertTickets (TicketsVO tickets) throws SQLException;
@@ -34,5 +34,5 @@ public interface ITickets {
     
     // Método para modificar una tickets. Se modifica a la persona que tenga esa 'pk'
     // con los nuevos datos que traiga la persona 'nuevosDatos'
-    int updateTickets (int numplaza, String matricula , TicketsVO nuevosDatos) throws SQLException;   
+    int updateTickets (int codticket, String matricula , TicketsVO nuevosDatos) throws SQLException;   
 }

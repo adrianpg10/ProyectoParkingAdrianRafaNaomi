@@ -12,23 +12,37 @@ import java.time.LocalDate;
  * @author adrip
  */
 public class TicketsVO {
+    //Atributos
+    private int codticket;
     private int numplaza;
     private String matricula;
     private String pin_desechable;
     private LocalDate fecinipin;
     private LocalDate fecfinpin;
 
+    //Método constructor por defecto
     public TicketsVO() {
     }
-
-    public TicketsVO(int numplaza, String matricula, String pin_desechable, LocalDate fecinipin, LocalDate fecfinpin) {
+    
+    //Método constructor parametrizado
+    public TicketsVO(int codticket, int numplaza, String matricula, String pin_desechable, LocalDate fecinipin, LocalDate fecfinpin) {
+        this.codticket = codticket;
         this.numplaza = numplaza;
         this.matricula = matricula;
         this.pin_desechable = pin_desechable;
         this.fecinipin = fecinipin;
         this.fecfinpin = fecfinpin;
     }
+    
+    //Métodos getters y setters
+    public int getCodticket() {
+        return codticket;
+    }
 
+    public void setCodticket(int codticket) {
+        this.codticket = codticket;
+    }
+    
     public int getNumplaza() {
         return numplaza;
     }
@@ -68,12 +82,10 @@ public class TicketsVO {
     public void setFecfinpin(LocalDate fecfinpin) {
         this.fecfinpin = fecfinpin;
     }
-
+    
+    //Método toString
     @Override
     public String toString() {
-        return "TicketsVO{" + "numplaza=" + numplaza + ", matricula=" + matricula + ", pin_desechable=" + pin_desechable + ", fecinipin=" + fecinipin + ", fecfinpin=" + fecfinpin + '}';
-    }
-    
-    
-           
+        return "TicketsVO{" + "codticket=" + codticket + ", numplaza=" + numplaza + ", matricula=" + matricula + ", pin_desechable=" + pin_desechable + ", fecinipin=" + fecinipin + ", fecfinpin=" + fecfinpin + '}';
+    }        
 }
