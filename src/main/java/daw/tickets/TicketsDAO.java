@@ -130,7 +130,7 @@ public class TicketsDAO implements ITickets {
     public int deleteTickets(TicketsVO t) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from tickets codticket= ?, matricula = ?";
+        String sql = "delete from tickets codticket= ? and matricula = ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
@@ -165,7 +165,7 @@ public class TicketsDAO implements ITickets {
     @Override
     public int updateTickets(int codticket, String matricula, TicketsVO nuevosDatos) throws SQLException {
         int numFilas = 0;
-        String sql = "update tickets set pin_desechable = ?, fecinipin = ?,fecfinpin =?  where numplaza=?, matricula=?";
+        String sql = "update tickets set pin_desechable = ?, fecinipin = ?,fecfinpin =?  where numplaza=? and matricula=?";
 
         if (findByPk(codticket, matricula) == null) {
             // La persona a actualizar no existe
