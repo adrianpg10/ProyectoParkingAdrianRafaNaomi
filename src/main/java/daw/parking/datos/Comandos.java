@@ -15,7 +15,7 @@ public enum Comandos {
     // 2.- Solo pueden instanciarse con un tipo de objeto concreto
     
     // Todos los comandos usados
-    APAGAR_SISTEMA(0, "Apagar sistema"),
+    VOLVER_MENU(0, "Vuelve al menú principal"),
     ENTRAR_CLIENTE(1, "Entrar a la zona clientes"),
     ENTRAR_ADMIN(2, "Entrar a la zona de admin"),
     DEPOSITAR_VEHICULO(3, "Depositar vehiculo"),
@@ -23,15 +23,12 @@ public enum Comandos {
     DEPOSITAR_ABONADO(5, "Depositar abonado"),
     RETIRAR_ABONADO(6, "Retirar abonado"),
     ESTADO_PARKING(7, "Estado del parking"),
-    FACTURACION(8, "Facturacion"),
     FACTURACION_ENTRE_FECHAS(9, "Facturación entre fechas"),
     FACTURACION_ABONADO(10, "Facturación abonado"),
-    ABONO(11, "Abono"),
     ABONO_ALTA(12, "Alta de abono"),
     ABONO_MODIFICA(13, "Modificación de abono"),
     ABONO_BAJA(14, "Baja de abono"),
     ABONO_CADUCIDAD(15, "Caducidad de abono"),
-    COPIA_SEGURIDAD(16, "Copia de seguridad"),
     COPIA_SEGURIDAD_COPIAR(17, "Copiar datos"),
     COPIA_SEGURIDAD_RESTAURAR(18, "Restaurar datos");
 
