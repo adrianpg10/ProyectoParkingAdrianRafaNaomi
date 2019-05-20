@@ -17,7 +17,7 @@ public interface IClientes {
     List<ClientesVO> getAll() throws SQLException;
     
     // Méodo para obtener un registro a partir de la PK
-    ClientesVO findByPk(String matricula,String dni) throws SQLException;
+    ClientesVO findByPk(String matricula) throws SQLException;
     
     // Método para insertar un registro
     int insertClientes (ClientesVO p) throws SQLException;
@@ -33,5 +33,5 @@ public interface IClientes {
     
     // Método para modificar una persona. Se modifica a la persona que tenga esa 'pk'
     // con los nuevos datos que traiga la persona 'nuevosDatos'
-    int updateClientes (String matricula,String dni, ClientesVO nuevosDatos) throws SQLException;
+    int updateClientes (String matricula, ClientesVO nuevosDatos) throws SQLException;
 }

@@ -57,17 +57,17 @@ public class ClientesDAO implements IClientes {
     }
 
     @Override
-    public ClientesVO findByPk(String matricula, String dni) throws SQLException {
+    public ClientesVO findByPk(String matricula) throws SQLException {
 
         ResultSet res = null;
         ClientesVO p = new ClientesVO();
 
-        String sql = "select * from clientes where matricula=? and dni=?";
+        String sql = "select * from clientes where matricula=?";
 
         try (PreparedStatement prest = con.prepareStatement(sql)) {
             // Preparamos la sentencia parametrizada
             prest.setString(1, matricula);
-            prest.setString(2, dni);
+            
 
             // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
             res = prest.executeQuery();
@@ -96,7 +96,7 @@ public class ClientesDAO implements IClientes {
         int numFilas = 0;
         String sql = "insert into clientes values (?,?,?,?,?,?,?,?)";
 
-        if (findByPk(c.getMatricula(), c.getDni()) != null) {
+        if (findByPk(c.getMatricula()) != null) {
             // Existe un registro con esa pk
             // No se hace la inserción
             return numFilas;
@@ -136,14 +136,14 @@ public class ClientesDAO implements IClientes {
     public int deleteClientes(ClientesVO p) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from clientes where matricula = ? and dni = ?";
+        String sql = "delete from clientes where matricula = ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
 
             // Establecemos los parámetros de la sentencia
             prest.setString(1, p.getMatricula());
-            prest.setString(2, p.getDni());
+            
             // Ejecutamos la sentencia
             numFilas = prest.executeUpdate();
         }
@@ -168,11 +168,11 @@ public class ClientesDAO implements IClientes {
     }
 
     @Override
-    public int updateClientes(String matricula, String dni, ClientesVO nuevosDatos) throws SQLException {
+    public int updateClientes(String matricula, ClientesVO nuevosDatos) throws SQLException {
         int numFilas = 0;
-        String sql = "update clientes set nombre = ?, apellido1 = ?, apellido2 = ?, numTarjetaCredito=?, tipoAbono=?, email=?  where matricula=? and dni=?";
+        String sql = "update clientes set nombre = ?, apellido1 = ?, apellido2 = ?, numTarjetaCredito=?, tipoAbono=?, email=?  where matricula=?";
 
-        if (findByPk(matricula, dni) == null) {
+        if (findByPk(matricula) == null) {
             // La persona a actualizar no existe
             return numFilas;
         } else {
@@ -187,8 +187,9 @@ public class ClientesDAO implements IClientes {
                 prest.setString(4, nuevosDatos.getNumTarjetaCredito());
                 prest.setString(5, nuevosDatos.getTipoAbono());
                 prest.setString(6, nuevosDatos.getEmail());
-                prest.setString(7, matricula);
-                prest.setString(8, dni);
+                prest.setString(7, nuevosDatos.getDni());
+                prest.setString(8, matricula);
+
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
