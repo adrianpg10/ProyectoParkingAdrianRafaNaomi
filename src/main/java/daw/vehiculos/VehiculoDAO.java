@@ -41,7 +41,7 @@ public class VehiculoDAO implements IVehiculo {
                 // Recogemos los datos de la persona, guardamos en un objeto
                 p.setMatricula(res.getString("matricula"));
                 p.setTipoVehiculo(res.getString("tipoVehiculo"));
-                p.setDescripcion(res.getString("descripcion"));
+                
 
                 //Añadimos el objeto a la lista
                 lista.add(p);
@@ -72,7 +72,7 @@ public class VehiculoDAO implements IVehiculo {
                 // Recogemos los datos de la persona, guardamos en un objeto
                 veh.setMatricula(res.getString("matricula"));
                 veh.setTipoVehiculo(res.getString("tipoVehiculo"));
-                veh.setDescripcion(res.getString("descripcion"));
+                
                 return veh;
             }
 
@@ -81,10 +81,10 @@ public class VehiculoDAO implements IVehiculo {
     }
 
     @Override
-    public int insertarEmpleado(VehiculoVO veh) throws SQLException {
+    public int insertarVehiculo(VehiculoVO veh) throws SQLException {
 
         int numFilas = 0;
-        String sql = "insert into vehiculo values (?,?,?)";
+        String sql = "insert into vehiculo values (?,?)";
 
         if (findByPk(Integer.parseInt(veh.getMatricula())) != null) {
             // Existe un registro con esa pk
@@ -98,7 +98,7 @@ public class VehiculoDAO implements IVehiculo {
                 // Establecemos los parámetros de la sentencia
                 prest.setString(1, veh.getMatricula());
                 prest.setString(2, veh.getTipoVehiculo());
-                prest.setString(3, veh.getDescripcion());
+             
 
                 numFilas = prest.executeUpdate();
             }
@@ -108,18 +108,18 @@ public class VehiculoDAO implements IVehiculo {
     }
 
     @Override
-    public int insertarVariosEmpleados(List<VehiculoVO> lista) throws SQLException {
+    public int insertarVariosVehiculo(List<VehiculoVO> lista) throws SQLException {
         int numFilas = 0;
 
         for (VehiculoVO tmp : lista) {
-            numFilas += insertarEmpleado(tmp);
+            numFilas += insertarVehiculo(tmp);
         }
 
         return numFilas;
     }
 
     @Override
-    public int borrarTodosEmpleados() throws SQLException {
+    public int borrarTodosVehiculo() throws SQLException {
 
         String sql = "delete from vehiculo";
 
@@ -138,7 +138,7 @@ public class VehiculoDAO implements IVehiculo {
     }
 
     @Override
-    public int borrarEmpleado(VehiculoVO persona) throws SQLException {
+    public int borrarVehiculo(VehiculoVO persona) throws SQLException {
         int numFilas = 0;
 
         String sql = "delete from vehiculo where matricula= ?";
@@ -155,10 +155,10 @@ public class VehiculoDAO implements IVehiculo {
     }
 
     @Override
-    public int actualizarEmpleado(int pk, VehiculoVO nuevosDatos) throws SQLException {
+    public int actualizarVehiculo(int pk, VehiculoVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update vehiculo set tipoVehiculo = ?, descripcion = ? where matricula=?";
+        String sql = "update vehiculo set tipoVehiculo = ? where matricula=?";
 
         if (findByPk(pk) == null) {
             // La persona a actualizar no existe
@@ -170,8 +170,8 @@ public class VehiculoDAO implements IVehiculo {
 
                 // Establecemos los parámetros de la sentencia
                 prest.setString(1, nuevosDatos.getTipoVehiculo());
-                prest.setString(2, nuevosDatos.getDescripcion());
-                prest.setInt(3, pk);
+               
+                prest.setInt(2, pk);
 
                 numFilas = prest.executeUpdate();
             }

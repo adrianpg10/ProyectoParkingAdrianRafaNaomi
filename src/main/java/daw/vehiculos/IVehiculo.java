@@ -20,18 +20,18 @@ public interface IVehiculo {
     VehiculoVO findByPk(int codigo) throws SQLException;
     
     // Método para insertar un registro
-    int insertarEmpleado (VehiculoVO persona) throws SQLException;
+    int insertarVehiculo (VehiculoVO persona) throws SQLException;
     
     // Método para insertar varios registros
-    int insertarVariosEmpleados (List<VehiculoVO> lista) throws SQLException;
+    int insertarVariosVehiculo (List<VehiculoVO> lista) throws SQLException;
     
     // Método para borrar una persona
-    int borrarEmpleado (VehiculoVO p) throws SQLException;
+    int borrarVehiculo (VehiculoVO p) throws SQLException;
     
     // Método para borrar toda la tabla
-    int borrarTodosEmpleados() throws SQLException;
+    int borrarTodosVehiculo() throws SQLException;
     
     // Método para modificar una persona. Se modifica a la persona que tenga esa 'pk'
     // con los nuevos datos que traiga la persona 'nuevosDatos'
-    int actualizarEmpleado (int pk, VehiculoVO nuevosDatos) throws SQLException;
+    int actualizarVehiculo (int pk, VehiculoVO nuevosDatos) throws SQLException;
 }

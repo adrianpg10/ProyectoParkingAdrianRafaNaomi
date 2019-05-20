@@ -12,12 +12,10 @@ package daw.vehiculos;
 public class VehiculoVO {
     private String matricula;
     private String tipoVehiculo;
-    private String descripcion;
 
-    public VehiculoVO(String matricula, String tipoVehiculo, String descripcion) {
+    public VehiculoVO(String matricula, String tipoVehiculo) {
         this.matricula = matricula;
         this.tipoVehiculo = tipoVehiculo;
-        this.descripcion = descripcion;
     }
 
     public VehiculoVO() {
@@ -39,18 +37,13 @@ public class VehiculoVO {
         this.tipoVehiculo = tipoVehiculo;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     @Override
     public String toString() {
-        return "matricula:" + matricula + ", tipoVehiculo:" + tipoVehiculo + ", descripcion:" + descripcion;
+        return "VehiculoVO{" + "matricula=" + matricula + ", tipoVehiculo=" + tipoVehiculo + '}';
     }
+    
+
+ 
     
     
 }
