@@ -5,6 +5,7 @@
  */
 package daw.parking.datos;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -16,14 +17,18 @@ public class Menu {
     private static Scanner teclado = new Scanner(System.in);
     private static int opcion;
 
-    public static Comandos menu() {
 
+    public static Comandos menu() {
+        boolean seguir=true;
         do {
-            System.out.println("MENÚ");
-            System.out.println("-------------");
-            System.out.println("Opción 1. Entrar en la zona clientes.");
-            System.out.println("Opción 2. Entrar en la zona administrador.");
-            System.out.println("Opción 3. Salir.");
+            
+            try{
+            System.out.println("==========================================");
+            System.out.println("===============PARKING DAW================");
+            System.out.println("==========================================");
+            System.out.println("1- Entrar en la zona clientes.");
+            System.out.println("2- Entrar en la zona administrador.");
+            System.out.println("3- Salir.");
 
             opcion = teclado.nextInt();
 
@@ -93,9 +98,14 @@ public class Menu {
                     break;
 
             }
+             } catch (InputMismatchException ime) {
+                System.out.println();
+                System.out.println("Ha introducido un caracter no valido, solo puede ingresar numeros");
+            }
+            teclado.nextLine();
             System.out.println();
 
-        } while (opcion != 0);
+        } while (seguir);
 
         return null;
     }
