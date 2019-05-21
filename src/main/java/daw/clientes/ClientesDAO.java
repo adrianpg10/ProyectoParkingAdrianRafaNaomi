@@ -92,7 +92,7 @@ public class ClientesDAO implements IClientes {
     }
 
     @Override
-    public int insertClientes(ClientesVO c) throws SQLException {
+    public int insertarClientes(ClientesVO c) throws SQLException {
         int numFilas = 0;
         String sql = "insert into clientes values (?,?,?,?,?,?,?,?)";
 
@@ -122,11 +122,11 @@ public class ClientesDAO implements IClientes {
     }
 
     @Override
-    public int insertClientes(List<ClientesVO> lista) throws SQLException {
+    public int insertarClientes(List<ClientesVO> lista) throws SQLException {
         int numFilas = 0;
 
         for (ClientesVO tmp : lista) {
-            numFilas += insertClientes(tmp);
+            numFilas += insertarClientes(tmp);
         }
 
         return numFilas;

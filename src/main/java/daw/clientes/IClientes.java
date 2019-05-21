@@ -20,10 +20,10 @@ public interface IClientes {
     ClientesVO findByPk(String matricula) throws SQLException;
     
     // Método para insertar un registro
-    int insertClientes (ClientesVO p) throws SQLException;
+    int insertarClientes (ClientesVO p) throws SQLException;
     
     // Método para insertar varios registros
-    int insertClientes (List<ClientesVO> lista) throws SQLException;
+    int insertarClientes (List<ClientesVO> lista) throws SQLException;
     
     // Método para borrar una categoria
     int deleteClientes (ClientesVO p) throws SQLException;
