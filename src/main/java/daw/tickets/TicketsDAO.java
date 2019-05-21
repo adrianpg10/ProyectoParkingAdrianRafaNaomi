@@ -60,7 +60,7 @@ public class TicketsDAO implements ITickets {
         ResultSet res = null;
         TicketsVO tickets = new TicketsVO();
 
-        String sql = "select * from tickets where codticket=?, matricula=?";
+        String sql = "select * from tickets where codticket=? and matricula=?";
 
         try (PreparedStatement prest = con.prepareStatement(sql)) {
             // Preparamos la sentencia parametrizada
@@ -90,7 +90,7 @@ public class TicketsDAO implements ITickets {
     @Override
     public int insertTickets(TicketsVO tickets) throws SQLException {
         int numFilas = 0;
-        String sql = "insert into tickets values (?,?,?,?,?)";
+        String sql = "insert into tickets values (?,?,?,?,?,?)";
 
         if (findByPk(tickets.getCodticket(), tickets.getMatricula()) != null) {
             // Existe un registro con esa pk
@@ -130,7 +130,7 @@ public class TicketsDAO implements ITickets {
     public int deleteTickets(TicketsVO t) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from tickets codticket= ? and matricula = ?";
+        String sql = "delete from tickets where codticket= ? and matricula = ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
