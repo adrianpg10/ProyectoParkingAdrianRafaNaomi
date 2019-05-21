@@ -14,9 +14,10 @@ import java.sql.SQLException;
  * @author rafa
  */
 public class Conexion {
-     private static final String SERVIDOR = "jdbc:mysql://192.168.56.101:3306/";
+    // Se establecen los atributos para la conexion
+    private static final String SERVIDOR = "jdbc:mysql://192.168.56.101:3306/";
     private static final String NOMBRE_BASE_DATOS = "parking";
-    private static final String USER = "adrianpg";
+    private static final String USER = "rafa";
     private static final String PASS = "1234";
 
     private static Connection instancia = null;
