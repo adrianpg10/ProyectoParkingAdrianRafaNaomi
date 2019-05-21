@@ -6,6 +6,7 @@
 package daw.vehiculos;
 
 import daw.parking.datos.Conexion;
+import daw.plazas.PlazasVO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +35,7 @@ public class VehiculoDAO implements IVehiculo {
         // ya que no necesitamos parametrizar la sentencia SQL
         try (Statement st = con.createStatement()) {
             // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
-            ResultSet res = st.executeQuery("select * from vehiculo");
+            ResultSet res = st.executeQuery("select * from vehiculos");
             // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
             while (res.next()) {
                 VehiculoVO p = new VehiculoVO();
@@ -57,7 +58,7 @@ public class VehiculoDAO implements IVehiculo {
         ResultSet res = null;
         VehiculoVO veh = new VehiculoVO();
 
-        String sql = "select * from vehiculo where matricula=?";
+        String sql = "select * from vehiculos where matricula=?";
 
         try (PreparedStatement prest = con.prepareStatement(sql)) {
             // Preparamos la sentencia parametrizada
@@ -84,7 +85,7 @@ public class VehiculoDAO implements IVehiculo {
     public int insertarVehiculo(VehiculoVO veh) throws SQLException {
 
         int numFilas = 0;
-        String sql = "insert into vehiculo values (?,?)";
+        String sql = "insert into vehiculos values (?,?)";
 
         if (findByPk(Integer.parseInt(veh.getMatricula())) != null) {
             // Existe un registro con esa pk
@@ -108,8 +109,8 @@ public class VehiculoDAO implements IVehiculo {
     }
 
     @Override
-    public int insertarVariosVehiculo(List<VehiculoVO> lista) throws SQLException {
-        int numFilas = 0;
+    public int insertarVehiculo(List<VehiculoVO> lista) throws SQLException {
+       int numFilas = 0;
 
         for (VehiculoVO tmp : lista) {
             numFilas += insertarVehiculo(tmp);
@@ -121,7 +122,7 @@ public class VehiculoDAO implements IVehiculo {
     @Override
     public int borrarTodosVehiculo() throws SQLException {
 
-        String sql = "delete from vehiculo";
+        String sql = "delete from vehiculos";
 
         int nfilas = 0;
 
@@ -141,7 +142,7 @@ public class VehiculoDAO implements IVehiculo {
     public int borrarVehiculo(VehiculoVO persona) throws SQLException {
         int numFilas = 0;
 
-        String sql = "delete from vehiculo where matricula= ?";
+        String sql = "delete from vehiculos where matricula= ?";
 
         // Sentencia parametrizada
         try (PreparedStatement prest = con.prepareStatement(sql)) {
@@ -158,7 +159,7 @@ public class VehiculoDAO implements IVehiculo {
     public int actualizarVehiculo(int pk, VehiculoVO nuevosDatos) throws SQLException {
 
         int numFilas = 0;
-        String sql = "update vehiculo set tipoVehiculo = ? where matricula=?";
+        String sql = "update vehiculos set tipoVehiculo =? where matricula =?";
 
         if (findByPk(pk) == null) {
             // La persona a actualizar no existe

@@ -23,7 +23,7 @@ public interface IVehiculo {
     int insertarVehiculo (VehiculoVO persona) throws SQLException;
     
     // Método para insertar varios registros
-    int insertarVariosVehiculo (List<VehiculoVO> lista) throws SQLException;
+    int insertarVehiculo (List<VehiculoVO> lista) throws SQLException;
     
     // Método para borrar una persona
     int borrarVehiculo (VehiculoVO p) throws SQLException;
