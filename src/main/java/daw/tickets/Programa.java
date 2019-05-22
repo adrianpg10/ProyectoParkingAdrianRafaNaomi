@@ -9,6 +9,7 @@ import daw.plazas.PlazasDAO;
 import daw.plazas.PlazasVO;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class Programa {
         TicketsDAO daoTickets = new TicketsDAO();
 
         List<TicketsVO> listaTickets = new ArrayList<>();
-        listaTickets.add(new TicketsVO(2, 17,"1234abc", "152487", LocalDate.of(2019, Month.MARCH, 8),LocalDate.of(2019, Month.APRIL, 8)));
+        listaTickets.add(new TicketsVO(2, 17,"1234abc", "152487", LocalDate.of(2019, Month.MARCH, 8),LocalDate.of(2019, Month.APRIL, 8),LocalTime.of(13, 00, 02),LocalTime.of(15, 30, 10)));
 
         try {
 
