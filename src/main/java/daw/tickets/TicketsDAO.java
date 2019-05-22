@@ -8,10 +8,13 @@ package daw.tickets;
 import daw.parking.datos.Conexion;
 import daw.reservas.ReservasVO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,8 @@ public class TicketsDAO implements ITickets {
                 t.setPin_desechable(res.getString("pin_desechable"));
                 t.setFecinipin(res.getDate("fecinipin").toLocalDate());
                 t.setFecfinpin(res.getDate("fecfinpin").toLocalDate());
+                t.setHoraInicio(res.getTime("horaInicio").toLocalTime());
+                t.setHoraFin(res.getTime("horaFin").toLocalTime());
 
                 //Añadimos el objeto a la lista
                 lista.add(t);
@@ -80,8 +85,12 @@ public class TicketsDAO implements ITickets {
                 tickets.setPin_desechable(res.getString("pin_desechable"));
                 tickets.setFecinipin(res.getDate("fecinipin").toLocalDate());
                 tickets.setFecfinpin(res.getDate("fecfinpin").toLocalDate());
+                tickets.setHoraInicio(res.getTime("horaInicio").toLocalTime());
+                tickets.setHoraFin(res.getTime("horaFin").toLocalTime());
                 return tickets;
             }
+
+
 
             return null;
         }
@@ -90,7 +99,7 @@ public class TicketsDAO implements ITickets {
     @Override
     public int insertTickets(TicketsVO tickets) throws SQLException {
         int numFilas = 0;
-        String sql = "insert into tickets values (?,?,?,?,?,?)";
+        String sql = "insert into tickets values (?,?,?,?,?,?,?,?)";
 
         if (findByPk(tickets.getCodticket(), tickets.getMatricula()) != null) {
             // Existe un registro con esa pk
@@ -106,8 +115,12 @@ public class TicketsDAO implements ITickets {
                 prest.setInt(2, tickets.getNumplaza());
                 prest.setString(3, tickets.getMatricula());
                 prest.setString(4, tickets.getPin_desechable());
-                prest.setString(5, tickets.getFecinipin().format(DateTimeFormatter.ISO_DATE));
-                prest.setString(6, tickets.getFecfinpin().format(DateTimeFormatter.ISO_DATE));
+                prest.setDate(5, Date.valueOf(tickets.getFecinipin()));
+                
+                prest.setDate(6, Date.valueOf(tickets.getFecfinpin()));
+                prest.setTime(7, Time.valueOf(tickets.getHoraInicio()));
+                prest.setTime(8, Time.valueOf(tickets.getHoraFin()));
+                
 
                 numFilas = prest.executeUpdate();
             }
@@ -165,7 +178,7 @@ public class TicketsDAO implements ITickets {
     @Override
     public int updateTickets(int codticket, String matricula, TicketsVO nuevosDatos) throws SQLException {
         int numFilas = 0;
-        String sql = "update tickets set pin_desechable = ?, fecinipin = ?,fecfinpin =?  where numplaza=? and matricula=?";
+        String sql = "update tickets set pin_desechable = ?, fecinipin = ?,fecfinpin =?, horaInicio =?, horaFin =?, numplaza =?  where codticket=? and matricula=?";
 
         if (findByPk(codticket, matricula) == null) {
             // La persona a actualizar no existe
@@ -177,11 +190,14 @@ public class TicketsDAO implements ITickets {
 
                 // Establecemos los parámetros de la sentencia
                 prest.setString(1, nuevosDatos.getPin_desechable());
-                prest.setString(2, nuevosDatos.getFecinipin().format(DateTimeFormatter.ISO_DATE));
-                prest.setString(3, nuevosDatos.getFecfinpin().format(DateTimeFormatter.ISO_DATE));
+                prest.setDate(2, Date.valueOf(nuevosDatos.getFecinipin()));
+                prest.setDate(3, Date.valueOf(nuevosDatos.getFecfinpin()));
+                prest.setTime(4, Time.valueOf(nuevosDatos.getHoraInicio()));
+                prest.setTime(5, Time.valueOf(nuevosDatos.getHoraFin()));
 
-                prest.setInt(4, codticket);
-                prest.setString(5, matricula);
+                prest.setInt(6, nuevosDatos.getNumplaza());
+                prest.setInt(7, codticket);
+                prest.setString(8, matricula);
 
                 numFilas = prest.executeUpdate();
             }
