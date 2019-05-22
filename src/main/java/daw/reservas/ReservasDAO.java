@@ -8,6 +8,7 @@ package daw.reservas;
 import daw.parking.datos.Conexion;
 import daw.plazas.PlazasVO;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,9 +75,10 @@ public class ReservasDAO implements IReservas {
                 prest.setString(1, reservas.getMatricula());
                 prest.setInt(2, reservas.getNumplaza());
                  prest.setString(3, reservas.getPin_fijo());
-                 prest.setString(4, reservas.getFeciniabono().format(DateTimeFormatter.ISO_DATE));
-                  prest.setString(5, reservas.getFecfinabono().format(DateTimeFormatter.ISO_DATE));
-
+                prest.setDate(4, Date.valueOf(reservas.getFeciniabono()));
+                 prest.setDate(5, Date.valueOf(reservas.getFecfinabono()));
+                 
+                   
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
@@ -178,11 +180,12 @@ public class ReservasDAO implements IReservas {
 
                 // Establecemos los parámetros de la sentencia
                 prest.setString(1, nuevosDatos.getPin_fijo());
-                prest.setString(2, nuevosDatos.getFeciniabono().format(DateTimeFormatter.ISO_DATE));
-                prest.setString(3, nuevosDatos.getFecfinabono().format(DateTimeFormatter.ISO_DATE));
+                prest.setDate(2, Date.valueOf(nuevosDatos.getFeciniabono()));
+                prest.setDate(3, Date.valueOf(nuevosDatos.getFecfinabono()));
                 prest.setString(4, matricula);
                 prest.setInt(5, numplaza);
-
+   
+                 
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
