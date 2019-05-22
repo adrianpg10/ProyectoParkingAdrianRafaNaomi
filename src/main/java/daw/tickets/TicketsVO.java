@@ -6,6 +6,7 @@
 package daw.tickets;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /**
  *
@@ -19,21 +20,25 @@ public class TicketsVO {
     private String pin_desechable;
     private LocalDate fecinipin;
     private LocalDate fecfinpin;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
 
-    //Método constructor por defecto
-    public TicketsVO() {
-    }
-    
     //Método constructor parametrizado
-    public TicketsVO(int codticket, int numplaza, String matricula, String pin_desechable, LocalDate fecinipin, LocalDate fecfinpin) {
+    public TicketsVO(int codticket, int numplaza, String matricula, String pin_desechable, LocalDate fecinipin, LocalDate fecfinpin, LocalTime horaInicio, LocalTime horaFin) {
         this.codticket = codticket;
         this.numplaza = numplaza;
         this.matricula = matricula;
         this.pin_desechable = pin_desechable;
         this.fecinipin = fecinipin;
         this.fecfinpin = fecfinpin;
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
     }
     
+    //Constructor por defecto
+    public TicketsVO() {
+    }
+
     //Métodos getters y setters
     public int getCodticket() {
         return codticket;
@@ -42,7 +47,7 @@ public class TicketsVO {
     public void setCodticket(int codticket) {
         this.codticket = codticket;
     }
-    
+
     public int getNumplaza() {
         return numplaza;
     }
@@ -82,10 +87,27 @@ public class TicketsVO {
     public void setFecfinpin(LocalDate fecfinpin) {
         this.fecfinpin = fecfinpin;
     }
+
+    public LocalTime getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public LocalTime getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(LocalTime horaFin) {
+        this.horaFin = horaFin;
+    }
     
     //Método toString
     @Override
     public String toString() {
-        return "TicketsVO{" + "codticket=" + codticket + ", numplaza=" + numplaza + ", matricula=" + matricula + ", pin_desechable=" + pin_desechable + ", fecinipin=" + fecinipin + ", fecfinpin=" + fecfinpin + '}';
-    }        
+        return "TicketsVO{" + "codticket=" + codticket + ", numplaza=" + numplaza + ", matricula=" + matricula + ", pin_desechable=" + pin_desechable + ", fecinipin=" + fecinipin + ", fecfinpin=" + fecfinpin + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';
+    }
+  
 }
