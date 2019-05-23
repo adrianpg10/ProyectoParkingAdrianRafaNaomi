@@ -37,7 +37,7 @@ public class PlazasDAO implements IPlazas {
 
         String plazasTurismo = "select count(*) from plazas where estadoplaza='0'and tipoPlaza='Turismo'";
         String plazasCaravana = "select count(*) from plazas where estadoplaza='0'and tipoPlaza='Caravana'";
-        String plazasMotocicleta = "select count(*) from Plaza where estadoplaza='0'and tipoPlaza='Motocicleta'";
+        String plazasMotocicleta = "select count(*) from plazas where estadoplaza='0'and tipoPlaza='Motocicleta'";
 
         try (PreparedStatement prest = con.prepareStatement(plazasTurismo)) {
 
@@ -224,7 +224,7 @@ public class PlazasDAO implements IPlazas {
         }
     }
 
-     // Metodo para la asignacion de una plaza
+    // Metodo para la asignacion de una plaza
     public void asignacionPlz(ClientesVO aux) {
 
         Scanner teclado = new Scanner(System.in);
@@ -232,11 +232,10 @@ public class PlazasDAO implements IPlazas {
         String matri = teclado.nextLine();
         System.out.println("Introduzca tipo de vehículo");
         String tipo = teclado.nextLine();
-        
-        PlazasVO aux2=new PlazasVO();
 
+        PlazasVO aux2 = new PlazasVO();
 
     }
 
-
+ 
 }
