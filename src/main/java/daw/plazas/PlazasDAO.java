@@ -5,6 +5,8 @@
  */
 package daw.plazas;
 
+import daw.clientes.ClientesVO;
+
 import java.sql.Connection;
 import daw.parking.datos.Conexion;
 import java.sql.CallableStatement;
@@ -15,6 +17,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -34,9 +37,9 @@ public class PlazasDAO implements IPlazas {
 
         String plazasTurismo = "select count(*) from plazas where estadoplaza='0'and tipoPlaza='Turismo'";
         String plazasCaravana = "select count(*) from plazas where estadoplaza='0'and tipoPlaza='Caravana'";
-        String plazasMotocileta = "select count(*) from Plaza where estadoplaza='0'and tipoPlaza='Motocicleta'";
+        String plazasMotocicleta = "select count(*) from Plaza where estadoplaza='0'and tipoPlaza='Motocicleta'";
 
-        try (PreparedStatement prest = con.prepareStatement(sql)) {
+        try (PreparedStatement prest = con.prepareStatement(plazasTurismo)) {
 
             ResultSet res = null;
             res = prest.executeQuery();
@@ -45,7 +48,7 @@ public class PlazasDAO implements IPlazas {
                 System.out.println("Plazas de turismo libres :" + aux);
             }
         }
-        try (PreparedStatement prest = con.prepareStatement(sql2)) {
+        try (PreparedStatement prest = con.prepareStatement(plazasCaravana)) {
             // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
 
             ResultSet res = null;
@@ -56,7 +59,7 @@ public class PlazasDAO implements IPlazas {
                 System.out.println("Plazas de caravana libres :" + aux);
             }
         }
-        try (PreparedStatement prest = con.prepareStatement(sql3)) {
+        try (PreparedStatement prest = con.prepareStatement(plazasMotocicleta)) {
             // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
 
             ResultSet res = null;
@@ -221,6 +224,19 @@ public class PlazasDAO implements IPlazas {
         }
     }
 
+     // Metodo para la asignacion de una plaza
+    public void asignacionPlz(ClientesVO aux) {
+
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Introduzca matrícula");
+        String matri = teclado.nextLine();
+        System.out.println("Introduzca tipo de vehículo");
+        String tipo = teclado.nextLine();
+        
+        PlazasVO aux2=new PlazasVO();
+
+
+    }
 
 
 }
