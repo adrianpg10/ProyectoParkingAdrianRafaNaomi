@@ -15,16 +15,59 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author adrian
  */
 public class PlazasDAO implements IPlazas {
+
     private Connection con = null;
 
     public PlazasDAO() {
-        
+
         con = Conexion.getInstance();
+    }
+
+    // Metodo para averiguar el numero de plazas libres de cada vehiculo
+    public void getEstadosPlaza() throws SQLException {
+
+        String plazasTurismo = "select count(*) from plazas where estadoplaza='0'and tipoPlaza='Turismo'";
+        String plazasCaravana = "select count(*) from plazas where estadoplaza='0'and tipoPlaza='Caravana'";
+        String plazasMotocileta = "select count(*) from Plaza where estadoplaza='0'and tipoPlaza='Motocicleta'";
+
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+            ResultSet res = null;
+            res = prest.executeQuery();
+            if (res.next()) {
+                int aux = res.getInt(1);
+                System.out.println("Plazas de turismo libres :" + aux);
+            }
+        }
+        try (PreparedStatement prest = con.prepareStatement(sql2)) {
+            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
+
+            ResultSet res = null;
+            res = prest.executeQuery();
+            // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
+            if (res.next()) {
+                int aux = res.getInt(1);
+                System.out.println("Plazas de caravana libres :" + aux);
+            }
+        }
+        try (PreparedStatement prest = con.prepareStatement(sql3)) {
+            // Ejecutamos la sentencia y obtenemos las filas en el objeto ResultSet
+
+            ResultSet res = null;
+            res = prest.executeQuery();
+            // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
+            if (res.next()) {
+                int aux = res.getInt(1);
+                System.out.println("Plazas de motocicleta libres :" + aux);
+            }
+        }
+
     }
 
     @Override
@@ -44,19 +87,18 @@ public class PlazasDAO implements IPlazas {
                 p.setTipoPlaza(res.getString("tipoPlaza"));
                 p.setEstadoplaza(res.getString("estadoplaza"));
                 p.setTarifa(res.getDouble("tarifa"));
-                
 
                 //Añadimos el objeto a la lista
                 lista.add(p);
             }
-    }
+        }
         return lista;
     }
 
     @Override
     public PlazasVO findByPk(int numplaza) throws SQLException {
-        
-         ResultSet res = null;
+
+        ResultSet res = null;
         PlazasVO plazas = new PlazasVO();
 
         String sql = "select * from plazas where numplaza=?";
@@ -85,7 +127,7 @@ public class PlazasDAO implements IPlazas {
 
     @Override
     public int insertPlazas(PlazasVO plazas) throws SQLException {
-       int numFilas = 0;
+        int numFilas = 0;
         String sql = "insert into plazas values (?,?,?,?)";
 
         if (findByPk(plazas.getNumplaza()) != null) {
@@ -100,8 +142,8 @@ public class PlazasDAO implements IPlazas {
                 // Establecemos los parámetros de la sentencia
                 prest.setInt(1, plazas.getNumplaza());
                 prest.setString(2, plazas.getTipoPlaza());
-                 prest.setString(3, plazas.getEstadoplaza());
-                 prest.setDouble(4, plazas.getTarifa());
+                prest.setString(3, plazas.getEstadoplaza());
+                prest.setDouble(4, plazas.getTarifa());
 
                 numFilas = prest.executeUpdate();
             }
@@ -179,6 +221,16 @@ public class PlazasDAO implements IPlazas {
         }
     }
 
-  
-    
+    // Metodo para la asignacion de una plaza
+    public void asignacionPlz(ClientesVO aux) {
+
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Introduzca matrícula");
+        String matri = teclado.nextLine();
+        System.out.println("Introduzca tipo de vehículo");
+        String tipo = teclado.nextLine();
+
+
+    }
+
 }
