@@ -221,16 +221,6 @@ public class PlazasDAO implements IPlazas {
         }
     }
 
-    // Metodo para la asignacion de una plaza
-    public void asignacionPlz(ClientesVO aux) {
 
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("Introduzca matrícula");
-        String matri = teclado.nextLine();
-        System.out.println("Introduzca tipo de vehículo");
-        String tipo = teclado.nextLine();
-
-
-    }
 
 }
