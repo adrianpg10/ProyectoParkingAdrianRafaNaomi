@@ -14,6 +14,7 @@ public class PlazasVO {
    private String tipoPlaza;
    private String estadoplaza;
    private Double tarifa;
+   private static int numero=45;
 
     public PlazasVO() {
     }
@@ -24,6 +25,16 @@ public class PlazasVO {
         this.estadoplaza = estadoplaza;
         this.tarifa = tarifa;
     }
+
+    public PlazasVO(String tipoPlaza) {
+        this.numplaza = numero;
+        this.tipoPlaza = tipoPlaza;
+        this.estadoplaza = "libre";
+        this.tarifa = 0.0;
+        numero--;
+    }
+    
+    
 
     public int getNumplaza() {
         return numplaza;
