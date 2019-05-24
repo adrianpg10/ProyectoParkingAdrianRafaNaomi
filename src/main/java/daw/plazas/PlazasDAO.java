@@ -46,11 +46,11 @@ public class PlazasDAO implements IPlazas {
             if (res.next()) {
 
                 int aux = res.getInt(1);
-                if (aux<=15) {
+                if (aux <= 15) {
                     final int TOTAL_PLAZAS = 15 - aux;
                     System.out.println("Plazas de turismos libres: " + TOTAL_PLAZAS);
 
-                }else{
+                } else {
                     System.out.println("Plazas de turismos libres: No quedan plazas libres");
                 }
             }
@@ -63,11 +63,11 @@ public class PlazasDAO implements IPlazas {
             // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
             if (res.next()) {
                 int aux = res.getInt(1);
-                if (aux<=15) {
+                if (aux <= 15) {
                     final int TOTAL_PLAZAS = 15 - aux;
                     System.out.println("Plazas de caravanas libres: " + TOTAL_PLAZAS);
 
-                }else{
+                } else {
                     System.out.println("Plazas de caravanas libres: No quedan plazas libres");
                 }
             }
@@ -80,10 +80,10 @@ public class PlazasDAO implements IPlazas {
             // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
             if (res.next()) {
                 int aux = res.getInt(1);
-                if (aux<=15) {
+                if (aux <= 15) {
                     final int TOTAL_PLAZAS = 15 - aux;
                     System.out.println("Plazas de motocicletas libres: " + TOTAL_PLAZAS);
-                } else{
+                } else {
                     System.out.println("Plazas de turismo libres: No quedan plazas libres");
                 }
             }
@@ -243,11 +243,13 @@ public class PlazasDAO implements IPlazas {
     }
 
     // Metodo para la asignacion de una plaza
-    public void asignacionPlz(ClientesVO aux) {
-
+    public void asignacionPlz() {
+        String matri;
         Scanner teclado = new Scanner(System.in);
-        System.out.println("Introduzca matrícula");
-        String matri = teclado.nextLine();
+        do {
+            System.out.println("Introduzca matrícula");
+            matri = teclado.nextLine();
+        } while (!(matri.length() == 7));
         System.out.println("Introduzca tipo de vehículo");
         String tipo = teclado.nextLine();
 
@@ -255,13 +257,13 @@ public class PlazasDAO implements IPlazas {
 
     public static void main(String[] args) throws SQLException {
         PlazasDAO x = new PlazasDAO();
-        x.getEstadosPlaza();
-        PlazasVO y=new PlazasVO("motocicleta");
-        PlazasVO y2=new PlazasVO("motocicleta");
-        x.insertPlazas(y);
-        x.insertPlazas(y2);
+//        x.getEstadosPlaza();
+//        PlazasVO y = new PlazasVO("motocicleta");
+//        PlazasVO y2 = new PlazasVO("motocicleta");
+//        x.insertPlazas(y);
+//        x.insertPlazas(y2);
+        x.asignacionPlz();
 
-            
     }
 
 }
