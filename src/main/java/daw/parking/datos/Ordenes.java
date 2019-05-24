@@ -5,6 +5,9 @@
  */
 package daw.parking.datos;
 
+import daw.plazas.PlazasDAO;
+import java.sql.SQLException;
+
 /**
  *
  * @author adrian
@@ -66,5 +69,21 @@ public class Ordenes {
                 throw new AssertionError();
         }
 
+    }
+    
+    public static void depositarVehiculo() throws SQLException{
+        
+        PlazasDAO aux=new PlazasDAO();
+        System.out.println("A continuacion se le mostrará las plazas libres..");
+        System.out.println();
+        aux.getEstadosPlaza();       
+        aux.asignacionPlz();
+  
+         
+        
+    }
+    
+    public static void main(String[] args) throws SQLException {
+        Ordenes.depositarVehiculo();
     }
 }
