@@ -44,12 +44,15 @@ public class PlazasDAO implements IPlazas {
             ResultSet res = null;
             res = prest.executeQuery();
             if (res.next()) {
-                int TOTAL_PLAZAS = 0;
+
                 int aux = res.getInt(1);
-                while (aux <= 15) {
-                    TOTAL_PLAZAS = 15 - aux;
+                if (aux<=15) {
+                    final int TOTAL_PLAZAS = 15 - aux;
+                    System.out.println("Plazas de turismos libres: " + TOTAL_PLAZAS);
+
+                }else{
+                    System.out.println("Plazas de turismos libres: No quedan plazas libres");
                 }
-                System.out.println("Plazas de turismos libres :" + TOTAL_PLAZAS);
             }
         }
         try (PreparedStatement prest = con.prepareStatement(plazasCaravana)) {
@@ -59,12 +62,14 @@ public class PlazasDAO implements IPlazas {
             res = prest.executeQuery();
             // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
             if (res.next()) {
-                int TOTAL_PLAZAS = 0;
                 int aux = res.getInt(1);
-                while (aux <= 15) {
-                    TOTAL_PLAZAS = 15 - aux;
+                if (aux<=15) {
+                    final int TOTAL_PLAZAS = 15 - aux;
+                    System.out.println("Plazas de caravanas libres: " + TOTAL_PLAZAS);
+
+                }else{
+                    System.out.println("Plazas de caravanas libres: No quedan plazas libres");
                 }
-                System.out.println("Plazas de caravanas libres :" + TOTAL_PLAZAS);
             }
         }
         try (PreparedStatement prest = con.prepareStatement(plazasMotocicleta)) {
@@ -73,14 +78,14 @@ public class PlazasDAO implements IPlazas {
             ResultSet res = null;
             res = prest.executeQuery();
             // Ahora construimos la lista, recorriendo el ResultSet y mapeando los datos
-
             if (res.next()) {
-                int TOTAL_PLAZAS = 0;
                 int aux = res.getInt(1);
-                while (aux <= 15) {
-                    TOTAL_PLAZAS = 15 - aux;
+                if (aux<=15) {
+                    final int TOTAL_PLAZAS = 15 - aux;
+                    System.out.println("Plazas de motocicletas libres: " + TOTAL_PLAZAS);
+                } else{
+                    System.out.println("Plazas de turismo libres: No quedan plazas libres");
                 }
-                System.out.println("Plazas de motocicleta libres :" + TOTAL_PLAZAS);
             }
         }
 
@@ -251,6 +256,12 @@ public class PlazasDAO implements IPlazas {
     public static void main(String[] args) throws SQLException {
         PlazasDAO x = new PlazasDAO();
         x.getEstadosPlaza();
+        PlazasVO y=new PlazasVO("motocicleta");
+        PlazasVO y2=new PlazasVO("motocicleta");
+        x.insertPlazas(y);
+        x.insertPlazas(y2);
+
+            
     }
 
 }
