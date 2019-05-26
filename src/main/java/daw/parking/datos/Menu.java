@@ -5,6 +5,7 @@
  */
 package daw.parking.datos;
 
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -110,7 +111,7 @@ public class Menu {
         return null;
     }
 
-    public static void main(String[] args) {
-        Menu.menu();
+    public static void main(String[] args) throws SQLException {
+        Ordenes.realizarOrden(Menu.menu());
     }
 }
