@@ -9,6 +9,10 @@ import daw.clientes.ClientesVO;
 
 import java.sql.Connection;
 import daw.parking.datos.Conexion;
+import daw.tickets.TicketsDAO;
+import daw.tickets.TicketsVO;
+import daw.vehiculos.VehiculoDAO;
+import daw.vehiculos.VehiculoVO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -243,7 +247,7 @@ public class PlazasDAO implements IPlazas {
     }
 
     // Metodo para la asignacion de una plaza
-    public void asignacionPlz() {
+    public void asignacionPlz() throws SQLException {
         String matri;
         Scanner teclado = new Scanner(System.in);
         do {
@@ -253,6 +257,17 @@ public class PlazasDAO implements IPlazas {
         System.out.println("Introduzca tipo de vehículo");
         String tipo = teclado.nextLine();
 
+        if (tipo.equalsIgnoreCase("turismo")){
+            System.out.println("Se va a crear un ticket para el turismo..");
+            TicketsVO t =new TicketsVO(matri);
+            TicketsDAO tdao=new TicketsDAO();
+            VehiculoVO v=new VehiculoVO(matri);
+            VehiculoDAO vdao=new VehiculoDAO();
+            
+            vdao.insertarVehiculo(v);
+            tdao.insertTickets(t);
+            System.out.println("Se ha creado "+t);
+        }
     }
 
     public static void main(String[] args) throws SQLException {
