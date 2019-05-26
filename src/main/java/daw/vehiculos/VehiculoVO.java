@@ -18,6 +18,11 @@ public class VehiculoVO {
         this.tipoVehiculo = tipoVehiculo;
     }
 
+    public VehiculoVO(String matricula) {
+        this.matricula = matricula;
+    }
+
+    
     public VehiculoVO() {
     }
 
