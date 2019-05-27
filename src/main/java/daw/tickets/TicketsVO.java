@@ -14,6 +14,7 @@ import java.util.Random;
  * @author adrip
  */
 public class TicketsVO {
+
     //Atributos
     private int codticket;
     private int numplaza;
@@ -23,11 +24,10 @@ public class TicketsVO {
     private LocalDate fecfinpin;
     private LocalTime horaInicio;
     private LocalTime horaFin;
-    private static int numero=45;
-    private static int codigo=10000;
+    private static int numero = 45;
+    
 
     //Método constructor parametrizado
-   
     public TicketsVO(int codticket, int numplaza, String matricula, String pin_desechable, LocalDate fecinipin, LocalDate fecfinpin, LocalTime horaInicio, LocalTime horaFin) {
         this.codticket = codticket;
         this.numplaza = numplaza;
@@ -42,20 +42,31 @@ public class TicketsVO {
     public TicketsVO(String matricula) {
 
         this.matricula = matricula;
-        this.codticket = codigo;
-        this.numplaza = numero;
+        this.codticket = generarcodigo();
+        this.numplaza = numero ;
         this.pin_desechable = generarPin();
         this.fecinipin = LocalDate.now();
         this.fecfinpin = LocalDate.now();
         this.horaInicio = LocalTime.now();
         this.horaFin = LocalTime.now();
-        
+
         numero--;
-        codigo++;
+        
     }
 
-    // Metodo para generar el pin aleatorio
+    // Generamos un codigo aleatorio al ticket
     
+    private int generarcodigo() {
+
+        Random aleatorio = new Random();
+
+        int codigo = aleatorio.nextInt(50000 - 10100 + 1) + 10100;
+
+        return codigo;
+
+    }
+
+
     private String generarPin() {
         String pinDesechable = "";
         Random aleatorio = new Random();
@@ -68,13 +79,9 @@ public class TicketsVO {
         return pinDesechable;
     }
 
-
-    
     //Constructor por defecto
     public TicketsVO() {
-        
-  
-        
+
     }
 
     //Métodos getters y setters
@@ -141,19 +148,26 @@ public class TicketsVO {
     public void setHoraFin(LocalTime horaFin) {
         this.horaFin = horaFin;
     }
-    
+
     //Método toString
     @Override
     public String toString() {
         return "TicketsVO{" + "codticket=" + codticket + ", numplaza=" + numplaza + ", matricula=" + matricula + ", pin_desechable=" + pin_desechable + ", fecinipin=" + fecinipin + ", fecfinpin=" + fecfinpin + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';
     }
-    
+
     public static void main(String[] args) {
-        
-        TicketsVO t = new TicketsVO();
-        
-        System.out.println(t.generarPin());
-        
+
+        TicketsVO t = new TicketsVO("4567asd");
+         TicketsVO v = new TicketsVO("1234asd");
+           TicketsVO c = new TicketsVO("1477asd");
+         
+         
+         
+        System.out.println(t);
+        System.out.println(v);
+        System.out.println(c);
+        System.out.println("-------------------");
+//        System.out.println(t.generarCodigo());
     }
-  
+
 }
