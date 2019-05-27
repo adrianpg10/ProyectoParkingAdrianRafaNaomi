@@ -7,6 +7,7 @@ package daw.parking.datos;
 
 import daw.plazas.PlazasDAO;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Ordenes {
 
         switch (ordenes) {
             case VOLVER_MENU:
-                System.out.println("Vuelve al menú principal");
+               Menu.menu();
                
                 break;
             case ENTRAR_CLIENTE:
@@ -36,6 +37,7 @@ public class Ordenes {
                 break;
             case RETIRAR_VEHICULO:
                 System.out.println("Retirar vehiculo");
+                Ordenes.retirarVehiculo();
                
                 break;
             case DEPOSITAR_ABONADO:
@@ -97,9 +99,18 @@ public class Ordenes {
         aux.asignacionPlz();
 
     }
+    
+    public static void retirarVehiculo() {
+
+        Scanner teclado = new Scanner(System.in);
+        
+       
+    }
 
     public static void main(String[] args) throws SQLException {
         
         Ordenes.depositarVehiculo();
+        System.out.println("------------");
+        Ordenes.retirarVehiculo();
     }
 }
