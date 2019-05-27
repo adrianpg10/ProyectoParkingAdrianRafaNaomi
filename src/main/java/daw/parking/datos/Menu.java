@@ -28,7 +28,7 @@ public class Menu {
                 System.out.println("==========================================");
                 System.out.println("1- Entrar en la zona clientes.");
                 System.out.println("2- Entrar en la zona administrador.");
-                System.out.println("3- Salir.");
+                
 
                 opcion = teclado.nextInt();
 
@@ -96,8 +96,7 @@ public class Menu {
                                 return Comandos.COPIA_SEGURIDAD_RESTAURAR;
                         }
                         break;
-                    case 3:
-                        return null;
+                    
                 }
             } catch (InputMismatchException ime) {
                 System.out.println();
