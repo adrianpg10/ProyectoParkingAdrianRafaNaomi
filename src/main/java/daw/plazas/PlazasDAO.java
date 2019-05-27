@@ -266,7 +266,29 @@ public class PlazasDAO implements IPlazas {
             
             vdao.insertarVehiculo(v);
             tdao.insertTickets(t);
-            System.out.println("Se ha creado "+t);
+            System.out.println("Se ha creado el ticket para el turismo: "+t);
+        
+        } else if (tipo.equalsIgnoreCase("motocicleta")){
+            System.out.println("Se va a crear un ticket para la motocicleta..");
+            TicketsVO t2 =new TicketsVO(matri);
+            TicketsDAO tdao2=new TicketsDAO();
+            VehiculoVO v2=new VehiculoVO(matri);
+            VehiculoDAO vdao2=new VehiculoDAO();
+            
+            vdao2.insertarVehiculo(v2);
+            tdao2.insertTickets(t2);
+            System.out.println("Se ha creado el ticket para la motocicleta: "+t2);
+        
+        } else if (tipo.equalsIgnoreCase("caravana")){
+            System.out.println("Se va a crear un ticket para la caravana..");
+            TicketsVO t3 =new TicketsVO(matri);
+            TicketsDAO tdao3=new TicketsDAO();
+            VehiculoVO v3=new VehiculoVO(matri);
+            VehiculoDAO vdao3=new VehiculoDAO();
+            
+            vdao3.insertarVehiculo(v3);
+            tdao3.insertTickets(t3);
+            System.out.println("Se ha creado el ticket para la caravana: "+t3);
         }
     }
 
