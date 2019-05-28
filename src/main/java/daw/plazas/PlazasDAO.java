@@ -265,7 +265,7 @@ public class PlazasDAO implements IPlazas {
                     System.out.println("La plaza de Turismo se ha actualizado");
 
                     //Generamos un ticket
-                    TicketsVO ticketVO = new TicketsVO(matri);
+                    TicketsVO ticketVO = new TicketsVO(matri,i);
                     TicketsDAO ticketDAO = new TicketsDAO();
                     ticketDAO.insertTickets(ticketVO);
                     System.out.println("Ticket creado: " + ticketVO);
@@ -294,7 +294,7 @@ public class PlazasDAO implements IPlazas {
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Motocicleta se ha actualizado");
                     //Generamos un ticket
-                    TicketsVO ticketVO = new TicketsVO(matri);
+                    TicketsVO ticketVO = new TicketsVO(matri,i);
                     TicketsDAO ticketDAO = new TicketsDAO();
                     ticketDAO.insertTickets(ticketVO);
                     System.out.println("Ticket creado: " + ticketVO);
@@ -322,7 +322,7 @@ public class PlazasDAO implements IPlazas {
 
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Caravana se ha actualizado");
-                    TicketsVO ticketVO = new TicketsVO(matri);
+                    TicketsVO ticketVO = new TicketsVO(matri,i);
                     TicketsDAO ticketDAO = new TicketsDAO();
                     ticketDAO.insertTickets(ticketVO);
                     System.out.println("Ticket creado: " + ticketVO);
@@ -333,6 +333,8 @@ public class PlazasDAO implements IPlazas {
         }
 
     }
+    
+   
 
     public static void main(String[] args) throws SQLException {
 
