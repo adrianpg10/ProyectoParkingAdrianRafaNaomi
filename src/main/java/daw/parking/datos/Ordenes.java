@@ -19,7 +19,7 @@ public class Ordenes {
 
         switch (ordenes) {
             case VOLVER_MENU:
-               Menu.menu();
+               Ordenes.realizarOrden(Menu.menu());
                
                 break;
             case ENTRAR_CLIENTE:
@@ -84,6 +84,9 @@ public class Ordenes {
                 System.out.println("Restaurar datos");
                
                 break;
+                
+          
+                
             default:
                 throw new AssertionError();
         }
@@ -96,13 +99,15 @@ public class Ordenes {
         System.out.println("A continuacion se le mostrará las plazas libres..");
         System.out.println();
         aux.getEstadosPlaza();
-        aux.asignacionPlz();
-
+        PlazasDAO.asignacionPlz();
+        aux.getEstadosPlaza();
+        
     }
     
     public static void retirarVehiculo() {
 
         Scanner teclado = new Scanner(System.in);
+        System.out.println("Introduce una matricula");
         
        
     }
