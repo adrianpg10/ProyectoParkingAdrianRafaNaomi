@@ -19,6 +19,7 @@ public class Programa {
 
     public static void main(String[] args) {
 
+        // Main de pruebas de ClientesDAO
         ClientesDAO daoClientes = new ClientesDAO();
 
         List<ClientesVO> listaClientes = new ArrayList<>();

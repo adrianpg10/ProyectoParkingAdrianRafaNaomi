@@ -31,7 +31,7 @@ public interface IPlazas {
     // Método para borrar toda la tabla
     int deletePlazas() throws SQLException;
     
-    // Método para modificar una persona. Se modifica a la persona que tenga esa 'pk'
-    // con los nuevos datos que traiga la persona 'nuevosDatos'
+    // Método para modificar una plaza. Se modifica a la plaza que tenga esa 'pk'
+    // con los nuevos datos que traiga la plaza 'nuevosDatos'
     int updatePlazas (int numplaza, PlazasVO nuevosDatos) throws SQLException;
 }

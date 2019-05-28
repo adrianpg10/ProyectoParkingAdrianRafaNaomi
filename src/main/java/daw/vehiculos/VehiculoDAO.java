@@ -21,6 +21,7 @@ import java.util.List;
  * @author rafa
  */
 public class VehiculoDAO implements IVehiculo {
+
     private Connection con = null;
 
     public VehiculoDAO() {
@@ -42,7 +43,6 @@ public class VehiculoDAO implements IVehiculo {
                 // Recogemos los datos de la persona, guardamos en un objeto
                 p.setMatricula(res.getString("matricula"));
                 p.setTipoVehiculo(res.getString("tipoVehiculo"));
-                
 
                 //Añadimos el objeto a la lista
                 lista.add(p);
@@ -73,7 +73,7 @@ public class VehiculoDAO implements IVehiculo {
                 // Recogemos los datos de la persona, guardamos en un objeto
                 veh.setMatricula(res.getString("matricula"));
                 veh.setTipoVehiculo(res.getString("tipoVehiculo"));
-                
+
                 return veh;
             }
 
@@ -99,7 +99,6 @@ public class VehiculoDAO implements IVehiculo {
                 // Establecemos los parámetros de la sentencia
                 prest.setString(1, vehiculo.getMatricula());
                 prest.setString(2, vehiculo.getTipoVehiculo());
-             
 
                 numFilas = prest.executeUpdate();
             }
@@ -110,7 +109,7 @@ public class VehiculoDAO implements IVehiculo {
 
     @Override
     public int insertarVehiculo(List<VehiculoVO> lista) throws SQLException {
-       int numFilas = 0;
+        int numFilas = 0;
 
         for (VehiculoVO tmp : lista) {
             numFilas += insertarVehiculo(tmp);
@@ -171,7 +170,7 @@ public class VehiculoDAO implements IVehiculo {
 
                 // Establecemos los parámetros de la sentencia
                 prest.setString(1, nuevosDatos.getTipoVehiculo());
-               
+
                 prest.setString(2, pk);
 
                 numFilas = prest.executeUpdate();
@@ -179,6 +178,5 @@ public class VehiculoDAO implements IVehiculo {
             return numFilas;
         }
     }
-
 
 }

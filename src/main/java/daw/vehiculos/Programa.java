@@ -5,8 +5,6 @@
  */
 package daw.vehiculos;
 
-import daw.plazas.PlazasDAO;
-import daw.plazas.PlazasVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +15,7 @@ import java.util.List;
  */
 public class Programa {
 
+    // Main de pruebas de VehiculosDAO
     public static void main(String[] args) {
 
         VehiculoDAO daoVehiculos = new VehiculoDAO();
@@ -42,4 +41,3 @@ public class Programa {
     }
 
 }
-

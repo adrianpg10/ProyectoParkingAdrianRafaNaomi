@@ -90,8 +90,6 @@ public class TicketsDAO implements ITickets {
                 return tickets;
             }
 
-
-
             return null;
         }
     }
@@ -116,11 +114,10 @@ public class TicketsDAO implements ITickets {
                 prest.setString(3, tickets.getMatricula());
                 prest.setString(4, tickets.getPin_desechable());
                 prest.setDate(5, Date.valueOf(tickets.getFecinipin()));
-                
+
                 prest.setDate(6, Date.valueOf(tickets.getFecfinpin()));
                 prest.setTime(7, Time.valueOf(tickets.getHoraInicio()));
                 prest.setTime(8, Time.valueOf(tickets.getHoraFin()));
-                
 
                 numFilas = prest.executeUpdate();
             }

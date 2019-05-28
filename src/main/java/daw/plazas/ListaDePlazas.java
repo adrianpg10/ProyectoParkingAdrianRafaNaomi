@@ -15,8 +15,7 @@ import java.util.List;
  */
 public class ListaDePlazas {
     
-    // Aquí es donde hacemos una lista donde las plazas tienen el valor por defecto "libre"
-    // Añadimos 15 plazas de cada tipo (motocicleta,caravana y turismo)
+    // Insertamos en una lista las 45 plazas, 15 de cada tipo y por defecto en libres
     
     public static void main(String[] args) throws SQLException {
         PlazasDAO daoPlaza = new PlazasDAO();
@@ -50,9 +49,8 @@ public class ListaDePlazas {
         listaPlazas.add(new PlazasVO("Caravana"));
         listaPlazas.add(new PlazasVO("Caravana"));
         listaPlazas.add(new PlazasVO("Caravana"));
-        listaPlazas.add(new PlazasVO("Caravana"));
-        
-         listaPlazas.add(new PlazasVO("Turismo"));
+        listaPlazas.add(new PlazasVO("Caravana")); 
+        listaPlazas.add(new PlazasVO("Turismo"));
         listaPlazas.add(new PlazasVO("Turismo"));
         listaPlazas.add(new PlazasVO("Turismo"));
         listaPlazas.add(new PlazasVO("Turismo"));

@@ -12,15 +12,19 @@ import java.time.LocalDate;
  * @author adrip
  */
 public class ReservasVO {
+    
+    // Atributos
     private String matricula;
     private int numplaza;
     private String pin_fijo;
     private LocalDate feciniabono;
     private LocalDate fecfinabono;
 
+    // Constructor por defecto
     public ReservasVO() {
     }
 
+    // Constructor parametrizado
     public ReservasVO(String matricula, int numplaza, String pin_fijo, LocalDate feciniabono, LocalDate fecfinabono) {
         this.matricula = matricula;
         this.numplaza = numplaza;
@@ -29,6 +33,7 @@ public class ReservasVO {
         this.fecfinabono = fecfinabono;
     }
 
+    // Getters y setters
     public String getMatricula() {
         return matricula;
     }
@@ -69,6 +74,7 @@ public class ReservasVO {
         this.fecfinabono = fecfinabono;
     }
 
+    // toString
     @Override
     public String toString() {
         return "ReservasVO{" + "matricula=" + matricula + ", numplaza=" + numplaza + ", pin_fijo=" + pin_fijo + ", feciniabono=" + feciniabono + ", fecfinabono=" + fecfinabono + '}';

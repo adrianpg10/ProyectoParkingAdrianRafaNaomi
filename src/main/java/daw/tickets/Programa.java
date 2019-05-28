@@ -19,14 +19,14 @@ import java.util.List;
  * @author adrian
  */
 public class Programa {
+
     public static void main(String[] args) {
-        
-    
-    
+
+        // Main de pruebas de TicketsDAO
         TicketsDAO daoTickets = new TicketsDAO();
 
         List<TicketsVO> listaTickets = new ArrayList<>();
-        listaTickets.add(new TicketsVO(2, 17,"1234abc", "152487", LocalDate.of(2019, Month.MARCH, 8),LocalDate.of(2019, Month.APRIL, 8),LocalTime.of(13, 00, 02),LocalTime.of(15, 30, 10)));
+        listaTickets.add(new TicketsVO(2, 17, "1234abc", "152487", LocalDate.of(2019, Month.MARCH, 8), LocalDate.of(2019, Month.APRIL, 8), LocalTime.of(13, 00, 02), LocalTime.of(15, 30, 10)));
 
         try {
 
@@ -44,6 +44,5 @@ public class Programa {
         System.out.println();
         listaTickets.forEach(System.out::println);
     }
-    
-}
 
+}

@@ -10,15 +10,20 @@ package daw.plazas;
  * @author adrian
  */
 public class PlazasVO {
-   private int numplaza;
-   private String tipoPlaza;
-   private String estadoplaza;
-   private Double tarifa;
-   private static int numero=45;
 
+    // Atributos
+    private int numplaza;
+    private String tipoPlaza;
+    private String estadoplaza;
+    private Double tarifa;
+    // Contador de instancia para el numero de plazas
+    private static int numero = 45;
+
+    // Contructor por defecto
     public PlazasVO() {
     }
 
+    // Constructor parametrizado
     public PlazasVO(int numplaza, String tipoPlaza, String estadoplaza, Double tarifa) {
         this.numplaza = numplaza;
         this.tipoPlaza = tipoPlaza;
@@ -26,26 +31,28 @@ public class PlazasVO {
         this.tarifa = tarifa;
     }
 
+    // Constructor parametrizado al que se le pasa un tipo de plaza y la hacemos libre
     public PlazasVO(String tipoPlaza) {
         this.numplaza = numero;
         this.tipoPlaza = tipoPlaza;
         this.estadoplaza = "libre";
         this.tarifa = tarifas();
-        
+
+        // Se va restando una plaza
         numero--;
     }
-    
+
     // Añadimos un metodo para calcular las tarifas
     public double tarifas() {
 
         if (tipoPlaza.equalsIgnoreCase("turismo")) {
-            
+
             this.tarifa = 0.12;
         } else if (tipoPlaza.equalsIgnoreCase("caravana")) {
-       
+
             this.tarifa = 0.45;
         } else if (tipoPlaza.equalsIgnoreCase("motocicleta")) {
-          
+
             this.tarifa = 0.08;
         } else {
             System.out.println("El tipo de vehiculo es incorrecto, Se aplicará la tarifa: 0.0");
@@ -56,6 +63,7 @@ public class PlazasVO {
 
     }
 
+    // Getters y setters
     public int getNumplaza() {
         return numplaza;
     }
@@ -88,16 +96,16 @@ public class PlazasVO {
         this.tarifa = tarifa;
     }
 
+    // toString
     @Override
     public String toString() {
         return "PlazasVO{" + "numplaza=" + numplaza + ", tipoPlaza=" + tipoPlaza + ", estadoplaza=" + estadoplaza + ", tarifa=" + tarifa + '}';
     }
-   
-   
+
     public static void main(String[] args) {
-        
-       PlazasVO a = new PlazasVO("turismo");
-       
+
+        PlazasVO a = new PlazasVO("turismo");
+
         System.out.println(a);
     }
 }

@@ -49,7 +49,7 @@ public class PlazasDAO implements IPlazas {
             res = prest.executeQuery();
             if (res.next()) {
                 int aux = res.getInt(1);
-                System.out.println("Plazas de turismo libres :" + aux);
+                System.out.println("Plazas de turismo libres -->" + aux);
             }
         }
         try (PreparedStatement prest = con.prepareStatement(plazasCaravana)) {
@@ -59,7 +59,7 @@ public class PlazasDAO implements IPlazas {
 
             if (res.next()) {
                 int aux = res.getInt(1);
-                System.out.println("Plazas de caravana libres :" + aux);
+                System.out.println("Plazas de caravana libres -->" + aux);
             }
         }
         try (PreparedStatement prest = con.prepareStatement(plazasMotocicleta)) {
@@ -69,7 +69,7 @@ public class PlazasDAO implements IPlazas {
 
             if (res.next()) {
                 int aux = res.getInt(1);
-                System.out.println("Plazas de motocicleta libres :" + aux);
+                System.out.println("Plazas de motocicleta libres -->" + aux);
             }
         }
 
@@ -206,7 +206,7 @@ public class PlazasDAO implements IPlazas {
         String sql = "update plazas set tipoPlaza = ?, estadoplaza = ?, tarifa = ?  where numplaza=?";
 
         if (findByPk(numplaza) == null) {
-            // La persona a actualizar no existe
+            // La plaza a actualizar no existe
             return numFilas;
         } else {
             // Instanciamos el objeto PreparedStatement para inserción
@@ -227,11 +227,13 @@ public class PlazasDAO implements IPlazas {
 
     // Metodo para la asignacion de una plaza
     public static void asignacionPlz() throws SQLException {
+        // Pide matricula y tipo de vehiculo
         String matri;
         Scanner teclado = new Scanner(System.in);
         do {
             System.out.println("Introduzca matrícula");
             matri = teclado.nextLine();
+            // Controlamos la longitud de la matricula
         } while (!(matri.length() == 7));
         System.out.println("Introduzca tipo de vehículo");
         String tipo = teclado.nextLine();
@@ -247,12 +249,14 @@ public class PlazasDAO implements IPlazas {
             plazasEstado[i] = listaPlaza.get(i).getEstadoplaza();
         }
 
+        // Controlamos de si el tipo introducido es un turismo, si esta ocupada que pase a la siguiente y sino, si está libre,
+        // la asignamos la plaza, ponemos el vehiculo y se actualiza el estado de libre a ocupada
         if (tipo.equalsIgnoreCase("Turismo")) {
             int numeroTurismo = 1;
             for (int i = 1; i <= 15; i++) {
 
                 if (plazasEstado[i].equalsIgnoreCase("Ocupada")) {
-                    i += numeroTurismo;
+                    i = i + numeroTurismo;
                     numeroTurismo++;
                 } else if (plazasEstado[i].equalsIgnoreCase("Libre")) {
 
@@ -264,8 +268,8 @@ public class PlazasDAO implements IPlazas {
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Turismo se ha actualizado");
 
-                    //Generamos un ticket
-                    TicketsVO ticketVO = new TicketsVO(matri,i);
+                    // Se crea un ticket con toda la informacion relevante
+                    TicketsVO ticketVO = new TicketsVO(matri, i);
                     TicketsDAO ticketDAO = new TicketsDAO();
                     ticketDAO.insertTickets(ticketVO);
                     System.out.println("Ticket creado: " + ticketVO);
@@ -277,12 +281,14 @@ public class PlazasDAO implements IPlazas {
 
         }
 
+        // Controlamos de si el tipo introducido es una motocicleta, si esta ocupada que pase a la siguiente y sino, si está libre,
+        // la asignamos la plaza, ponemos el vehiculo y se actualiza el estado de libre a ocupada
         if (tipo.equalsIgnoreCase("Motocicleta")) {
             int numeroMotocicleta = 1;
             for (int i = 31; i <= 45; i++) {
 
                 if (plazasEstado[i].equalsIgnoreCase("Ocupada")) {
-                    i += numeroMotocicleta;
+                    i = i + numeroMotocicleta;
                     numeroMotocicleta++;
                 } else if (plazasEstado[i].equalsIgnoreCase("Libre")) {
 
@@ -293,8 +299,9 @@ public class PlazasDAO implements IPlazas {
 
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Motocicleta se ha actualizado");
-                    //Generamos un ticket
-                    TicketsVO ticketVO = new TicketsVO(matri,i);
+
+                    // Se crea un ticket con toda la informacion relevante
+                    TicketsVO ticketVO = new TicketsVO(matri, i);
                     TicketsDAO ticketDAO = new TicketsDAO();
                     ticketDAO.insertTickets(ticketVO);
                     System.out.println("Ticket creado: " + ticketVO);
@@ -304,6 +311,8 @@ public class PlazasDAO implements IPlazas {
 
         }
 
+        // Controlamos de si el tipo introducido es una caravana, si esta ocupada que pase a la siguiente y sino, si está libre,
+        // la asignamos la plaza, ponemos el vehiculo y se actualiza el estado de libre a ocupada
         if (tipo.equalsIgnoreCase("Caravana")) {
 
             int numeroCaravana = 1;
@@ -311,7 +320,7 @@ public class PlazasDAO implements IPlazas {
             for (int i = 16; i <= 30; i++) {
 
                 if (plazasEstado[i].equalsIgnoreCase("Ocupada")) {
-                    i += numeroCaravana;
+                    i = i + numeroCaravana;
                     numeroCaravana++;
                 } else if (plazasEstado[i].equalsIgnoreCase("Libre")) {
 
@@ -322,7 +331,9 @@ public class PlazasDAO implements IPlazas {
 
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Caravana se ha actualizado");
-                    TicketsVO ticketVO = new TicketsVO(matri,i);
+
+                    // Se crea un ticket con toda la informacion relevante
+                    TicketsVO ticketVO = new TicketsVO(matri, i);
                     TicketsDAO ticketDAO = new TicketsDAO();
                     ticketDAO.insertTickets(ticketVO);
                     System.out.println("Ticket creado: " + ticketVO);
@@ -333,8 +344,6 @@ public class PlazasDAO implements IPlazas {
         }
 
     }
-    
-   
 
     public static void main(String[] args) throws SQLException {
 

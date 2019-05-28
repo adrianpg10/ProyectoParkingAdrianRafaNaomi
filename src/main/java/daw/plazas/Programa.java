@@ -16,7 +16,7 @@ import java.util.List;
 public class Programa {
     public static void main(String[] args) {
         
-    
+        // Main de prueba de PlazasDAO
         PlazasDAO daoPlazas = new PlazasDAO();
 
         List<PlazasVO> listaPlazas = new ArrayList<>();

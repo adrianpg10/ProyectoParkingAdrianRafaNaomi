@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class TicketsVO {
 
-    //Atributos
+    // Atributos
     private int codticket;
     private int numplaza;
     private String matricula;
@@ -24,10 +24,8 @@ public class TicketsVO {
     private LocalDate fecfinpin;
     private LocalTime horaInicio;
     private LocalTime horaFin;
-    private static int numero = 45;
-    
 
-    //Método constructor parametrizado
+    // Constructor parametrizado
     public TicketsVO(int codticket, int numplaza, String matricula, String pin_desechable, LocalDate fecinipin, LocalDate fecfinpin, LocalTime horaInicio, LocalTime horaFin) {
         this.codticket = codticket;
         this.numplaza = numplaza;
@@ -39,23 +37,22 @@ public class TicketsVO {
         this.horaFin = horaFin;
     }
 
+    // Constructor parametrizado al que le pasamos una matricula y numero de plaza para luego poder asignar un numero de plaza
+    // especifico al vehiculo
     public TicketsVO(String matricula, int numplaza) {
 
         this.matricula = matricula;
         this.codticket = generarcodigo();
-        this.numplaza = numplaza ;
+        this.numplaza = numplaza;
         this.pin_desechable = generarPin();
         this.fecinipin = LocalDate.now();
         this.fecfinpin = LocalDate.now();
         this.horaInicio = LocalTime.now();
         this.horaFin = LocalTime.now();
 
-       
-        
     }
 
     // Generamos un codigo aleatorio al ticket
-    
     private int generarcodigo() {
 
         Random aleatorio = new Random();
@@ -66,7 +63,7 @@ public class TicketsVO {
 
     }
 
-
+    // Generamos un pin aleatorio para el ticket
     private String generarPin() {
         String pinDesechable = "";
         Random aleatorio = new Random();
@@ -79,12 +76,12 @@ public class TicketsVO {
         return pinDesechable;
     }
 
-    //Constructor por defecto
+    // Constructor por defecto
     public TicketsVO() {
 
     }
 
-    //Métodos getters y setters
+    // Getters y setters
     public int getCodticket() {
         return codticket;
     }
@@ -149,15 +146,13 @@ public class TicketsVO {
         this.horaFin = horaFin;
     }
 
-    //Método toString
+    // Método toString
     @Override
     public String toString() {
         return "TicketsVO{" + "codticket=" + codticket + ", numplaza=" + numplaza + ", matricula=" + matricula + ", pin_desechable=" + pin_desechable + ", fecinipin=" + fecinipin + ", fecfinpin=" + fecfinpin + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';
     }
-    
 
     public static void main(String[] args) {
-
 
 //        System.out.println(t.generarCodigo());
     }

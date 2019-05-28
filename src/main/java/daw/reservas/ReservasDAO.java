@@ -28,7 +28,7 @@ public class ReservasDAO implements IReservas {
     public ReservasDAO() {
         con = Conexion.getInstance();
     }
-    
+
     @Override
     public List<ReservasVO> getAll() throws SQLException {
         List<ReservasVO> lista = new ArrayList<>();
@@ -44,25 +44,22 @@ public class ReservasDAO implements IReservas {
                 // Recogemos los datos de la persona, guardamos en un objeto
                 r.setMatricula(res.getString("matricula"));
                 r.setNumplaza(res.getInt("numplaza"));
-               r.setFeciniabono(res.getDate("feciniabono").toLocalDate());
-               r.setFeciniabono(res.getDate("fecfinabono").toLocalDate());
-                
+                r.setFeciniabono(res.getDate("feciniabono").toLocalDate());
+                r.setFeciniabono(res.getDate("fecfinabono").toLocalDate());
 
                 //Añadimos el objeto a la lista
                 lista.add(r);
             }
-    }
+        }
         return lista;
     }
-
-
 
     @Override
     public int insertReservas(ReservasVO reservas) throws SQLException {
         int numFilas = 0;
         String sql = "insert into reservas values (?,?,?,?,?)";
 
-        if (findByPk(reservas.getMatricula(),reservas.getNumplaza()) != null) {
+        if (findByPk(reservas.getMatricula(), reservas.getNumplaza()) != null) {
             // Existe un registro con esa pk
             // No se hace la inserción
             return numFilas;
@@ -74,11 +71,10 @@ public class ReservasDAO implements IReservas {
                 // Establecemos los parámetros de la sentencia
                 prest.setString(1, reservas.getMatricula());
                 prest.setInt(2, reservas.getNumplaza());
-                 prest.setString(3, reservas.getPin_fijo());
+                prest.setString(3, reservas.getPin_fijo());
                 prest.setDate(4, Date.valueOf(reservas.getFeciniabono()));
-                 prest.setDate(5, Date.valueOf(reservas.getFecfinabono()));
-                 
-                   
+                prest.setDate(5, Date.valueOf(reservas.getFecfinabono()));
+
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
@@ -95,11 +91,10 @@ public class ReservasDAO implements IReservas {
 
         return numFilas;
     }
-    
 
     @Override
     public int deleteReservas(ReservasVO r) throws SQLException {
-         int numFilas = 0;
+        int numFilas = 0;
 
         String sql = "delete from reservas where matricula = ? and numplaza= ?";
 
@@ -118,7 +113,7 @@ public class ReservasDAO implements IReservas {
 
     @Override
     public int deleteReservas() throws SQLException {
-       String sql = "delete from reservas";
+        String sql = "delete from reservas";
 
         int nfilas = 0;
 
@@ -135,7 +130,7 @@ public class ReservasDAO implements IReservas {
 
     @Override
     public ReservasVO findByPk(String matricula, int numplaza) throws SQLException {
-         ResultSet res = null;
+        ResultSet res = null;
         ReservasVO reservas = new ReservasVO();
 
         String sql = "select * from reservas where matricula=? and numplaza=?";
@@ -162,15 +157,15 @@ public class ReservasDAO implements IReservas {
 
             return null;
         }
-        
+
     }
 
     @Override
     public int updateReservas(String matricula, int numplaza, ReservasVO nuevosDatos) throws SQLException {
-          int numFilas = 0;
+        int numFilas = 0;
         String sql = "update reservas set pin_fijo = ?, feciniabono = ?,fecfinabono =?  where matricula=? and numplaza=?";
 
-        if (findByPk(matricula,numplaza) == null) {
+        if (findByPk(matricula, numplaza) == null) {
             // La persona a actualizar no existe
             return numFilas;
         } else {
@@ -184,13 +179,11 @@ public class ReservasDAO implements IReservas {
                 prest.setDate(3, Date.valueOf(nuevosDatos.getFecfinabono()));
                 prest.setString(4, matricula);
                 prest.setInt(5, numplaza);
-   
-                 
+
                 numFilas = prest.executeUpdate();
             }
             return numFilas;
         }
     }
-
 
 }

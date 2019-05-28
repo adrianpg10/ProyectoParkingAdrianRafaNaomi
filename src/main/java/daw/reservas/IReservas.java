@@ -32,7 +32,7 @@ public interface IReservas {
     // Método para borrar toda la tabla
     int deleteReservas() throws SQLException;
     
-    // Método para modificar una reservas. Se modifica a la persona que tenga esa 'pk'
+    // Método para modificar una reserva. Se modifica a la reserva que tenga esa 'pk'
     // con los nuevos datos que traiga la persona 'nuevosDatos'
     int updateReservas (String matricula,int numplaza , ReservasVO nuevosDatos) throws SQLException;
 }

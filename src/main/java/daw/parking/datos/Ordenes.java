@@ -15,6 +15,7 @@ import java.util.Scanner;
  */
 public class Ordenes {
 
+    // Metodo realizar orden que recibe un comando
     public static void realizarOrden(Comandos ordenes) throws SQLException {
 
         switch (ordenes) {
@@ -93,6 +94,7 @@ public class Ordenes {
 
     }
 
+    // Metodo para depositar vehiculo
     public static void depositarVehiculo() throws SQLException {
 
         PlazasDAO aux = new PlazasDAO();
@@ -104,6 +106,7 @@ public class Ordenes {
         
     }
     
+    // Metodo para retirar vehiculo
     public static void retirarVehiculo() {
 
         Scanner teclado = new Scanner(System.in);

@@ -18,10 +18,12 @@ import java.util.List;
 public class Programa {
 
     public static void main(String[] args) {
+
+        // Main de pruebas de ReservasDAO
         ReservasDAO daoReservas = new ReservasDAO();
 
         List<ReservasVO> listaReservas = new ArrayList<>();
-        listaReservas.add(new ReservasVO("1234abc", 17, "123456",LocalDate.of(2019, Month.MARCH, 8),LocalDate.of(2019, Month.APRIL, 8)));
+        listaReservas.add(new ReservasVO("1234abc", 17, "123456", LocalDate.of(2019, Month.MARCH, 8), LocalDate.of(2019, Month.APRIL, 8)));
 
         try {
 

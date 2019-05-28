@@ -10,6 +10,8 @@ package daw.clientes;
  * @author Rafa
  */
 public class ClientesVO {
+
+    // Atributos
     private String matricula;
     private String dni;
     private String nombre;
@@ -19,6 +21,7 @@ public class ClientesVO {
     private String tipoAbono;
     private String email;
 
+    // Constructor parametrizado
     public ClientesVO(String matricula, String dni, String nombre, String apellido1, String apellido2, String numTarjetaCredito, String tipoAbono, String email) {
         this.matricula = matricula;
         this.dni = dni;
@@ -30,9 +33,11 @@ public class ClientesVO {
         this.email = email;
     }
 
+    // Constructor por defecto
     public ClientesVO() {
     }
 
+    // Getters y setters
     public String getMatricula() {
         return matricula;
     }
@@ -97,11 +102,10 @@ public class ClientesVO {
         this.email = email;
     }
 
+    // toString
     @Override
     public String toString() {
         return "matricula:" + matricula + ", dni:" + dni + ", nombre:" + nombre + ", apellido1:" + apellido1 + ", apellido2:" + apellido2 + ", numTarjetaCreadito:" + numTarjetaCredito + ", tipoAbono:" + tipoAbono + ", email:" + email;
     }
-    
-    
-           
+
 }

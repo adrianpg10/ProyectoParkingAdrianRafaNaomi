@@ -15,6 +15,7 @@ import java.util.Scanner;
  */
 public class Menu {
 
+    // Creamos la estructura del menu teniendo en cuenta las excepciones que se puedan dar
     public static Comandos menu() {
 
         Scanner teclado = new Scanner(System.in);
