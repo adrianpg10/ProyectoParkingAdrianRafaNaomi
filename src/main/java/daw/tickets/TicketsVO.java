@@ -39,18 +39,18 @@ public class TicketsVO {
         this.horaFin = horaFin;
     }
 
-    public TicketsVO(String matricula) {
+    public TicketsVO(String matricula, int numplaza) {
 
         this.matricula = matricula;
         this.codticket = generarcodigo();
-        this.numplaza = numero ;
+        this.numplaza = numplaza ;
         this.pin_desechable = generarPin();
         this.fecinipin = LocalDate.now();
         this.fecfinpin = LocalDate.now();
         this.horaInicio = LocalTime.now();
         this.horaFin = LocalTime.now();
 
-        numero--;
+       
         
     }
 
@@ -154,19 +154,11 @@ public class TicketsVO {
     public String toString() {
         return "TicketsVO{" + "codticket=" + codticket + ", numplaza=" + numplaza + ", matricula=" + matricula + ", pin_desechable=" + pin_desechable + ", fecinipin=" + fecinipin + ", fecfinpin=" + fecfinpin + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';
     }
+    
 
     public static void main(String[] args) {
 
-        TicketsVO t = new TicketsVO("4567asd");
-         TicketsVO v = new TicketsVO("1234asd");
-           TicketsVO c = new TicketsVO("1477asd");
-         
-         
-         
-        System.out.println(t);
-        System.out.println(v);
-        System.out.println(c);
-        System.out.println("-------------------");
+
 //        System.out.println(t.generarCodigo());
     }
 
