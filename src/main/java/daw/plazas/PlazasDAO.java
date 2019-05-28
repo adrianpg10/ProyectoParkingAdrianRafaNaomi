@@ -45,7 +45,6 @@ public class PlazasDAO implements IPlazas {
 
         try (PreparedStatement prest = con.prepareStatement(plazasTurismo)) {
 
-           
             ResultSet res = null;
             res = prest.executeQuery();
             if (res.next()) {
@@ -54,30 +53,25 @@ public class PlazasDAO implements IPlazas {
             }
         }
         try (PreparedStatement prest = con.prepareStatement(plazasCaravana)) {
-            
 
             ResultSet res = null;
             res = prest.executeQuery();
-         
+
             if (res.next()) {
                 int aux = res.getInt(1);
                 System.out.println("Plazas de caravana libres :" + aux);
             }
         }
         try (PreparedStatement prest = con.prepareStatement(plazasMotocicleta)) {
-          
 
             ResultSet res = null;
             res = prest.executeQuery();
-          
+
             if (res.next()) {
                 int aux = res.getInt(1);
                 System.out.println("Plazas de motocicleta libres :" + aux);
             }
         }
-        
-        
-        
 
     }
 
@@ -203,7 +197,6 @@ public class PlazasDAO implements IPlazas {
             nfilas = st.executeUpdate(sql);
         }
 
-        
         return nfilas;
     }
 
@@ -270,16 +263,18 @@ public class PlazasDAO implements IPlazas {
 
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Turismo se ha actualizado");
-                   return;
+
+                    //Generamos un ticket
+                    TicketsVO ticketVO = new TicketsVO(matri);
+                    TicketsDAO ticketDAO = new TicketsDAO();
+                    ticketDAO.insertTickets(ticketVO);
+                    System.out.println("Ticket creado: " + ticketVO);
+                    return;
 
                 }
 
             }
-            //Generamos un ticket
-            TicketsVO ticketVO = new TicketsVO(matri);
-            TicketsDAO ticketDAO = new TicketsDAO();
-            ticketDAO.insertTickets(ticketVO);
-            System.out.println("Ticket creado: " + ticketVO);
+
         }
 
         if (tipo.equalsIgnoreCase("Motocicleta")) {
@@ -298,22 +293,21 @@ public class PlazasDAO implements IPlazas {
 
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Motocicleta se ha actualizado");
+                    //Generamos un ticket
+                    TicketsVO ticketVO = new TicketsVO(matri);
+                    TicketsDAO ticketDAO = new TicketsDAO();
+                    ticketDAO.insertTickets(ticketVO);
+                    System.out.println("Ticket creado: " + ticketVO);
                     return;
                 }
             }
 
-            //Generamos un ticket
-            TicketsVO ticketVO = new TicketsVO(matri);
-            TicketsDAO ticketDAO = new TicketsDAO();
-            ticketDAO.insertTickets(ticketVO);
-            System.out.println("Ticket creado: " + ticketVO);
-
         }
 
         if (tipo.equalsIgnoreCase("Caravana")) {
-            
+
             int numeroCaravana = 1;
-            
+
             for (int i = 16; i <= 30; i++) {
 
                 if (plazasEstado[i].equalsIgnoreCase("Ocupada")) {
@@ -328,14 +322,13 @@ public class PlazasDAO implements IPlazas {
 
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Caravana se ha actualizado");
+                    TicketsVO ticketVO = new TicketsVO(matri);
+                    TicketsDAO ticketDAO = new TicketsDAO();
+                    ticketDAO.insertTickets(ticketVO);
+                    System.out.println("Ticket creado: " + ticketVO);
                     return;
                 }
             }
-
-            TicketsVO ticketVO = new TicketsVO(matri);
-            TicketsDAO ticketDAO = new TicketsDAO();
-            ticketDAO.insertTickets(ticketVO);
-            System.out.println("Ticket creado: " + ticketVO);
 
         }
 
