@@ -15,20 +15,22 @@ import java.util.Scanner;
  */
 public class Menu {
 
-    private static Scanner teclado = new Scanner(System.in);
-    private static int opcion;
-
     public static Comandos menu() {
+
+        Scanner teclado = new Scanner(System.in);
+        int opcion;
+
         boolean seguir = true;
+
         do {
 
             try {
+
                 System.out.println("==========================================");
                 System.out.println("===============PARKING DAW================");
                 System.out.println("==========================================");
                 System.out.println("1- Entrar en la zona clientes.");
                 System.out.println("2- Entrar en la zona administrador.");
-                
 
                 opcion = teclado.nextInt();
 
@@ -40,9 +42,9 @@ public class Menu {
                         System.out.println("3- Depositar Abonado");
                         System.out.println("4- Retirar Abonado");
                         System.out.println("0- Volver al menú principal");
-                        opcion = teclado.nextInt();
+                        int opcion1 = teclado.nextInt();
 
-                        switch (opcion) {
+                        switch (opcion1) {
                             case 0:
 
                                 return Comandos.VOLVER_MENU;
@@ -71,11 +73,11 @@ public class Menu {
                         System.out.println("8- Realizar copia de seguridad.");
                         System.out.println("9- Restaurar copia de seguridad");
                         System.out.println("0-Volver al menú");
-                        opcion = teclado.nextInt();
+                        int opcion2 = teclado.nextInt();
 
-                        switch (opcion) {
+                        switch (opcion2) {
                             case 0:
-                                 return Comandos.VOLVER_MENU;
+                                return Comandos.VOLVER_MENU;
                             case 1:
                                 return Comandos.ESTADO_PARKING;
                             case 2:
@@ -96,7 +98,7 @@ public class Menu {
                                 return Comandos.COPIA_SEGURIDAD_RESTAURAR;
                         }
                         break;
-                    
+
                 }
             } catch (InputMismatchException ime) {
                 System.out.println();
@@ -105,9 +107,9 @@ public class Menu {
             teclado.nextLine();
             System.out.println();
 
-        } while (seguir);
-
+        } while (seguir == true);
         return null;
+
     }
 
     public static void main(String[] args) throws SQLException {
