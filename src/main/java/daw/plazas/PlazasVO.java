@@ -39,13 +39,13 @@ public class PlazasVO {
     public double tarifas() {
 
         if (tipoPlaza.equalsIgnoreCase("turismo")) {
-            System.out.println("Se ha aplicado la tarifa correctamente");
+            
             this.tarifa = 0.12;
         } else if (tipoPlaza.equalsIgnoreCase("caravana")) {
-            System.out.println("Se ha aplicado la tarifa correctamente");
+       
             this.tarifa = 0.45;
         } else if (tipoPlaza.equalsIgnoreCase("motocicleta")) {
-            System.out.println("Se ha aplicado la tarifa correctamente");
+          
             this.tarifa = 0.08;
         } else {
             System.out.println("El tipo de vehiculo es incorrecto, Se aplicará la tarifa: 0.0");
