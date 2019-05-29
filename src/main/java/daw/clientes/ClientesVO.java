@@ -62,6 +62,22 @@ public class ClientesVO {
         return 0;
     }
     
+  // Metodo en el que mostramos el tipo de abonado
+    public static String obtenerTipoAbono(ClientesVO Abonado) {
+        switch (Abonado.getTipoAbono()) {
+            case 1:
+                return "Mensual";
+            case 2:
+                return "Trimestral";
+            case 3:
+                return "Semestral";
+
+            case 4:
+                return "Anual";
+        }
+        return null;
+    }
+    
   
     
     // Getters y setters
