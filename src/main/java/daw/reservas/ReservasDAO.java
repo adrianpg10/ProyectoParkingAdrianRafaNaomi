@@ -188,26 +188,10 @@ public class ReservasDAO implements IReservas {
         }
     }
 
-    // Metodo para depositar un vehiculo abonado
-    public static void depositarAbo() throws SQLException {
-        Scanner teclado = new Scanner(System.in);
-        ClientesDAO x = new ClientesDAO();
-        String matri;
-        String nif;
-        do {
-            System.out.println("Introduzca la matricula");
-            matri = teclado.nextLine();
-        } while (!(matri.length() == 7));
-        do {
-            System.out.println("Introduzca su DNI");
-            nif = teclado.nextLine();
-        } while (!(nif.length() == 9));
-
-    }
-    
+ 
 
     public static void main(String[] args) throws SQLException {
-        ReservasDAO.depositarAbo();
+   //     ReservasDAO.depositarAbo();
     }
 
 }

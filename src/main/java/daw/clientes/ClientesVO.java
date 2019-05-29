@@ -97,13 +97,16 @@ public class ClientesVO {
         VehiculoDAO vehiculos = new VehiculoDAO();
         Scanner teclado = new Scanner(System.in);
         String matri;
+        String dni;
         do {
             System.out.println("Introduzca la matrícula");
             matri = teclado.nextLine();
             // Controlamos la longitud de la matricula
         } while (!(matri.length() == 7));
-        System.out.println("Introduzca el dni");
-        String dni = teclado.nextLine();
+        do {
+            System.out.println("Introduzca su DNI");
+            dni = teclado.nextLine();
+        } while (!(dni.length() == 9));
 
        
     }
