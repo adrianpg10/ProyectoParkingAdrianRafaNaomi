@@ -7,6 +7,7 @@ package daw.parking.datos;
 
 import daw.plazas.PlazasDAO;
 import daw.plazas.PlazasVO;
+import daw.reservas.ReservasDAO;
 import daw.tickets.TicketsDAO;
 import daw.tickets.TicketsVO;
 import daw.vehiculos.VehiculoDAO;
@@ -27,20 +28,21 @@ import java.util.Scanner;
  */
 public class Ordenes {
 
-    // Metodo realizar orden que recibe un comando
+    // Metodo realizar orden que recibe un comando y contiene cada uno de sus metodos correspondientes
     public static void realizarOrden(Comandos ordenes) throws SQLException {
 
         switch (ordenes) {
             case VOLVER_MENU:
+                System.out.println("Has vuelto atrás..");
                 Ordenes.realizarOrden(Menu.menu());
 
                 break;
             case ENTRAR_CLIENTE:
-                System.out.println("Entrar a la zona clientes");
+                System.out.println("Entrando a la zona clientes..");
 
                 break;
             case ENTRAR_ADMIN:
-                System.out.println("Entrar a la zona de admin");
+                System.out.println("Entrando a la zona de admin..");
 
                 break;
             case DEPOSITAR_VEHICULO:
@@ -49,53 +51,53 @@ public class Ordenes {
 
                 break;
             case RETIRAR_VEHICULO:
-                System.out.println("Retirar vehiculo");
+                System.out.println("Entrando a la zona de retirar vehiculo..");
                 Ordenes.retirarVehiculo();
 
                 break;
             case DEPOSITAR_ABONADO:
-                System.out.println("Depositar abonado");
-
+                System.out.println("Entrando a la zona de depositar abonado..");
+                Ordenes.depositarAbonado();
                 break;
             case RETIRAR_ABONADO:
-                System.out.println("Retirar abonado");
+                System.out.println("Entrando a la zona de retirar abonado..");
 
                 break;
             case ESTADO_PARKING:
-                System.out.println("Estado del parking");
+                System.out.println("Entrando al estado del parking..");
 
                 break;
             case FACTURACION_ENTRE_FECHAS:
-                System.out.println("Facturación entre fechas");
+                System.out.println("Entrando a la facturación entre fechas..");
 
                 break;
             case FACTURACION_ABONADO:
-                System.out.println("Facturación abonado");
+                System.out.println("Entrando a la facturación abonado..");
 
                 break;
             case ABONO_ALTA:
-                System.out.println("Alta de abono");
+                System.out.println("Entrando al alta de abono..");
 
                 break;
             case ABONO_MODIFICA:
-                System.out.println("Modificación de abono");
+                System.out.println("Entrando a la modificación de abono..");
 
                 break;
             case ABONO_BAJA:
-                System.out.println("Baja de abono");
+                System.out.println("Entrando a la baja de abono..");
 
                 break;
             case ABONO_CADUCIDAD:
-                System.out.println("Caducidad de abono");
+                System.out.println("Entrando a la caducidad de abono..");
 
                 break;
             case COPIA_SEGURIDAD_COPIAR:
-                System.out.println("Copiar datos");
-
+                System.out.println("Entrando a la zona de crear copia de seguridad..");
+                CopiaSeguridad.crearCopia();
                 break;
             case COPIA_SEGURIDAD_RESTAURAR:
-                System.out.println("Restaurar datos");
-
+                System.out.println("Entrando a la zona de restaurar copia de seguridad..");
+                
                 break;
 
             default:
@@ -125,6 +127,11 @@ public class Ordenes {
         PlazasDAO.retirarPlz();
         aux2.getEstadosPlaza();
     }
+
+    public static void depositarAbonado() throws SQLException {
+        ReservasDAO.depositarAbo();
+    }
+
     
     //    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
     //
@@ -143,7 +150,6 @@ public class Ordenes {
     //
     //        
     //    }
-
     public static void main(String[] args) throws SQLException {
 
         Ordenes.depositarVehiculo();
