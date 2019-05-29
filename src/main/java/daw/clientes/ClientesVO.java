@@ -46,49 +46,27 @@ public class ClientesVO {
 
     // Constructor por defecto
     public ClientesVO() {
-        
-      
+
     }
 
-    // Asignamos un numero al tipo de abono, mensual 1, trimestral 2 y anual 4.
-    
-    public static int NumeroParaAbono(String numero) {
-        switch (numero) {
-            case "Mensual":
-                return 1;
-
-            case "Trimestral":
-                return 2;
-
-            case "Semestral":
-
-                return 3;
-
-            case "Anual":
-                return 4;
-
-        }
-        return 0;
-    }
-    
-  // Metodo en el que mostramos el tipo de abonado
-    public static String obtenerTipoAbono(ClientesVO Abonado) {
-        switch (Abonado.getTipoAbono()) {
+    // Metodo para generar el precio del abono en funcion del tipo que le pasemos, si le pasamos uno diferente de 1 a 4,
+    // por defecto le devolveremos el más barato que es el mensual
+    public static int generarPrecioAb(int tipoAbono) {
+        switch (tipoAbono) {
             case 1:
-                return "Mensual";
+                return 25;
             case 2:
-                return "Trimestral";
+                return 70;
             case 3:
-                return "Semestral";
-
+                return 130;
             case 4:
-                return "Anual";
+                return 200;
         }
-        return null;
+
+        return 25;
     }
- 
+
     // Metodo para asignacion de la plazaAbonado
-    
     public static void asignacionPlzAbonado() throws SQLException {
         // Pide matricula y tipo de vehiculo
         String[] plazasEstado = new String[45];
@@ -108,10 +86,8 @@ public class ClientesVO {
             dni = teclado.nextLine();
         } while (!(dni.length() == 9));
 
-       
     }
 
-    
     // Getters y setters
     public String getMatricula() {
         return matricula;
