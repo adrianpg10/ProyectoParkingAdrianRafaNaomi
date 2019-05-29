@@ -46,7 +46,7 @@ public class ClientesDAO implements IClientes {
                 p.setApellido1(res.getString("apellido1"));
                 p.setApellido2(res.getString("apellido2"));
                 p.setNumTarjetaCredito(res.getString("numTarjetaCredito"));
-                p.setTipoAbono(res.getString("tipoAbono"));
+                p.setTipoAbono(res.getInt("tipoAbono"));
                 p.setEmail(res.getString("email"));
 
                 //Añadimos el objeto a la lista
@@ -82,7 +82,7 @@ public class ClientesDAO implements IClientes {
                 p.setApellido1(res.getString("apellido1"));
                 p.setApellido2(res.getString("apellido2"));
                 p.setNumTarjetaCredito(res.getString("numTarjetaCredito"));
-                p.setTipoAbono(res.getString("tipoAbono"));
+                p.setTipoAbono(res.getInt("tipoAbono"));
                 p.setEmail(res.getString("email"));
                 return p;
             }
@@ -112,7 +112,7 @@ public class ClientesDAO implements IClientes {
                 prest.setString(4, c.getApellido1());
                 prest.setString(5, c.getApellido2());
                 prest.setString(6, c.getNumTarjetaCredito());
-                prest.setString(7, c.getTipoAbono());
+                prest.setInt(7, c.getTipoAbono());
                 prest.setString(8, c.getEmail());
 
                 numFilas = prest.executeUpdate();
@@ -185,7 +185,7 @@ public class ClientesDAO implements IClientes {
                 prest.setString(2, nuevosDatos.getApellido1());
                 prest.setString(3, nuevosDatos.getApellido2());
                 prest.setString(4, nuevosDatos.getNumTarjetaCredito());
-                prest.setString(5, nuevosDatos.getTipoAbono());
+                prest.setInt(5, nuevosDatos.getTipoAbono());
                 prest.setString(6, nuevosDatos.getEmail());
                 prest.setString(7, nuevosDatos.getDni());
                 prest.setString(8, matricula);
