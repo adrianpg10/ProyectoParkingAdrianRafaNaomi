@@ -16,8 +16,7 @@ public class PlazasVO {
     private String tipoPlaza;
     private String estadoplaza;
     private Double tarifa;
-    // Contador de instancia para el numero de plazas
-    private static int numero = 45;
+   
 
     // Contructor por defecto
     public PlazasVO() {
@@ -32,14 +31,13 @@ public class PlazasVO {
     }
 
     // Constructor parametrizado al que se le pasa un tipo de plaza y la hacemos libre
-    public PlazasVO(String tipoPlaza) {
+    public PlazasVO(String tipoPlaza,int numero) {
         this.numplaza = numero;
         this.tipoPlaza = tipoPlaza;
         this.estadoplaza = "libre";
         this.tarifa = tarifas();
 
-        // Se va restando una plaza
-        numero--;
+       
     }
 
     // Añadimos un metodo para calcular las tarifas
@@ -104,8 +102,8 @@ public class PlazasVO {
 
     public static void main(String[] args) {
 
-        PlazasVO a = new PlazasVO("turismo");
-
-        System.out.println(a);
+//        PlazasVO a = new PlazasVO("turismo");
+//
+//        System.out.println(a);
     }
 }
