@@ -117,38 +117,32 @@ public class Ordenes {
     }
 
     // Metodo para retirar vehiculo
-    public static void retirarVehiculo() {
-
-        String matri;
-        Scanner teclado = new Scanner(System.in);
-        do {
-            System.out.println("Introduzca la matrícula");
-            matri = teclado.nextLine();
-        } while (!(matri.length() == 7));
-        System.out.println("Introduzca el numero de la plaza");
-        int numeroPlaza = teclado.nextInt();
-        System.out.println("Introduzca el pin creado anteriormente en su ticket");
-        String tipo = teclado.nextLine();
-
+    public static void retirarVehiculo() throws SQLException {
+        PlazasDAO aux2 = new PlazasDAO();
+        System.out.println("A continuacion se le mostrará las plazas libres..");
+        System.out.println();
+        aux2.getEstadosPlaza();
+        PlazasDAO.retirarPlz();
+        aux2.getEstadosPlaza();
     }
-
-    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
-
-        int minutosTotales;
-
-        String inicio;
-        String fin;
-        // Guardamos en cada de una de las variables el formato toString de las fechas y horas que le hemos pasados
-        inicio = fechaInicio.getYear() + "-" + fechaInicio.getMonthValue() + "-" + fechaInicio.getDayOfMonth() + " " + horaInicio.getHour() + ":" + horaInicio.getMinute() + ":" + horaInicio.getSecond();
-        fin = fechaFin.getYear() + "-" + fechaFin.getMonthValue() + "-" + fechaFin.getDayOfMonth() + " " + horaFin.getHour() + ":" + horaFin.getMinute() + ":" + horaFin.getSecond();
-
-        // Ponemos el formato que tendrá la fehca/hora
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:s");
-        Date fechaInicial = dateFormat.parse(inicio);
-        Date fechaFinal = dateFormat.parse(fin);
-
-        
-    }
+    
+    //    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
+    //
+    //        int minutosTotales;
+    //
+    //        String inicio;
+    //        String fin;
+    //        // Guardamos en cada de una de las variables el formato toString de las fechas y horas que le hemos pasados
+    //        inicio = fechaInicio.getYear() + "-" + fechaInicio.getMonthValue() + "-" + fechaInicio.getDayOfMonth() + " " + horaInicio.getHour() + ":" + horaInicio.getMinute() + ":" + horaInicio.getSecond();
+    //        fin = fechaFin.getYear() + "-" + fechaFin.getMonthValue() + "-" + fechaFin.getDayOfMonth() + " " + horaFin.getHour() + ":" + horaFin.getMinute() + ":" + horaFin.getSecond();
+    //
+    //        // Ponemos el formato que tendrá la fehca/hora
+    //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+    //        Date fechaInicial = dateFormat.parse(inicio);
+    //        Date fechaFinal = dateFormat.parse(fin);
+    //
+    //        
+    //    }
 
     public static void main(String[] args) throws SQLException {
 
