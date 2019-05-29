@@ -5,7 +5,16 @@
  */
 package daw.clientes;
 
+import daw.plazas.PlazasDAO;
+import daw.plazas.PlazasVO;
+import daw.tickets.TicketsDAO;
+import daw.tickets.TicketsVO;
+import daw.vehiculos.VehiculoDAO;
+import daw.vehiculos.VehiculoVO;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -77,8 +86,28 @@ public class ClientesVO {
         }
         return null;
     }
+ 
+    // Metodo para asignacion de la plazaAbonado
     
-  
+    public static void asignacionPlzAbonado() throws SQLException {
+        // Pide matricula y tipo de vehiculo
+        String[] plazasEstado = new String[45];
+        ArrayList<PlazasVO> listaPlaza = new ArrayList<>();
+        PlazasDAO plazas = new PlazasDAO();
+        VehiculoDAO vehiculos = new VehiculoDAO();
+        Scanner teclado = new Scanner(System.in);
+        String matri;
+        do {
+            System.out.println("Introduzca la matrícula");
+            matri = teclado.nextLine();
+            // Controlamos la longitud de la matricula
+        } while (!(matri.length() == 7));
+        System.out.println("Introduzca el dni");
+        String dni = teclado.nextLine();
+
+       
+    }
+
     
     // Getters y setters
     public String getMatricula() {
