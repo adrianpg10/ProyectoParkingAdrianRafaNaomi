@@ -97,13 +97,13 @@ public class PlazasVO {
     // toString
     @Override
     public String toString() {
-        return "PlazasVO{" + "numplaza=" + numplaza + ", tipoPlaza=" + tipoPlaza + ", estadoplaza=" + estadoplaza + ", tarifa=" + tarifa + '}';
+        return "PlazasVO{" + "numplaza=" + numplaza + ", tipoPlaza=" + tipoPlaza + ", estadoplaza=" + estadoplaza + ", tarifa=" + tarifas() + '}';
     }
 
     public static void main(String[] args) {
 
-//        PlazasVO a = new PlazasVO("turismo");
-//
-//        System.out.println(a);
+        PlazasVO a = new PlazasVO("turismo",3);
+
+        System.out.println(a);
     }
 }
