@@ -10,6 +10,7 @@ import daw.clientes.ClientesVO;
 import daw.plazas.PlazasDAO;
 import daw.plazas.PlazasVO;
 import daw.reservas.ReservasDAO;
+import daw.reservas.ReservasVO;
 import daw.tickets.TicketsDAO;
 import daw.tickets.TicketsVO;
 import daw.vehiculos.VehiculoDAO;
@@ -80,7 +81,7 @@ public class Ordenes {
                 break;
             case ABONO_ALTA:
                 System.out.println("Entrando al alta de abono..");
-
+                Ordenes.altaAbono();
                 break;
             case ABONO_MODIFICA:
                 System.out.println("Entrando a la modificación de abono..");
@@ -135,6 +136,7 @@ public class Ordenes {
         ClientesVO.asignacionPlzAbonado();
     }
 
+    // Metodo para dar del alta un abonado
     public static void altaAbono() throws SQLException {
         Scanner teclado = new Scanner(System.in);
         String matri, tipo, dni, nombre, ape1, ape2, tarj, email;
@@ -143,6 +145,7 @@ public class Ordenes {
         LocalDate fecFinAb;
         ClientesDAO aux = new ClientesDAO();
         ReservasDAO aux2 = new ReservasDAO();
+        // Pedimos los datos necesarios al cliente controlando el formato
         do {
             System.out.println("Introduca su matricula");
             matri = teclado.nextLine();
@@ -173,21 +176,25 @@ public class Ordenes {
         switch (tipoAb) {
             case 1:
                 abo = 1;
+                // Sumamos a la fecha de inicio el mes y lo guardamos en la fecha de fin
                 fecFinAb = fecIniAb.plusMonths(1);
                 System.out.println("He elegido mensual que serían 25€");
                 break;
             case 2:
                 abo = 2;
+                // Sumamos a la fecha de inicio los 3 meses y lo guardamos en la fecha de fin
                 fecFinAb = fecIniAb.plusMonths(3);
                 System.out.println("He elegido trimestral que serían 70€");
                 break;
             case 3:
                 abo = 3;
+                // Sumamos a la fecha de inicio los 6 meses y lo guardamos en la fecha de fin
                 fecFinAb = fecIniAb.plusMonths(6);
                 System.out.println("He elegido semestral que serían 130€");
                 break;
             case 4:
                 abo = 4;
+                // Sumamos a la fecha de inicio el año y lo guardamos en la fecha de fin
                 fecFinAb = fecIniAb.plusYears(1);
                 System.out.println("He elegido anual que serían 200€");
                 break;
@@ -196,10 +203,88 @@ public class Ordenes {
         }
 
         System.out.println("Se va a crear el cliente con los datos que usted ha introducido..");
-        ClientesVO cli=new ClientesVO(matri, dni, nombre, ape1, ape2, tarj, tipoAb, email);
-        System.out.println("------------------------------------------------------------------");
+        // Creamos el cliente con los datos que ha introducido el usuario y posteriormente lo insertamos en la tabla de
+        // cliente de la base de datos
+        ClientesVO cli = new ClientesVO(matri, dni, nombre, ape1, ape2, tarj, tipoAb, email);
+        System.out.println("=================================================================");
         System.out.println("Se va a insertar en la base de datos..");
         aux.insertarClientes(cli);
+        // Una vez insertado el cliente, insertaremos la reserva llamando al metodo que hemos creado abajo
+        insertarAbonadoReservas(matri, fecFinAb, tipoAb, tipo);
+    }
+
+    // Metodo que nos devolvera true o false a la hora de inserta la reserva con los datos que le pasaremos
+    public static boolean insertarAbonadoReservas(String matricula, LocalDate fecFinAbono, int tipoAbono, String tipoVehiculo) throws SQLException {
+        TicketsDAO daoTicket = new TicketsDAO();
+        VehiculoDAO daoVehiculo = new VehiculoDAO();
+        PlazasDAO daoPlazas = new PlazasDAO();
+
+        // Declaramos e instanciamos un array con las plazas del parking, como en los metodos anteriores
+        String[] plazasEstado = new String[45];
+        ArrayList<PlazasVO> listaPlaza = new ArrayList<>();
+
+        try {
+            // Guardamos todo lo que tengamos de las plazas y posteriormente guardamos el estado de las plazas
+            listaPlaza = (ArrayList<PlazasVO>) daoPlazas.getAll();
+            for (int i = 0; i < listaPlaza.size(); i++) {
+
+                plazasEstado[i] = listaPlaza.get(i).getEstadoplaza();
+            }
+        } catch (SQLException sqle) {
+            System.out.println("Error al intentar ejecutar la acción");
+            System.out.println(sqle.getMessage());
+        }
+
+        // A continuacion comprobaremos el tipo de vehicuclo que le pasamos y dependiendo de si es motocicleta,caravana o
+        // turismo, miraremos sus correspondientes numeros de plazas y las recorreremos una a una y si esta libre se ocupara
+        // y actualizaremos la plaza
+        if (tipoVehiculo.equalsIgnoreCase("motocicleta")) {
+            for (int i = 0; i < 14; i++) {
+                if (plazasEstado[i].equalsIgnoreCase("libre")) {
+                    PlazasVO plazaModificada = listaPlaza.get(i);
+                    plazaModificada.setEstadoplaza("ocupada");
+                    daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
+                    // Creamos la reserva de las motocicletas
+                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono);
+                    ReservasDAO r = new ReservasDAO();
+                    r.insertReservas(reserva);
+                    return true;
+
+                }
+            }
+        }
+        if (tipoVehiculo.equalsIgnoreCase("caravana")) {
+            for (int i = 15; i < 29; i++) {
+                if (plazasEstado[i].equalsIgnoreCase("libre")) {
+                    PlazasVO plazaModificada = listaPlaza.get(i);
+                    plazaModificada.setEstadoplaza("ocupada");
+                    daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
+                    // Creamos la reserva de las caravanas
+                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono);
+                    ReservasDAO r = new ReservasDAO();
+                    r.insertReservas(reserva);
+                    return true;
+
+                }
+            }
+
+        }
+        if (tipoVehiculo.equalsIgnoreCase("turismo")) {
+            for (int i = 30; i < 44; i++) {
+                if (plazasEstado[i].equalsIgnoreCase("libre")) {
+                    PlazasVO plazaModificada = listaPlaza.get(i);
+                    plazaModificada.setEstadoplaza("ocupada");
+                    daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
+                    // Creamos la reserva de los turismos
+                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono);
+                    ReservasDAO r = new ReservasDAO();
+                    r.insertReservas(reserva);
+                    return true;
+                }
+            }
+
+        }
+        return false;
     }
 
     //    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
