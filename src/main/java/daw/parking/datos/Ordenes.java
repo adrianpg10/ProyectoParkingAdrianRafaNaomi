@@ -5,6 +5,8 @@
  */
 package daw.parking.datos;
 
+import daw.clientes.ClientesDAO;
+import daw.clientes.ClientesVO;
 import daw.plazas.PlazasDAO;
 import daw.plazas.PlazasVO;
 import daw.reservas.ReservasDAO;
@@ -18,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -97,7 +100,7 @@ public class Ordenes {
                 break;
             case COPIA_SEGURIDAD_RESTAURAR:
                 System.out.println("Entrando a la zona de restaurar copia de seguridad..");
-                
+
                 break;
 
             default:
@@ -129,10 +132,76 @@ public class Ordenes {
     }
 
     public static void depositarAbonado() throws SQLException {
-        ReservasDAO.depositarAbo();
+        ClientesVO.asignacionPlzAbonado();
     }
 
-    
+    public static void altaAbono() throws SQLException {
+        Scanner teclado = new Scanner(System.in);
+        String matri, tipo, dni, nombre, ape1, ape2, tarj, email;
+        int tipoAb, abo;
+        final LocalDate fecIniAb = LocalDate.now();
+        LocalDate fecFinAb;
+        ClientesDAO aux = new ClientesDAO();
+        ReservasDAO aux2 = new ReservasDAO();
+        do {
+            System.out.println("Introduca su matricula");
+            matri = teclado.nextLine();
+        } while (!(matri.length() == 7));
+        do {
+            System.out.println("Introduzca el tipo de vehiculo que tiene usted");
+            tipo = teclado.nextLine();
+        } while (!(tipo.equalsIgnoreCase("turismo") || tipo.equalsIgnoreCase("caravana") || tipo.equalsIgnoreCase("motocicleta")));
+        do {
+            System.out.println("Introduzca su DNI");
+            dni = teclado.nextLine();
+        } while (!(dni.length() == 9));
+        System.out.println("Introduzca su nombre");
+        nombre = teclado.nextLine();
+        System.out.println("Introduzca su primer apellido");
+        ape1 = teclado.nextLine();
+        System.out.println("Introduzca su segundo apellido");
+        ape2 = teclado.nextLine();
+        do {
+            System.out.println("Introduzca su tarjeta de crédito");
+            tarj = teclado.nextLine();
+        } while (!(tarj.length() == 16));
+        System.out.println("Introduzca su e-mail");
+        email = teclado.nextLine();
+        System.out.println("Indique el tipo de abono");
+        System.out.println("1-Mensual(25€) || 2-Trimestral(70€) || 3-Semestral(130€) || 4-Anual(200€)");
+        tipoAb = teclado.nextInt();
+        switch (tipoAb) {
+            case 1:
+                abo = 1;
+                fecFinAb = fecIniAb.plusMonths(1);
+                System.out.println("He elegido mensual que serían 25€");
+                break;
+            case 2:
+                abo = 2;
+                fecFinAb = fecIniAb.plusMonths(3);
+                System.out.println("He elegido trimestral que serían 70€");
+                break;
+            case 3:
+                abo = 3;
+                fecFinAb = fecIniAb.plusMonths(6);
+                System.out.println("He elegido semestral que serían 130€");
+                break;
+            case 4:
+                abo = 4;
+                fecFinAb = fecIniAb.plusYears(1);
+                System.out.println("He elegido anual que serían 200€");
+                break;
+            default:
+                throw new AssertionError();
+        }
+
+        System.out.println("Se va a crear el cliente con los datos que usted ha introducido..");
+        ClientesVO cli=new ClientesVO(matri, dni, nombre, ape1, ape2, tarj, tipoAb, email);
+        System.out.println("------------------------------------------------------------------");
+        System.out.println("Se va a insertar en la base de datos..");
+        aux.insertarClientes(cli);
+    }
+
     //    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
     //
     //        int minutosTotales;
@@ -152,8 +221,9 @@ public class Ordenes {
     //    }
     public static void main(String[] args) throws SQLException {
 
-        Ordenes.depositarVehiculo();
-        System.out.println("------------");
-        Ordenes.retirarVehiculo();
+        Ordenes.altaAbono();
+//        Ordenes.depositarVehiculo();
+//        System.out.println("------------");
+//        Ordenes.retirarVehiculo();
     }
 }
