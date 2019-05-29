@@ -5,6 +5,8 @@
  */
 package daw.clientes;
 
+import java.util.Random;
+
 /**
  *
  * @author Rafa
@@ -18,11 +20,11 @@ public class ClientesVO {
     private String apellido1;
     private String apellido2;
     private String numTarjetaCredito;
-    private String tipoAbono;
+    private int tipoAbono;
     private String email;
 
     // Constructor parametrizado
-    public ClientesVO(String matricula, String dni, String nombre, String apellido1, String apellido2, String numTarjetaCredito, String tipoAbono, String email) {
+    public ClientesVO(String matricula, String dni, String nombre, String apellido1, String apellido2, String numTarjetaCredito, int tipoAbono, String email) {
         this.matricula = matricula;
         this.dni = dni;
         this.nombre = nombre;
@@ -35,8 +37,33 @@ public class ClientesVO {
 
     // Constructor por defecto
     public ClientesVO() {
+        
+      
     }
 
+    // Asignamos un numero al tipo de abono, mensual 1, trimestral 2 y anual 4.
+    
+    public static int NumeroParaAbono(String numero) {
+        switch (numero) {
+            case "Mensual":
+                return 1;
+
+            case "Trimestral":
+                return 2;
+
+            case "Semestral":
+
+                return 3;
+
+            case "Anual":
+                return 4;
+
+        }
+        return 0;
+    }
+    
+  
+    
     // Getters y setters
     public String getMatricula() {
         return matricula;
@@ -86,11 +113,11 @@ public class ClientesVO {
         this.numTarjetaCredito = numTarjetaCredito;
     }
 
-    public String getTipoAbono() {
+    public int getTipoAbono() {
         return tipoAbono;
     }
 
-    public void setTipoAbono(String tipoAbono) {
+    public void setTipoAbono(int tipoAbono) {
         this.tipoAbono = tipoAbono;
     }
 
