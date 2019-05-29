@@ -253,7 +253,7 @@ public class PlazasDAO implements IPlazas {
         // la asignamos la plaza, ponemos el vehiculo y se actualiza el estado de libre a ocupada
         if (tipo.equalsIgnoreCase("Turismo")) {
             int numeroTurismo = 1;
-            for (int i = 1; i <= 15; i++) {
+            for (int i = 31; i <= 45; i++) {
 
                 if (plazasEstado[i].equalsIgnoreCase("Ocupada")) {
                     i = i + numeroTurismo;
@@ -268,7 +268,10 @@ public class PlazasDAO implements IPlazas {
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Turismo se ha actualizado");
 
-                    // Se crea un ticket con toda la informacion relevante
+                    // Se crea un ticket con toda la informacion relevante donde creamos la plaza primero y luego el ticket
+                    PlazasVO plazasVO = new PlazasVO(tipo, i);
+                    PlazasDAO plazasDAO = new PlazasDAO();
+                    plazasDAO.insertPlazas(plazasVO);
                     TicketsVO ticketVO = new TicketsVO(matri, i);
                     TicketsDAO ticketDAO = new TicketsDAO();
                     ticketDAO.insertTickets(ticketVO);
@@ -285,7 +288,7 @@ public class PlazasDAO implements IPlazas {
         // la asignamos la plaza, ponemos el vehiculo y se actualiza el estado de libre a ocupada
         if (tipo.equalsIgnoreCase("Motocicleta")) {
             int numeroMotocicleta = 1;
-            for (int i = 31; i <= 45; i++) {
+            for (int i = 1; i <= 15; i++) {
 
                 if (plazasEstado[i].equalsIgnoreCase("Ocupada")) {
                     i = i + numeroMotocicleta;
@@ -300,7 +303,10 @@ public class PlazasDAO implements IPlazas {
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Motocicleta se ha actualizado");
 
-                    // Se crea un ticket con toda la informacion relevante
+                    // Se crea un ticket con toda la informacion relevante donde creamos la plaza primero y luego el ticket
+                    PlazasVO plazasVO = new PlazasVO(tipo, i);
+                    PlazasDAO plazasDAO = new PlazasDAO();
+                    plazasDAO.insertPlazas(plazasVO);
                     TicketsVO ticketVO = new TicketsVO(matri, i);
                     TicketsDAO ticketDAO = new TicketsDAO();
                     ticketDAO.insertTickets(ticketVO);
@@ -332,7 +338,10 @@ public class PlazasDAO implements IPlazas {
                     plazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     System.out.println("La plaza de Caravana se ha actualizado");
 
-                    // Se crea un ticket con toda la informacion relevante
+                    // Se crea un ticket con toda la informacion relevante donde creamos la plaza primero y luego el ticket
+                    PlazasVO plazasVO = new PlazasVO(tipo, i);
+                    PlazasDAO plazasDAO = new PlazasDAO();
+                    plazasDAO.insertPlazas(plazasVO);
                     TicketsVO ticketVO = new TicketsVO(matri, i);
                     TicketsDAO ticketDAO = new TicketsDAO();
                     ticketDAO.insertTickets(ticketVO);
