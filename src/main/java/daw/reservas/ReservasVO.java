@@ -6,13 +6,14 @@
 package daw.reservas;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 /**
  *
  * @author adrip
  */
 public class ReservasVO {
-    
+
     // Atributos
     private String matricula;
     private int numplaza;
@@ -31,6 +32,19 @@ public class ReservasVO {
         this.pin_fijo = pin_fijo;
         this.feciniabono = feciniabono;
         this.fecfinabono = fecfinabono;
+    }
+
+    // Generamos un pin aleatorio para la reserva
+    public static String generarPin() {
+        String pinDesechable = "";
+        Random aleatorio = new Random();
+        int generador;
+        for (int i = 0; i < 6; i++) {
+            generador = aleatorio.nextInt(10);
+            pinDesechable += generador;
+        }
+
+        return pinDesechable;
     }
 
     // Getters y setters
@@ -79,6 +93,5 @@ public class ReservasVO {
     public String toString() {
         return "ReservasVO{" + "matricula=" + matricula + ", numplaza=" + numplaza + ", pin_fijo=" + pin_fijo + ", feciniabono=" + feciniabono + ", fecfinabono=" + fecfinabono + '}';
     }
-    
-    
+
 }
