@@ -242,7 +242,7 @@ public class CopiaSeguridad {
 
                 tokens = linea.split(" : ");
 
-                listaP.add(new PlazasVO(Integer.valueOf(tokens[0]), tokens[1], tokens[2], Double.valueOf(tokens[3])));
+                listaP.add(new PlazasVO(Integer.valueOf(tokens[0]), tokens[1], tokens[2], Double.valueOf(tokens[3]),Boolean.valueOf(tokens[4])));
             }
             for (PlazasVO plazaVO : listaP) {
                 System.out.println(plazaVO);
