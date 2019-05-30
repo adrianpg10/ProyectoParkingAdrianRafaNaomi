@@ -52,6 +52,7 @@ public class TicketsDAO implements ITickets {
                 t.setFecfinpin(res.getDate("fecfinpin").toLocalDate());
                 t.setHoraInicio(res.getTime("horaInicio").toLocalTime());
                 t.setHoraFin(res.getTime("horaFin").toLocalTime());
+                t.setImporteAbonado(res.getDouble("importeAbonado"));
 
                 //Añadimos el objeto a la lista
                 lista.add(t);
@@ -87,6 +88,7 @@ public class TicketsDAO implements ITickets {
                 tickets.setFecfinpin(res.getDate("fecfinpin").toLocalDate());
                 tickets.setHoraInicio(res.getTime("horaInicio").toLocalTime());
                 tickets.setHoraFin(res.getTime("horaFin").toLocalTime());
+                tickets.setImporteAbonado(res.getDouble("importeAbonado"));
                 return tickets;
             }
 
@@ -97,7 +99,7 @@ public class TicketsDAO implements ITickets {
     @Override
     public int insertTickets(TicketsVO tickets) throws SQLException {
         int numFilas = 0;
-        String sql = "insert into tickets values (?,?,?,?,?,?,?,?)";
+        String sql = "insert into tickets values (?,?,?,?,?,?,?,?,?)";
 
         if (findByPk(tickets.getCodticket(), tickets.getMatricula()) != null) {
             // Existe un registro con esa pk
@@ -118,6 +120,7 @@ public class TicketsDAO implements ITickets {
                 prest.setDate(6, Date.valueOf(tickets.getFecfinpin()));
                 prest.setTime(7, Time.valueOf(tickets.getHoraInicio()));
                 prest.setTime(8, Time.valueOf(tickets.getHoraFin()));
+                prest.setDouble(9, tickets.getImporteAbonado());
 
                 numFilas = prest.executeUpdate();
             }
@@ -175,7 +178,7 @@ public class TicketsDAO implements ITickets {
     @Override
     public int updateTickets(int codticket, String matricula, TicketsVO nuevosDatos) throws SQLException {
         int numFilas = 0;
-        String sql = "update tickets set pin_desechable = ?, fecinipin = ?,fecfinpin =?, horaInicio =?, horaFin =?, numplaza =?  where codticket=? and matricula=?";
+        String sql = "update tickets set pin_desechable = ?, fecinipin = ?,fecfinpin =?, horaInicio =?, horaFin =?, numplaza =?, importeAbonado =?  where codticket=? and matricula=?";
 
         if (findByPk(codticket, matricula) == null) {
             // La persona a actualizar no existe
@@ -193,8 +196,9 @@ public class TicketsDAO implements ITickets {
                 prest.setTime(5, Time.valueOf(nuevosDatos.getHoraFin()));
 
                 prest.setInt(6, nuevosDatos.getNumplaza());
-                prest.setInt(7, codticket);
-                prest.setString(8, matricula);
+                prest.setDouble(7, nuevosDatos.getImporteAbonado());
+                prest.setInt(8, codticket);
+                prest.setString(9, matricula);
 
                 numFilas = prest.executeUpdate();
             }
