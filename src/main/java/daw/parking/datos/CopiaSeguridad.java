@@ -69,12 +69,12 @@ public class CopiaSeguridad {
             listaVehiculo.forEach(System.out::println);
 
             // Pasamos la fecha y hora a toString para que podamos ponerla como nombre en la carpeta
-            String anio = Integer.valueOf(fechaAct.getYear()).toString();
-            String mes = Integer.valueOf(fechaAct.getMonthValue()).toString();
-            String dia = Integer.valueOf(fechaAct.getDayOfMonth()).toString();
-            String hora = Integer.valueOf(horaAct.getHour()).toString();
-            String min = Integer.valueOf(horaAct.getMinute()).toString();
-            String seg = Integer.valueOf(horaAct.getSecond()).toString();
+            String anio = Integer.toString(fechaAct.getYear());
+            String mes = Integer.toString(fechaAct.getMonthValue());
+            String dia = Integer.toString(fechaAct.getDayOfMonth());
+            String hora = Integer.toString(horaAct.getHour());
+            String min = Integer.toString(horaAct.getMinute());
+            String seg = Integer.toString(horaAct.getSecond());
 
             // Metemos en un string el nombre ya completo de la carpeta
             String cadena = "./backup/" + dia + "-" + mes + "-" + anio + "_" + hora + "-" + min + "-" + seg;
@@ -140,6 +140,7 @@ public class CopiaSeguridad {
 
     }
 
+    // Metodo para restaurar las copias de seguridad de las tablas de la base de datos
     public static void resturarCopia() throws SQLException, FileNotFoundException {
         Scanner teclado = new Scanner(System.in);
         String aux="";
@@ -149,6 +150,8 @@ public class CopiaSeguridad {
         VehiculoDAO vdao = new VehiculoDAO();
         ClientesDAO cdao = new ClientesDAO();
 
+        // Recorremos el directorio donde se encuentra las copias y mostramos lo que contiene para que posteiormente
+        // el usuario pueda elegir que copia restaurar
         File carpeta = new File("./backup");
         String[] listado = carpeta.list();
         if (carpeta.exists()) {
@@ -172,13 +175,16 @@ public class CopiaSeguridad {
             System.out.println("El directorio a listar no existe");
         }
 
+        // Se eliminan las tablas antes de restaurar para que no hayan problemas
         tdao.deleteTickets();
         rdao.deleteReservas();
         pado.deletePlazas();
         cdao.deleteClientes();
-
         vdao.borrarTodosVehiculo();
 
+        // Por cada tabla leemos poniendo la ubicacion que ha elegido el usuario y su respectiva tabla y vamos separando por
+        // tokens y cuando lo tengamos vamos añadiendo a la lista de dicha tabla el nuevo objeto con dichos tokens, y así
+        // con las 5 tablas
         ArrayList<VehiculoVO> listaV = new ArrayList<>();
 
         try (Scanner datosFichero = new Scanner(new FileInputStream("./backup/"+aux+"/vehiculos.txt"), "ISO-8859-1")) {
