@@ -24,9 +24,11 @@ public class TicketsVO {
     private LocalDate fecfinpin;
     private LocalTime horaInicio;
     private LocalTime horaFin;
+    private Double importeAbonado;
 
     // Constructor parametrizado
-    public TicketsVO(int codticket, int numplaza, String matricula, String pin_desechable, LocalDate fecinipin, LocalDate fecfinpin, LocalTime horaInicio, LocalTime horaFin) {
+
+    public TicketsVO(int codticket, int numplaza, String matricula, String pin_desechable, LocalDate fecinipin, LocalDate fecfinpin, LocalTime horaInicio, LocalTime horaFin, Double importeAbonado) {
         this.codticket = codticket;
         this.numplaza = numplaza;
         this.matricula = matricula;
@@ -35,7 +37,9 @@ public class TicketsVO {
         this.fecfinpin = fecfinpin;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
+        this.importeAbonado = importeAbonado;
     }
+
 
     // Constructor parametrizado al que le pasamos una matricula y numero de plaza para luego poder asignar un numero de plaza
     // especifico al vehiculo
@@ -49,6 +53,7 @@ public class TicketsVO {
         this.fecfinpin = LocalDate.now();
         this.horaInicio = LocalTime.now();
         this.horaFin = LocalTime.now();
+        this.importeAbonado = 0.0;
 
     }
 
@@ -84,6 +89,14 @@ public class TicketsVO {
     // Getters y setters
     public int getCodticket() {
         return codticket;
+    }
+
+    public Double getImporteAbonado() {
+        return importeAbonado;
+    }
+
+    public void setImporteAbonado(Double importeAbonado) {
+        this.importeAbonado = importeAbonado;
     }
 
     public void setCodticket(int codticket) {
@@ -149,7 +162,7 @@ public class TicketsVO {
     // Método toString
     @Override
     public String toString() {
-        return codticket + " : " + numplaza + " : " + matricula + " : " + pin_desechable + " : " + fecinipin + " : " + fecfinpin + " : " + horaInicio + " : " + horaFin;
+        return codticket + " : " + numplaza + " : " + matricula + " : " + pin_desechable + " : " + fecinipin + " : " + fecfinpin + " : " + horaInicio + " : " + horaFin + " : " + importeAbonado ;
     }
 
     public static void main(String[] args) {
