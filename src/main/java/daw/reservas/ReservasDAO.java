@@ -48,6 +48,7 @@ public class ReservasDAO implements IReservas {
                 r.setNumplaza(res.getInt("numplaza"));
                 r.setFeciniabono(res.getDate("feciniabono").toLocalDate());
                 r.setFeciniabono(res.getDate("fecfinabono").toLocalDate());
+                r.setImporte(res.getDouble("importe"));
 
                 //Añadimos el objeto a la lista
                 lista.add(r);
@@ -59,7 +60,7 @@ public class ReservasDAO implements IReservas {
     @Override
     public int insertReservas(ReservasVO reservas) throws SQLException {
         int numFilas = 0;
-        String sql = "insert into reservas values (?,?,?,?,?)";
+        String sql = "insert into reservas values (?,?,?,?,?,?)";
 
         if (findByPk(reservas.getMatricula(), reservas.getNumplaza()) != null) {
             // Existe un registro con esa pk
@@ -76,6 +77,7 @@ public class ReservasDAO implements IReservas {
                 prest.setString(3, reservas.getPin_fijo());
                 prest.setDate(4, Date.valueOf(reservas.getFeciniabono()));
                 prest.setDate(5, Date.valueOf(reservas.getFecfinabono()));
+                prest.setDouble(6, reservas.getImporte());
 
                 numFilas = prest.executeUpdate();
             }
@@ -154,6 +156,7 @@ public class ReservasDAO implements IReservas {
                 reservas.setPin_fijo(res.getString("pin_fijo"));
                 reservas.setFeciniabono(res.getDate("feciniabono").toLocalDate());
                 reservas.setFecfinabono(res.getDate("fecfinabono").toLocalDate());
+                reservas.setImporte(res.getDouble("importe"));
                 return reservas;
             }
 
@@ -165,7 +168,7 @@ public class ReservasDAO implements IReservas {
     @Override
     public int updateReservas(String matricula, int numplaza, ReservasVO nuevosDatos) throws SQLException {
         int numFilas = 0;
-        String sql = "update reservas set pin_fijo = ?, feciniabono = ?,fecfinabono =?  where matricula=? and numplaza=?";
+        String sql = "update reservas set pin_fijo = ?, feciniabono = ?,fecfinabono =?, importe=?  where matricula=? and numplaza=?";
 
         if (findByPk(matricula, numplaza) == null) {
             // La persona a actualizar no existe
@@ -179,8 +182,9 @@ public class ReservasDAO implements IReservas {
                 prest.setString(1, nuevosDatos.getPin_fijo());
                 prest.setDate(2, Date.valueOf(nuevosDatos.getFeciniabono()));
                 prest.setDate(3, Date.valueOf(nuevosDatos.getFecfinabono()));
-                prest.setString(4, matricula);
-                prest.setInt(5, numplaza);
+                prest.setDouble(4, nuevosDatos.getImporte());
+                prest.setString(5, matricula);
+                prest.setInt(6, numplaza);
 
                 numFilas = prest.executeUpdate();
             }
