@@ -25,6 +25,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -367,12 +368,5 @@ public class Ordenes {
     //
     //        
     //    }
-    public static void main(String[] args) throws SQLException {
 
-        //Ordenes.altaAbono();      
-        Ordenes.modificarAbono();
-//        Ordenes.depositarVehiculo();
-//        System.out.println("------------");
-//        Ordenes.retirarVehiculo();
-    }
 }

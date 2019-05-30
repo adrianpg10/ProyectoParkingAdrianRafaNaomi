@@ -165,9 +165,5 @@ public class TicketsVO {
         return codticket + " : " + numplaza + " : " + matricula + " : " + pin_desechable + " : " + fecinipin + " : " + fecfinpin + " : " + horaInicio + " : " + horaFin + " : " + importeAbonado ;
     }
 
-    public static void main(String[] args) {
-
-//        System.out.println(t.generarCodigo());
-    }
 
 }

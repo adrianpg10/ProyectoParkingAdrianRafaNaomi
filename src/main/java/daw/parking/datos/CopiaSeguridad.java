@@ -322,8 +322,4 @@ public class CopiaSeguridad {
 
     }
 
-    public static void main(String[] args) throws SQLException, FileNotFoundException {
-        CopiaSeguridad.crearCopia();
-        //CopiaSeguridad.resturarCopia();
-    }
 }

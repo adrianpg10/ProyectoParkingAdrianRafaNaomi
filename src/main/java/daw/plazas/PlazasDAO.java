@@ -14,6 +14,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -276,7 +278,9 @@ public class PlazasDAO implements IPlazas {
                     plazasDAO.insertPlazas(plazasVO);
                     TicketsVO ticketVO = new TicketsVO(matri, i);
                     TicketsDAO ticketDAO = new TicketsDAO();
+                   
                     ticketDAO.insertTickets(ticketVO);
+
                     System.out.println("Ticket creado--> " + ticketVO);
                     return;
 
@@ -478,14 +482,4 @@ public class PlazasDAO implements IPlazas {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
-
-        PlazasDAO m = new PlazasDAO();
-        m.getEstadosPlaza();
-        PlazasDAO.asignacionPlz();
-        System.out.println("-----Nuevas plazas disponibles------");
-        m.getEstadosPlaza();
-        System.out.println("------------------------------------");
-        PlazasDAO.retirarPlz();
-    }
 }

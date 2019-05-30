@@ -150,12 +150,9 @@ public class ClientesVO {
     }
 
     // toString
-
     @Override
     public String toString() {
         return matricula + " : " + dni + " : " + nombre + " : " + apellido1 + " : " + apellido2 + " : " + numTarjetaCredito + " : " + tipoAbono + " : " + email;
     }
-
-    
 
 }

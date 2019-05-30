@@ -114,10 +114,4 @@ public class PlazasVO {
         return numplaza + " : " + tipoPlaza + " : " + estadoplaza + " : " + tarifas() + " : " + estadoReservado;
     }
 
-    public static void main(String[] args) {
-
-        PlazasVO a = new PlazasVO("turismo",3);
-
-        System.out.println(a);
-    }
 }

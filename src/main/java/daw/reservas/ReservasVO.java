@@ -32,7 +32,6 @@ public class ReservasVO {
     }
 
     // Constructor parametrizado
-
     public ReservasVO(String matricula, int numplaza, String pin_fijo, LocalDate feciniabono, LocalDate fecfinabono, int importe) {
         this.matricula = matricula;
         this.numplaza = numplaza;
@@ -41,7 +40,6 @@ public class ReservasVO {
         this.fecfinabono = fecfinabono;
         this.importe = importe;
     }
-
 
     // Generamos un pin aleatorio para la reserva
     public static String generarPin() {
@@ -108,7 +106,6 @@ public class ReservasVO {
     // toString
     @Override
     public String toString() {
-       
         return matricula + " : " + numplaza + " : " + pin_fijo + " : " + feciniabono + " : " + fecfinabono + " : " + importe;
     }
 
