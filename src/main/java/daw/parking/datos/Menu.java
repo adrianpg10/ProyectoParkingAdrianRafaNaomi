@@ -7,7 +7,6 @@ package daw.parking.datos;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -20,8 +19,6 @@ public class Menu {
     // Creamos la estructura del menu teniendo en cuenta las excepciones que se puedan dar
     public static Comandos menu() {
 
-
-        boolean seguir = true;
 
         do {
 
