@@ -46,8 +46,9 @@ public class ReservasDAO implements IReservas {
                 // Recogemos los datos de la persona, guardamos en un objeto
                 r.setMatricula(res.getString("matricula"));
                 r.setNumplaza(res.getInt("numplaza"));
+                r.setPin_fijo(res.getString("pin_fijo"));
                 r.setFeciniabono(res.getDate("feciniabono").toLocalDate());
-                r.setFeciniabono(res.getDate("fecfinabono").toLocalDate());
+                r.setFecfinabono(res.getDate("fecfinabono").toLocalDate());
                 r.setImporte(res.getInt("importe"));
 
                 //Añadimos el objeto a la lista
@@ -192,10 +193,6 @@ public class ReservasDAO implements IReservas {
         }
     }
 
- 
 
-    public static void main(String[] args) throws SQLException {
-   //     ReservasDAO.depositarAbo();
-    }
 
 }
