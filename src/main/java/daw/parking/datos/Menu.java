@@ -5,6 +5,7 @@
  */
 package daw.parking.datos;
 
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -14,18 +15,17 @@ import java.util.Scanner;
  * @author naomi
  */
 public class Menu {
-
+    private static Scanner teclado = new Scanner(System.in);
+    private static int opcion;
     // Creamos la estructura del menu teniendo en cuenta las excepciones que se puedan dar
     public static Comandos menu() {
 
-        Scanner teclado = new Scanner(System.in);
-        int opcion;
 
         boolean seguir = true;
 
         do {
 
-            try {
+          
 
                 System.out.println("==========================================");
                 System.out.println("===============PARKING DAW================");
@@ -43,9 +43,9 @@ public class Menu {
                         System.out.println("3- Depositar Abonado");
                         System.out.println("4- Retirar Abonado");
                         System.out.println("0- Volver al menú principal");
-                        int opcion1 = teclado.nextInt();
+                        opcion = teclado.nextInt();
 
-                        switch (opcion1) {
+                        switch (opcion) {
                             case 0:
 
                                 return Comandos.VOLVER_MENU;
@@ -74,9 +74,9 @@ public class Menu {
                         System.out.println("8- Realizar copia de seguridad.");
                         System.out.println("9- Restaurar copia de seguridad");
                         System.out.println("0-Volver al menú");
-                        int opcion2 = teclado.nextInt();
+                        opcion = teclado.nextInt();
 
-                        switch (opcion2) {
+                        switch (opcion) {
                             case 0:
                                 return Comandos.VOLVER_MENU;
                             case 1:
@@ -101,19 +101,16 @@ public class Menu {
                         break;
 
                 }
-            } catch (InputMismatchException ime) {
-                System.out.println();
-                System.out.println("Ha introducido un caracter no valido, solo puede ingresar numeros");
-            }
-            teclado.nextLine();
+         
+
             System.out.println();
 
-        } while (seguir == true);
+        } while (opcion!=0);
         return null;
 
     }
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, FileNotFoundException {
         Ordenes.realizarOrden(Menu.menu());
     }
 }
