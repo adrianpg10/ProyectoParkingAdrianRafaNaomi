@@ -5,8 +5,13 @@
  */
 package daw.reservas;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.Random;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -91,6 +96,7 @@ public class ReservasVO {
     // toString
     @Override
     public String toString() {
+       
         return matricula + " : " + numplaza + " : " + pin_fijo + " : " + feciniabono + " : " + fecfinabono;
     }
 

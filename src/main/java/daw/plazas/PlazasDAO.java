@@ -228,15 +228,17 @@ public class PlazasDAO implements IPlazas {
     // Metodo para la asignacion de una plaza
     public static void asignacionPlz() throws SQLException {
         // Pide matricula y tipo de vehiculo
-        String matri;
+        String matri, tipo;
         Scanner teclado = new Scanner(System.in);
         do {
-            System.out.println("Introduzca matrícula");
+            System.out.println("Introduzca matrícula (1111XXX)");
             matri = teclado.nextLine();
             // Controlamos la longitud de la matricula
         } while (!(matri.length() == 7));
-        System.out.println("Introduzca tipo de vehículo");
-        String tipo = teclado.nextLine();
+        do {
+            System.out.println("Introduzca tipo de vehículo (turismo-caravana-motocicleta)");
+            tipo = teclado.nextLine();
+        } while (!(tipo.equalsIgnoreCase("turismo") || tipo.equalsIgnoreCase("caravana") || tipo.equalsIgnoreCase("motocicleta")));
 
         String[] plazasEstado = new String[45];
         ArrayList<PlazasVO> listaPlaza = new ArrayList<>();
@@ -371,14 +373,14 @@ public class PlazasDAO implements IPlazas {
         String matri;
         Scanner teclado = new Scanner(System.in);
         do {
-            System.out.println("Introduzca la matrícula");
+            System.out.println("Introduzca la matrícula (1111XXX)");
             matri = teclado.nextLine();
             // Controlamos el formato de la matricula
         } while (!(matri.length() == 7));
         System.out.println("Introduzca el numero de la plaza");
         int numeroPlaza = teclado.nextInt();
         teclado.nextLine();
-        System.out.println("Introduce el tipo");
+        System.out.println("Introduce el tipo (turismo-caravana-motocicleta)");
         String tipo = teclado.nextLine();
         System.out.println("Introduzca el pin creado anteriormente en su ticket");
         String pin_des = teclado.nextLine();
