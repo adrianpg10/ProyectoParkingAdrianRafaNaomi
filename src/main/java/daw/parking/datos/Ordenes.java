@@ -44,6 +44,7 @@ public class Ordenes {
                 break;
             case ENTRAR_CLIENTE:
                 System.out.println("Entrando a la zona clientes..");
+                
 
                 break;
             case ENTRAR_ADMIN:
@@ -53,16 +54,19 @@ public class Ordenes {
             case DEPOSITAR_VEHICULO:
                 System.out.println("Entrando a la zona de depositar vehiculo..");
                 Ordenes.depositarVehiculo();
+                Ordenes.realizarOrden(Menu.menu());
 
                 break;
             case RETIRAR_VEHICULO:
                 System.out.println("Entrando a la zona de retirar vehiculo..");
                 Ordenes.retirarVehiculo();
+                Ordenes.realizarOrden(Menu.menu());
 
                 break;
             case DEPOSITAR_ABONADO:
                 System.out.println("Entrando a la zona de depositar abonado..");
                 Ordenes.depositarAbonado();
+                Ordenes.realizarOrden(Menu.menu());
                 break;
             case RETIRAR_ABONADO:
                 System.out.println("Entrando a la zona de retirar abonado..");
@@ -83,10 +87,12 @@ public class Ordenes {
             case ABONO_ALTA:
                 System.out.println("Entrando al alta de abono..");
                 Ordenes.altaAbono();
+                Ordenes.realizarOrden(Menu.menu());
                 break;
             case ABONO_MODIFICA:
                 System.out.println("Entrando a la modificación de abono..");
                 Ordenes.modificarAbono();
+                Ordenes.realizarOrden(Menu.menu());
                 break;
             case ABONO_BAJA:
                 System.out.println("Entrando a la baja de abono..");
@@ -99,10 +105,15 @@ public class Ordenes {
             case COPIA_SEGURIDAD_COPIAR:
                 System.out.println("Entrando a la zona de crear copia de seguridad..");
                 CopiaSeguridad.crearCopia();
+                Ordenes.realizarOrden(Menu.menu());
                 break;
             case COPIA_SEGURIDAD_RESTAURAR:
                 System.out.println("Entrando a la zona de restaurar copia de seguridad..");
                 CopiaSeguridad.resturarCopia();
+                Ordenes.realizarOrden(Menu.menu());
+                break;
+            case SALIR:
+                System.out.println("El programa ha finalizado");
                 break;
 
             default:

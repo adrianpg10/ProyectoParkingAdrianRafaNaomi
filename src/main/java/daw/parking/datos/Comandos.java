@@ -31,7 +31,7 @@ public enum Comandos {
     ABONO_CADUCIDAD(15, "Caducidad de abono"),
     COPIA_SEGURIDAD_COPIAR(17, "Copiar datos"),
     COPIA_SEGURIDAD_RESTAURAR(18, "Restaurar datos"),
-    SALIR(17,"SALIR");
+    SALIR(19,"SALIR");
 
     // Atributos
     private int codigo;
