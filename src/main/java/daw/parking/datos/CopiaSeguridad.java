@@ -16,6 +16,7 @@ import daw.tickets.TicketsVO;
 import daw.vehiculos.VehiculoDAO;
 import daw.vehiculos.VehiculoVO;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -68,12 +69,12 @@ public class CopiaSeguridad {
             listaVehiculo.forEach(System.out::println);
 
             // Pasamos la fecha y hora a toString para que podamos ponerla como nombre en la carpeta
-            String anio = Integer.toString(fechaAct.getYear());
-            String mes = Integer.toString(fechaAct.getMonthValue());
-            String dia = Integer.toString(fechaAct.getDayOfMonth());
-            String hora = Integer.toString(horaAct.getHour());
-            String min = Integer.toString(horaAct.getMinute());
-            String seg = Integer.toString(horaAct.getSecond());
+            String anio = Integer.valueOf(fechaAct.getYear()).toString();
+            String mes = Integer.valueOf(fechaAct.getMonthValue()).toString();
+            String dia = Integer.valueOf(fechaAct.getDayOfMonth()).toString();
+            String hora = Integer.valueOf(horaAct.getHour()).toString();
+            String min = Integer.valueOf(horaAct.getMinute()).toString();
+            String seg = Integer.valueOf(horaAct.getSecond()).toString();
 
             // Metemos en un string el nombre ya completo de la carpeta
             String cadena = "./backup/" + dia + "-" + mes + "-" + anio + "_" + hora + "-" + min + "-" + seg;
@@ -140,12 +141,36 @@ public class CopiaSeguridad {
     }
 
     public static void resturarCopia() throws SQLException, FileNotFoundException {
-
+        Scanner teclado = new Scanner(System.in);
+        String aux="";
         PlazasDAO pado = new PlazasDAO();
         ReservasDAO rdao = new ReservasDAO();
         TicketsDAO tdao = new TicketsDAO();
         VehiculoDAO vdao = new VehiculoDAO();
         ClientesDAO cdao = new ClientesDAO();
+
+        File carpeta = new File("./backup");
+        String[] listado = carpeta.list();
+        if (carpeta.exists()) {
+            File[] ficheros = carpeta.listFiles();
+            for (File file2 : ficheros) {
+                System.out.println(file2.getName());
+            }
+
+            System.out.println("Estas son las copias de seguridad que dispones..");
+            System.out.println("¿Que copias deseas restaurar?");
+            aux = teclado.nextLine();
+
+            for (String lista : listado) {
+                if (aux.equalsIgnoreCase(lista)) {
+                    System.out.println("Perfecto");
+                }
+
+            }
+
+        } else {
+            System.out.println("El directorio a listar no existe");
+        }
 
         tdao.deleteTickets();
         rdao.deleteReservas();
@@ -156,14 +181,14 @@ public class CopiaSeguridad {
 
         ArrayList<VehiculoVO> listaV = new ArrayList<>();
 
-        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/vehiculos.txt"), "ISO-8859-1")) {
+        try (Scanner datosFichero = new Scanner(new FileInputStream("./backup/"+aux+"/vehiculos.txt"), "ISO-8859-1")) {
             String[] tokens;
             String linea;
             while (datosFichero.hasNextLine()) {
 
                 linea = datosFichero.nextLine();
 
-                tokens = linea.split(", ");
+                tokens = linea.split(" : ");
 
                 listaV.add(new VehiculoVO(tokens[0], tokens[1]));
             }
@@ -179,14 +204,14 @@ public class CopiaSeguridad {
 
         ArrayList<ClientesVO> listaC = new ArrayList<>();
 
-        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/clientes.txt"), "ISO-8859-1")) {
+        try (Scanner datosFichero = new Scanner(new FileInputStream("./backup/"+aux+"/clientes.txt"), "ISO-8859-1")) {
             String[] tokens;
             String linea;
             while (datosFichero.hasNextLine()) {
 
                 linea = datosFichero.nextLine();
 
-                tokens = linea.split(", ");
+                tokens = linea.split(" : ");
 
                 listaC.add(new ClientesVO(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], Integer.valueOf(tokens[6]), tokens[7]));
             }
@@ -202,14 +227,14 @@ public class CopiaSeguridad {
 
         ArrayList<PlazasVO> listaP = new ArrayList<>();
 
-        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/plazas.txt"), "ISO-8859-1")) {
+        try (Scanner datosFichero = new Scanner(new FileInputStream("./backup/"+aux+"/plazas.txt"), "ISO-8859-1")) {
             String[] tokens;
             String linea;
             while (datosFichero.hasNextLine()) {
 
                 linea = datosFichero.nextLine();
 
-                tokens = linea.split(", ");
+                tokens = linea.split(" : ");
 
                 listaP.add(new PlazasVO(Integer.valueOf(tokens[0]), tokens[1], tokens[2], Double.valueOf(tokens[3])));
             }
@@ -225,13 +250,13 @@ public class CopiaSeguridad {
 
         ArrayList<TicketsVO> listaT = new ArrayList<>();
 
-        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/tickets.txt"), "ISO-8859-1")) {
+        try (Scanner datosFichero = new Scanner(new FileInputStream("./backup/"+aux+"/tickets.txt"), "ISO-8859-1")) {
             String[] tokens;
             String linea;
             while (datosFichero.hasNextLine()) {
 
                 linea = datosFichero.nextLine();
-                tokens = linea.split(", ");
+                tokens = linea.split(" : ");
                 String separador = tokens[4].trim();
                 String[] dia_mes_anio = separador.split("-");
                 LocalDate fechaI = LocalDate.of(Integer.valueOf(dia_mes_anio[0]), Integer.valueOf(dia_mes_anio[1]), Integer.valueOf(dia_mes_anio[2]));
@@ -262,13 +287,13 @@ public class CopiaSeguridad {
 
         ArrayList<ReservasVO> listaR = new ArrayList<>();
 
-        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/reservas.txt"), "ISO-8859-1")) {
+        try (Scanner datosFichero = new Scanner(new FileInputStream("./backup/"+aux+"/reservas.txt"), "ISO-8859-1")) {
             String[] tokens;
             String linea;
             while (datosFichero.hasNextLine()) {
 
                 linea = datosFichero.nextLine();
-                tokens = linea.split(", ");
+                tokens = linea.split(" : ");
                 String separador = tokens[3].trim();
                 String[] dia_mes_anio = separador.split("-");
                 LocalDate fechaIR = LocalDate.of(Integer.valueOf(dia_mes_anio[0]), Integer.valueOf(dia_mes_anio[1]), Integer.valueOf(dia_mes_anio[2]));
