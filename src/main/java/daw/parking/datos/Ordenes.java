@@ -246,7 +246,7 @@ public class Ordenes {
                     plazaModificada.setEstadoplaza("ocupada");
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     // Creamos la reserva de las motocicletas
-                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono);
+                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono,ClientesVO.generarPrecioAb(tipoAbono));
                     ReservasDAO r = new ReservasDAO();
                     r.insertReservas(reserva);
                     return true;
@@ -261,7 +261,7 @@ public class Ordenes {
                     plazaModificada.setEstadoplaza("ocupada");
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     // Creamos la reserva de las caravanas
-                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono);
+                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono,ClientesVO.generarPrecioAb(tipoAbono));
                     ReservasDAO r = new ReservasDAO();
                     r.insertReservas(reserva);
                     return true;
@@ -277,7 +277,7 @@ public class Ordenes {
                     plazaModificada.setEstadoplaza("ocupada");
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     // Creamos la reserva de los turismos
-                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono);
+                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono,ClientesVO.generarPrecioAb(tipoAbono));
                     ReservasDAO r = new ReservasDAO();
                     r.insertReservas(reserva);
                     return true;
