@@ -25,19 +25,23 @@ public class ReservasVO {
     private String pin_fijo;
     private LocalDate feciniabono;
     private LocalDate fecfinabono;
+    private Double importe;
 
     // Constructor por defecto
     public ReservasVO() {
     }
 
     // Constructor parametrizado
-    public ReservasVO(String matricula, int numplaza, String pin_fijo, LocalDate feciniabono, LocalDate fecfinabono) {
+
+    public ReservasVO(String matricula, int numplaza, String pin_fijo, LocalDate feciniabono, LocalDate fecfinabono, Double importe) {
         this.matricula = matricula;
         this.numplaza = numplaza;
         this.pin_fijo = pin_fijo;
         this.feciniabono = feciniabono;
         this.fecfinabono = fecfinabono;
+        this.importe = importe;
     }
+
 
     // Generamos un pin aleatorio para la reserva
     public static String generarPin() {
@@ -55,6 +59,14 @@ public class ReservasVO {
     // Getters y setters
     public String getMatricula() {
         return matricula;
+    }
+
+    public Double getImporte() {
+        return importe;
+    }
+
+    public void setImporte(Double importe) {
+        this.importe = importe;
     }
 
     public void setMatricula(String matricula) {
@@ -97,7 +109,7 @@ public class ReservasVO {
     @Override
     public String toString() {
        
-        return matricula + " : " + numplaza + " : " + pin_fijo + " : " + feciniabono + " : " + fecfinabono;
+        return matricula + " : " + numplaza + " : " + pin_fijo + " : " + feciniabono + " : " + fecfinabono + " : " + importe;
     }
 
 }
