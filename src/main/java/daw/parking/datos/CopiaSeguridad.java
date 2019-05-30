@@ -308,7 +308,7 @@ public class CopiaSeguridad {
                 String[] dia_mes_anio_2 = f.split("-");
                 LocalDate fechaFR = LocalDate.of(Integer.valueOf(dia_mes_anio_2[0]), Integer.valueOf(dia_mes_anio_2[1]), Integer.valueOf(dia_mes_anio_2[2]));
 
-                listaR.add(new ReservasVO(tokens[0], Integer.valueOf(tokens[1]), tokens[2], fechaIR, fechaFR,Double.valueOf(tokens[5])));
+                listaR.add(new ReservasVO(tokens[0], Integer.valueOf(tokens[1]), tokens[2], fechaIR, fechaFR,Integer.valueOf(tokens[5])));
             }
             for (ReservasVO reservaVO : listaR) {
                 System.out.println(reservaVO);

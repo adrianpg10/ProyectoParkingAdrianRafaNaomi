@@ -25,7 +25,7 @@ public class ReservasVO {
     private String pin_fijo;
     private LocalDate feciniabono;
     private LocalDate fecfinabono;
-    private Double importe;
+    private int importe;
 
     // Constructor por defecto
     public ReservasVO() {
@@ -33,7 +33,7 @@ public class ReservasVO {
 
     // Constructor parametrizado
 
-    public ReservasVO(String matricula, int numplaza, String pin_fijo, LocalDate feciniabono, LocalDate fecfinabono, Double importe) {
+    public ReservasVO(String matricula, int numplaza, String pin_fijo, LocalDate feciniabono, LocalDate fecfinabono, int importe) {
         this.matricula = matricula;
         this.numplaza = numplaza;
         this.pin_fijo = pin_fijo;
@@ -61,11 +61,11 @@ public class ReservasVO {
         return matricula;
     }
 
-    public Double getImporte() {
+    public int getImporte() {
         return importe;
     }
 
-    public void setImporte(Double importe) {
+    public void setImporte(int importe) {
         this.importe = importe;
     }
 

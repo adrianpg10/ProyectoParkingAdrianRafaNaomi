@@ -48,7 +48,7 @@ public class ReservasDAO implements IReservas {
                 r.setNumplaza(res.getInt("numplaza"));
                 r.setFeciniabono(res.getDate("feciniabono").toLocalDate());
                 r.setFeciniabono(res.getDate("fecfinabono").toLocalDate());
-                r.setImporte(res.getDouble("importe"));
+                r.setImporte(res.getInt("importe"));
 
                 //Añadimos el objeto a la lista
                 lista.add(r);
@@ -77,7 +77,7 @@ public class ReservasDAO implements IReservas {
                 prest.setString(3, reservas.getPin_fijo());
                 prest.setDate(4, Date.valueOf(reservas.getFeciniabono()));
                 prest.setDate(5, Date.valueOf(reservas.getFecfinabono()));
-                prest.setDouble(6, reservas.getImporte());
+                prest.setInt(6, reservas.getImporte());
 
                 numFilas = prest.executeUpdate();
             }
@@ -156,7 +156,7 @@ public class ReservasDAO implements IReservas {
                 reservas.setPin_fijo(res.getString("pin_fijo"));
                 reservas.setFeciniabono(res.getDate("feciniabono").toLocalDate());
                 reservas.setFecfinabono(res.getDate("fecfinabono").toLocalDate());
-                reservas.setImporte(res.getDouble("importe"));
+                reservas.setImporte(res.getInt("importe"));
                 return reservas;
             }
 
@@ -182,7 +182,7 @@ public class ReservasDAO implements IReservas {
                 prest.setString(1, nuevosDatos.getPin_fijo());
                 prest.setDate(2, Date.valueOf(nuevosDatos.getFeciniabono()));
                 prest.setDate(3, Date.valueOf(nuevosDatos.getFecfinabono()));
-                prest.setDouble(4, nuevosDatos.getImporte());
+                prest.setInt(4, nuevosDatos.getImporte());
                 prest.setString(5, matricula);
                 prest.setInt(6, numplaza);
 
