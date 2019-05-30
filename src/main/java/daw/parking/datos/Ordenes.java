@@ -85,7 +85,7 @@ public class Ordenes {
                 break;
             case ABONO_MODIFICA:
                 System.out.println("Entrando a la modificación de abono..");
-
+                Ordenes.modificarAbono();
                 break;
             case ABONO_BAJA:
                 System.out.println("Entrando a la baja de abono..");
@@ -287,6 +287,57 @@ public class Ordenes {
         return false;
     }
 
+    // Metodo para modificar un abono
+    public static void modificarAbono() throws SQLException {
+        Scanner teclado = new Scanner(System.in);
+        String matricula, nif, nombre, ape1, ape2, tarjeta, email;
+        ClientesDAO clienteDAO = new ClientesDAO();
+        ArrayList<ClientesVO> listaClientes = new ArrayList<>();
+        ClientesVO clienteVO = new ClientesVO();
+        ReservasDAO reservaD = new ReservasDAO();
+        ArrayList<ReservasVO> listaReservas = new ArrayList<>();
+        ReservasVO reserva = new ReservasVO();
+        try {
+
+            listaClientes = (ArrayList<ClientesVO>) clienteDAO.getAll();
+        } catch (SQLException sqle) {
+            System.out.println("No se ha podido realizar la operación:");
+            System.out.println(sqle.getMessage());
+        }
+        // Le pedimos la matricula para que comprueba si dicha matricula se encuentra en la lista de los clientes y si es asi,
+        // buscamos a ese cliente por su clave primaria que es el dni y lo guardamos en un objeto de tipo cliente
+        System.out.println("Se va a proceder a modificar el abono, introduzca la matricula para continuar..");
+        matricula = teclado.nextLine();
+        for (int i = 0; i < listaClientes.size(); i++) {
+            if (listaClientes.get(i).getMatricula().equalsIgnoreCase(matricula)) {
+                clienteVO = clienteDAO.findByPk(matricula);
+                ClientesVO clienteAux = clienteVO;
+                // Le pedimos los datos personales a modificar
+                System.out.println("Introduzca su nuevo DNI");
+                nif = teclado.nextLine();
+                System.out.println("Introduzca su nuevo nombre");
+                nombre = teclado.nextLine();
+                System.out.println("Introduzca su nuevo apellido 1");
+                ape1 = teclado.nextLine();
+                System.out.println("Introduzca su nuevo apellido 2");
+                ape2 = teclado.nextLine();
+                System.out.println("Introduzca su nueva tarjeta");
+                tarjeta = teclado.nextLine();
+                System.out.println("Introduzca su nuevo email");
+                email = teclado.nextLine();
+
+                // Se crea el cliente con los datos que ha introducido
+                clienteVO = new ClientesVO(matricula, nif, nombre, ape1, ape2, tarjeta, clienteAux.getTipoAbono(), email);
+                // Se actualiza el nuevo cliente con la mtricula y el cliente que creamos arriba
+                clienteDAO.updateClientes(matricula, clienteVO);
+
+                System.out.println("Se han modificado sus datos personales");
+            } else {
+                System.out.println("No se ha podido modificar sus datos personales");
+            }
+        }
+    }
+
     //    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
     //
     //        int minutosTotales;
@@ -306,7 +357,8 @@ public class Ordenes {
     //    }
     public static void main(String[] args) throws SQLException {
 
-        Ordenes.altaAbono();
+        //Ordenes.altaAbono();      
+        Ordenes.modificarAbono();
 //        Ordenes.depositarVehiculo();
 //        System.out.println("------------");
 //        Ordenes.retirarVehiculo();
