@@ -40,7 +40,8 @@ public class PlazasVO {
         this.tipoPlaza = tipoPlaza;
         this.estadoplaza = "libre";
         this.tarifa = tarifas();
-        this.estadoReservado = estadoReservado;
+        this.estadoReservado = false;
+        
 
        
     }
