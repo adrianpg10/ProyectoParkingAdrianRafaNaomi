@@ -7,13 +7,9 @@ package daw.clientes;
 
 import daw.plazas.PlazasDAO;
 import daw.plazas.PlazasVO;
-import daw.tickets.TicketsDAO;
-import daw.tickets.TicketsVO;
 import daw.vehiculos.VehiculoDAO;
-import daw.vehiculos.VehiculoVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -157,7 +153,7 @@ public class ClientesVO {
 
     @Override
     public String toString() {
-        return matricula + ":" + dni + ":" + nombre + ":" + apellido1 + ":" + apellido2 + ":" + numTarjetaCredito + ":" + tipoAbono + ":" + email;
+        return matricula + " : " + dni + " : " + nombre + " : " + apellido1 + " : " + apellido2 + " : " + numTarjetaCredito + " : " + tipoAbono + " : " + email;
     }
 
     

@@ -97,7 +97,7 @@ public class PlazasVO {
     // toString
     @Override
     public String toString() {
-        return numplaza + ":" + tipoPlaza + ":" + estadoplaza + ":" + tarifas();
+        return numplaza + " : " + tipoPlaza + " : " + estadoplaza + " : " + tarifas();
     }
 
     public static void main(String[] args) {

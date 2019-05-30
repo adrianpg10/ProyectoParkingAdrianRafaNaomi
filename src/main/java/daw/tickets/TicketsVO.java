@@ -149,7 +149,7 @@ public class TicketsVO {
     // Método toString
     @Override
     public String toString() {
-        return codticket + ":" + numplaza + ":" + matricula + ":" + pin_desechable + ":" + fecinipin + ":" + fecfinpin + ":" + horaInicio + ":" + horaFin;
+        return codticket + " : " + numplaza + " : " + matricula + " : " + pin_desechable + " : " + fecinipin + " : " + fecfinpin + " : " + horaInicio + " : " + horaFin;
     }
 
     public static void main(String[] args) {
