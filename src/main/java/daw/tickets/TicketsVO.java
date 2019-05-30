@@ -64,7 +64,7 @@ public class TicketsVO {
     }
 
     // Generamos un pin aleatorio para el ticket
-    private String generarPin() {
+    public static String generarPin() {
         String pinDesechable = "";
         Random aleatorio = new Random();
         int generador;
@@ -149,7 +149,7 @@ public class TicketsVO {
     // Método toString
     @Override
     public String toString() {
-        return "TicketsVO{" + "codticket=" + codticket + ", numplaza=" + numplaza + ", matricula=" + matricula + ", pin_desechable=" + pin_desechable + ", fecinipin=" + fecinipin + ", fecfinpin=" + fecfinpin + ", horaInicio=" + horaInicio + ", horaFin=" + horaFin + '}';
+        return codticket + ":" + numplaza + ":" + matricula + ":" + pin_desechable + ":" + fecinipin + ":" + fecfinpin + ":" + horaInicio + ":" + horaFin;
     }
 
     public static void main(String[] args) {

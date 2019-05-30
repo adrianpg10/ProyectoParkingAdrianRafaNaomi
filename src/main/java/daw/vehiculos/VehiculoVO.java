@@ -50,7 +50,7 @@ public class VehiculoVO {
     // toString
     @Override
     public String toString() {
-        return "VehiculoVO{" + "matricula=" + matricula + ", tipoVehiculo=" + tipoVehiculo + '}';
+        return matricula + ":" + tipoVehiculo;
     }
 
 }

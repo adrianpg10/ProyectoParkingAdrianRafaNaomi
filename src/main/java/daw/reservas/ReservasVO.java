@@ -91,7 +91,7 @@ public class ReservasVO {
     // toString
     @Override
     public String toString() {
-        return "ReservasVO{" + "matricula=" + matricula + ", numplaza=" + numplaza + ", pin_fijo=" + pin_fijo + ", feciniabono=" + feciniabono + ", fecfinabono=" + fecfinabono + '}';
+        return matricula + ":" + numplaza + ":" + pin_fijo + ":" + feciniabono + ":" + fecfinabono;
     }
 
 }
