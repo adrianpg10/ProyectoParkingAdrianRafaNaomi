@@ -15,6 +15,7 @@ import daw.tickets.TicketsDAO;
 import daw.tickets.TicketsVO;
 import daw.vehiculos.VehiculoDAO;
 import daw.vehiculos.VehiculoVO;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -33,7 +34,7 @@ import java.util.Scanner;
 public class Ordenes {
 
     // Metodo realizar orden que recibe un comando y contiene cada uno de sus metodos correspondientes
-    public static void realizarOrden(Comandos ordenes) throws SQLException {
+    public static void realizarOrden(Comandos ordenes) throws SQLException, FileNotFoundException {
 
         switch (ordenes) {
             case VOLVER_MENU:
@@ -101,7 +102,7 @@ public class Ordenes {
                 break;
             case COPIA_SEGURIDAD_RESTAURAR:
                 System.out.println("Entrando a la zona de restaurar copia de seguridad..");
-
+                CopiaSeguridad.resturarCopia();
                 break;
 
             default:
