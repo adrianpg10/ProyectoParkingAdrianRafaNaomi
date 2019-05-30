@@ -279,7 +279,7 @@ public class CopiaSeguridad {
                 String[] hora_min_seg_2 = s.split(":");
                 LocalTime horaF = LocalTime.of(Integer.valueOf(hora_min_seg_2[0]), Integer.valueOf(hora_min_seg_2[1]), Integer.valueOf(hora_min_seg_2[2]));
 
-                listaT.add(new TicketsVO(Integer.valueOf(tokens[0]), Integer.valueOf(tokens[1]), tokens[2], tokens[3], fechaI, fechaF, horaI, horaF));
+                listaT.add(new TicketsVO(Integer.valueOf(tokens[0]), Integer.valueOf(tokens[1]), tokens[2], tokens[3], fechaI, fechaF, horaI, horaF,Double.valueOf(tokens[8])));
             }
             for (TicketsVO ticketVO : listaT) {
                 System.out.println(ticketVO);
@@ -308,7 +308,7 @@ public class CopiaSeguridad {
                 String[] dia_mes_anio_2 = f.split("-");
                 LocalDate fechaFR = LocalDate.of(Integer.valueOf(dia_mes_anio_2[0]), Integer.valueOf(dia_mes_anio_2[1]), Integer.valueOf(dia_mes_anio_2[2]));
 
-                listaR.add(new ReservasVO(tokens[0], Integer.valueOf(tokens[1]), tokens[2], fechaIR, fechaFR));
+                listaR.add(new ReservasVO(tokens[0], Integer.valueOf(tokens[1]), tokens[2], fechaIR, fechaFR,Double.valueOf(tokens[5])));
             }
             for (ReservasVO reservaVO : listaR) {
                 System.out.println(reservaVO);
