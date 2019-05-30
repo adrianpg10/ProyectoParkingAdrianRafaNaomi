@@ -16,15 +16,22 @@ import daw.tickets.TicketsVO;
 import daw.vehiculos.VehiculoDAO;
 import daw.vehiculos.VehiculoVO;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
+import static java.time.temporal.WeekFields.ISO;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -132,7 +139,160 @@ public class CopiaSeguridad {
 
     }
 
-    public static void main(String[] args) {
+    public static void resturarCopia() throws SQLException, FileNotFoundException {
+
+        PlazasDAO pado = new PlazasDAO();
+        ReservasDAO rdao = new ReservasDAO();
+        TicketsDAO tdao = new TicketsDAO();
+        VehiculoDAO vdao = new VehiculoDAO();
+        ClientesDAO cdao = new ClientesDAO();
+
+        tdao.deleteTickets();
+        rdao.deleteReservas();
+        pado.deletePlazas();
+        cdao.deleteClientes();
+
+        vdao.borrarTodosVehiculo();
+
+        ArrayList<VehiculoVO> listaV = new ArrayList<>();
+
+        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/vehiculos.txt"), "ISO-8859-1")) {
+            String[] tokens;
+            String linea;
+            while (datosFichero.hasNextLine()) {
+
+                linea = datosFichero.nextLine();
+
+                tokens = linea.split(", ");
+
+                listaV.add(new VehiculoVO(tokens[0], tokens[1]));
+            }
+            for (VehiculoVO vehiculoVO : listaV) {
+                System.out.println(vehiculoVO);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        vdao.insertarVehiculo(listaV);
+
+        ArrayList<ClientesVO> listaC = new ArrayList<>();
+
+        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/clientes.txt"), "ISO-8859-1")) {
+            String[] tokens;
+            String linea;
+            while (datosFichero.hasNextLine()) {
+
+                linea = datosFichero.nextLine();
+
+                tokens = linea.split(", ");
+
+                listaC.add(new ClientesVO(tokens[0], tokens[1], tokens[2], tokens[3], tokens[4], tokens[5], Integer.valueOf(tokens[6]), tokens[7]));
+            }
+            for (ClientesVO clienteVO : listaC) {
+                System.out.println(clienteVO);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        cdao.insertarClientes(listaC);
+
+        ArrayList<PlazasVO> listaP = new ArrayList<>();
+
+        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/plazas.txt"), "ISO-8859-1")) {
+            String[] tokens;
+            String linea;
+            while (datosFichero.hasNextLine()) {
+
+                linea = datosFichero.nextLine();
+
+                tokens = linea.split(", ");
+
+                listaP.add(new PlazasVO(Integer.valueOf(tokens[0]), tokens[1], tokens[2], Double.valueOf(tokens[3])));
+            }
+            for (PlazasVO plazaVO : listaP) {
+                System.out.println(plazaVO);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        pado.insertPlazas(listaP);
+
+        ArrayList<TicketsVO> listaT = new ArrayList<>();
+
+        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/tickets.txt"), "ISO-8859-1")) {
+            String[] tokens;
+            String linea;
+            while (datosFichero.hasNextLine()) {
+
+                linea = datosFichero.nextLine();
+                tokens = linea.split(", ");
+                String separador = tokens[4].trim();
+                String[] dia_mes_anio = separador.split("-");
+                LocalDate fechaI = LocalDate.of(Integer.valueOf(dia_mes_anio[0]), Integer.valueOf(dia_mes_anio[1]), Integer.valueOf(dia_mes_anio[2]));
+
+                String f = tokens[5].trim();
+                String[] dia_mes_anio_2 = f.split("-");
+                LocalDate fechaF = LocalDate.of(Integer.valueOf(dia_mes_anio_2[0]), Integer.valueOf(dia_mes_anio_2[1]), Integer.valueOf(dia_mes_anio_2[2]));
+
+                String e = tokens[6].trim();
+                String[] hora_min_seg = e.split(":");
+                LocalTime horaI = LocalTime.of(Integer.valueOf(hora_min_seg[0]), Integer.valueOf(hora_min_seg[1]), Integer.valueOf(hora_min_seg[2]));
+
+                String s = tokens[7].trim();
+                String[] hora_min_seg_2 = s.split(":");
+                LocalTime horaF = LocalTime.of(Integer.valueOf(hora_min_seg_2[0]), Integer.valueOf(hora_min_seg_2[1]), Integer.valueOf(hora_min_seg_2[2]));
+
+                listaT.add(new TicketsVO(Integer.valueOf(tokens[0]), Integer.valueOf(tokens[1]), tokens[2], tokens[3], fechaI, fechaF, horaI, horaF));
+            }
+            for (TicketsVO ticketVO : listaT) {
+                System.out.println(ticketVO);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        tdao.insertTickets(listaT);
+
+        ArrayList<ReservasVO> listaR = new ArrayList<>();
+
+        try (Scanner datosFichero = new Scanner(new FileInputStream("/home/adrian/NetBeansProjects/ProyectoParkingAdrianRafaNaomi/backup/30-5-2019_12-30-7/reservas.txt"), "ISO-8859-1")) {
+            String[] tokens;
+            String linea;
+            while (datosFichero.hasNextLine()) {
+
+                linea = datosFichero.nextLine();
+                tokens = linea.split(", ");
+                String separador = tokens[3].trim();
+                String[] dia_mes_anio = separador.split("-");
+                LocalDate fechaIR = LocalDate.of(Integer.valueOf(dia_mes_anio[0]), Integer.valueOf(dia_mes_anio[1]), Integer.valueOf(dia_mes_anio[2]));
+
+                String f = tokens[4].trim();
+                String[] dia_mes_anio_2 = f.split("-");
+                LocalDate fechaFR = LocalDate.of(Integer.valueOf(dia_mes_anio_2[0]), Integer.valueOf(dia_mes_anio_2[1]), Integer.valueOf(dia_mes_anio_2[2]));
+
+                listaR.add(new ReservasVO(tokens[0], Integer.valueOf(tokens[1]), tokens[2], fechaIR, fechaFR));
+            }
+            for (ReservasVO reservaVO : listaR) {
+                System.out.println(reservaVO);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+
+        rdao.insertReservas(listaR);
+
+    }
+
+    public static void main(String[] args) throws SQLException, FileNotFoundException {
         CopiaSeguridad.crearCopia();
+        //CopiaSeguridad.resturarCopia();
     }
 }
