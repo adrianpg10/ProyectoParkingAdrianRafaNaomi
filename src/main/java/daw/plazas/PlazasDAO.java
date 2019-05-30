@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package daw.plazas;
 
 import daw.clientes.ClientesVO;
@@ -92,6 +87,8 @@ public class PlazasDAO implements IPlazas {
                 p.setTipoPlaza(res.getString("tipoPlaza"));
                 p.setEstadoplaza(res.getString("estadoplaza"));
                 p.setTarifa(res.getDouble("tarifa"));
+                p.setEstadoReservado(res.getBoolean("estadoReservado"));
+                
 
                 //Añadimos el objeto a la lista
                 lista.add(p);
@@ -123,6 +120,7 @@ public class PlazasDAO implements IPlazas {
                 plazas.setTipoPlaza(res.getString("tipoPlaza"));
                 plazas.setEstadoplaza(res.getString("estadoplaza"));
                 plazas.setTarifa(res.getDouble("tarifa"));
+                plazas.setEstadoReservado(res.getBoolean("estadoReservado"));
                 return plazas;
             }
 
@@ -133,7 +131,7 @@ public class PlazasDAO implements IPlazas {
     @Override
     public int insertPlazas(PlazasVO plazas) throws SQLException {
         int numFilas = 0;
-        String sql = "insert into plazas values (?,?,?,?)";
+        String sql = "insert into plazas values (?,?,?,?,?)";
 
         if (findByPk(plazas.getNumplaza()) != null) {
             // Existe un registro con esa pk
@@ -149,6 +147,7 @@ public class PlazasDAO implements IPlazas {
                 prest.setString(2, plazas.getTipoPlaza());
                 prest.setString(3, plazas.getEstadoplaza());
                 prest.setDouble(4, plazas.getTarifa());
+                prest.setBoolean(5, plazas.isEstadoReservado());
 
                 numFilas = prest.executeUpdate();
             }
@@ -203,7 +202,7 @@ public class PlazasDAO implements IPlazas {
     @Override
     public int updatePlazas(int numplaza, PlazasVO nuevosDatos) throws SQLException {
         int numFilas = 0;
-        String sql = "update plazas set tipoPlaza = ?, estadoplaza = ?, tarifa = ?  where numplaza=?";
+        String sql = "update plazas set tipoPlaza = ?, estadoplaza = ?, tarifa = ?, estadoReservado= ?  where numplaza=?";
 
         if (findByPk(numplaza) == null) {
             // La plaza a actualizar no existe
@@ -217,7 +216,8 @@ public class PlazasDAO implements IPlazas {
                 prest.setString(1, nuevosDatos.getTipoPlaza());
                 prest.setString(2, nuevosDatos.getEstadoplaza());
                 prest.setDouble(3, nuevosDatos.getTarifa());
-                prest.setInt(4, numplaza);
+                prest.setBoolean(4, nuevosDatos.isEstadoReservado());
+                prest.setInt(5, numplaza);
 
                 numFilas = prest.executeUpdate();
             }
