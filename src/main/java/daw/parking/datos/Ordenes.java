@@ -25,6 +25,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -75,6 +76,7 @@ public class Ordenes {
                 break;
             case ESTADO_PARKING:
                 System.out.println("Entrando al estado del parking..");
+                Ordenes.estadoPlazas();
 
                 break;
             case FACTURACION_ENTRE_FECHAS:
@@ -347,6 +349,48 @@ public class Ordenes {
                 System.out.println("Se han modificado sus datos personales");
             } else {
                 System.out.println("No se ha podido modificar sus datos personales");
+            }
+        }
+    }
+    
+    // Metodo para conocer el estado del parking de cada una de las plazas en cada momento, el cual en una lista guardamos 
+    // todo lo que tiene en ese momento y luego la recorremos y vamos imprimiendo su numero de plaza y sus posibles 4 estados.
+    // L es libre sin abonar, O es ocupada sin abonar, R es reservada para los abonados y NR es no reserevada para los abonados
+    public static void estadoPlazas() throws SQLException{
+        PlazasDAO aux=new PlazasDAO();
+        List<PlazasVO> listaPlazas=new ArrayList<>();
+        String libre_ocupada="";
+        int abonada_no=0;
+        listaPlazas=aux.getAll();
+        for (PlazasVO tmp : listaPlazas) {
+            System.out.print(tmp.getNumplaza()+" || ");
+            libre_ocupada=tmp.getEstadoplaza();
+            abonada_no=tmp.getEstadoReservado();
+       
+            switch (libre_ocupada) {
+                case "libre":
+                    System.out.print("L ");
+                    break;
+                    
+                case "ocupada":
+                    System.out.print("O ");
+                    break;
+                    
+
+                default:
+                    System.out.print("Error");
+            }
+            
+            switch (abonada_no) {
+                case 0:
+                    System.out.print("|| NR \r");
+                    break;
+                    
+                case 1:
+                    System.out.print("|| R \r");
+                    break;
+                default:
+                    System.out.println("Error");
             }
         }
     }
