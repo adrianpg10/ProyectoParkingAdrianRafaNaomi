@@ -89,7 +89,7 @@ public class PlazasDAO implements IPlazas {
                 p.setTipoPlaza(res.getString("tipoPlaza"));
                 p.setEstadoplaza(res.getString("estadoplaza"));
                 p.setTarifa(res.getDouble("tarifa"));
-                p.setEstadoReservado(res.getBoolean("estadoReservado"));
+                p.setEstadoReservado(res.getInt("estadoReservado"));
                 
 
                 //Añadimos el objeto a la lista
@@ -122,7 +122,7 @@ public class PlazasDAO implements IPlazas {
                 plazas.setTipoPlaza(res.getString("tipoPlaza"));
                 plazas.setEstadoplaza(res.getString("estadoplaza"));
                 plazas.setTarifa(res.getDouble("tarifa"));
-                plazas.setEstadoReservado(res.getBoolean("estadoReservado"));
+                plazas.setEstadoReservado(res.getInt("estadoReservado"));
                 return plazas;
             }
 
@@ -149,7 +149,7 @@ public class PlazasDAO implements IPlazas {
                 prest.setString(2, plazas.getTipoPlaza());
                 prest.setString(3, plazas.getEstadoplaza());
                 prest.setDouble(4, plazas.getTarifa());
-                prest.setBoolean(5, plazas.isEstadoReservado());
+                prest.setInt(5, plazas.getEstadoReservado());
 
                 numFilas = prest.executeUpdate();
             }
@@ -218,7 +218,7 @@ public class PlazasDAO implements IPlazas {
                 prest.setString(1, nuevosDatos.getTipoPlaza());
                 prest.setString(2, nuevosDatos.getEstadoplaza());
                 prest.setDouble(3, nuevosDatos.getTarifa());
-                prest.setBoolean(4, nuevosDatos.isEstadoReservado());
+                prest.setInt(4, nuevosDatos.getEstadoReservado());
                 prest.setInt(5, numplaza);
 
                 numFilas = prest.executeUpdate();

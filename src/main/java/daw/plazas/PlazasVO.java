@@ -16,34 +16,29 @@ public class PlazasVO {
     private String tipoPlaza;
     private String estadoplaza;
     private Double tarifa;
-    private boolean estadoReservado;
-   
+    private int estadoReservado;
 
     // Contructor por defecto
     public PlazasVO() {
     }
 
     // Constructor parametrizado
-
-    public PlazasVO(int numplaza, String tipoPlaza, String estadoplaza, Double tarifa, boolean estadoReservado) {
+    public PlazasVO(int numplaza, String tipoPlaza, String estadoplaza, Double tarifa, int estadoReservado) {
         this.numplaza = numplaza;
         this.tipoPlaza = tipoPlaza;
         this.estadoplaza = estadoplaza;
         this.tarifa = tarifa;
         this.estadoReservado = estadoReservado;
     }
-  
 
     // Constructor parametrizado al que se le pasa un tipo de plaza y la hacemos libre
-    public PlazasVO(String tipoPlaza,int numero) {
+    public PlazasVO(String tipoPlaza, int numero) {
         this.numplaza = numero;
         this.tipoPlaza = tipoPlaza;
         this.estadoplaza = "libre";
         this.tarifa = tarifas();
-        this.estadoReservado = false;
-        
+        this.estadoReservado = 0;
 
-       
     }
 
     // Añadimos un metodo para calcular las tarifas
@@ -65,14 +60,6 @@ public class PlazasVO {
 
         return this.tarifa;
 
-    }
-
-    public boolean isEstadoReservado() {
-        return estadoReservado;
-    }
-
-    public void setEstadoReservado(boolean estadoReservado) {
-        this.estadoReservado = estadoReservado;
     }
 
     // Getters y setters
@@ -106,6 +93,14 @@ public class PlazasVO {
 
     public void setTarifa(Double tarifa) {
         this.tarifa = tarifa;
+    }
+
+    public int getEstadoReservado() {
+        return estadoReservado;
+    }
+
+    public void setEstadoReservado(int estadoReservado) {
+        this.estadoReservado = estadoReservado;
     }
 
     // toString
