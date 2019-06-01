@@ -76,6 +76,7 @@ public class Ordenes {
             case ESTADO_PARKING:
                 System.out.println("Entrando al estado del parking..");
                 Ordenes.estadoPlazas();
+                Ordenes.realizarOrden(Menu.menu());
 
                 break;
             case FACTURACION_ENTRE_FECHAS:
@@ -103,6 +104,7 @@ public class Ordenes {
             case ABONO_CADUCIDAD:
                 System.out.println("Entrando a la caducidad de abono..");
                 Ordenes.caducidadAbono();
+                Ordenes.realizarOrden(Menu.menu());
                 break;
             case COPIA_SEGURIDAD_COPIAR:
                 System.out.println("Entrando a la zona de crear copia de seguridad..");
