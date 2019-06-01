@@ -424,6 +424,9 @@ public class Ordenes {
         return caducidad;
     }
 
+    // Metodo principal de caducidad de abonados que contiene un menu donde el usuario puede elegir entre 1 mes en concreto o los
+    // últimos 10 días, se controla los fallos y si se cumple uno de los dos casos se hace la llamada a los metodos creados
+    // anteriormente y devuelve el resultado
     public static void caducidadAbono() throws SQLException {
         Scanner teclado = new Scanner(System.in);
         int mes;
