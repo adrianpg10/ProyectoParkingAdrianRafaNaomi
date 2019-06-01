@@ -170,7 +170,7 @@ public class ClientesDAO implements IClientes {
     @Override
     public int updateClientes(String matricula, ClientesVO nuevosDatos) throws SQLException {
         int numFilas = 0;
-        String sql = "update clientes set nombre = ?, apellido1 = ?, apellido2 = ?, numTarjetaCredito=?, tipoAbono=?, email=?  where matricula=?";
+        String sql = "update clientes set dni=?, nombre = ?, apellido1 = ?, apellido2 = ?, numTarjetaCredito=?, tipoAbono=?, email=?  where matricula=?";
 
         if (findByPk(matricula) == null) {
             // La persona a actualizar no existe
