@@ -99,7 +99,7 @@ public class Ordenes {
                 break;
             case ABONO_BAJA:
                 System.out.println("Entrando a la baja de abono..");
-
+                Ordenes.eliminarAbono();
                 break;
             case ABONO_CADUCIDAD:
                 System.out.println("Entrando a la caducidad de abono..");
@@ -454,6 +454,43 @@ public class Ordenes {
             default:
                 System.out.println("Error, no hay mas opciones disponibles");
         }
+    }
+
+    // Metodo para eliminar a un abonado donde le pedimos la matricula y luego hacemos una lista donde metemos todo lo que
+    // contiene la tabla clientes y  la recorremos y si la matricula que hay en la lista coincide con la que le escribimos,
+    // se eactualiza la tabla y eliminamos el cliente gracias al metodo que le hacemos mas abajo
+    public static void eliminarAbono() throws SQLException {
+        Scanner teclado = new Scanner(System.in);
+        String matri;
+        do {
+            System.out.println("Introduce la matricula del cliente abonado que quieres eliminar");
+            matri = teclado.nextLine();
+        } while (!(matri.length() == 7));
+
+        ClientesDAO daoCli = new ClientesDAO();
+        ArrayList<ClientesVO> listaCli = new ArrayList<>();
+        listaCli = (ArrayList<ClientesVO>) daoCli.getAll();
+        for (ClientesVO listaCliente : listaCli) {
+            if (listaCliente.getMatricula().equalsIgnoreCase(matri)) {
+                daoCli.updateClientes(listaCliente.getMatricula(), eliminarCliente(listaCliente));
+            }
+        }
+
+    }
+
+    // Creamos un metodo para usar en el metodo de eliminar abono para que al eliminar el cliente abonado, los campos
+    // salgan vacios
+    public static ClientesVO eliminarCliente(ClientesVO cliente) {
+        cliente.setDni("");
+        cliente.setNombre("");
+        cliente.setApellido1("");
+        cliente.setApellido2("");
+        cliente.setNumTarjetaCredito("");
+        cliente.setTipoAbono(1);
+        cliente.setEmail("");
+
+        return cliente;
+
     }
 
     //    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
