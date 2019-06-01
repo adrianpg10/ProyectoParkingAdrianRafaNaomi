@@ -46,7 +46,6 @@ public class Ordenes {
                 break;
             case ENTRAR_CLIENTE:
                 System.out.println("Entrando a la zona clientes..");
-                
 
                 break;
             case ENTRAR_ADMIN:
@@ -103,7 +102,7 @@ public class Ordenes {
                 break;
             case ABONO_CADUCIDAD:
                 System.out.println("Entrando a la caducidad de abono..");
-
+ 
                 break;
             case COPIA_SEGURIDAD_COPIAR:
                 System.out.println("Entrando a la zona de crear copia de seguridad..");
@@ -260,7 +259,7 @@ public class Ordenes {
                     plazaModificada.setEstadoplaza("ocupada");
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     // Creamos la reserva de las motocicletas
-                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono,ClientesVO.generarPrecioAb(tipoAbono));
+                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono, ClientesVO.generarPrecioAb(tipoAbono));
                     ReservasDAO r = new ReservasDAO();
                     r.insertReservas(reserva);
                     return true;
@@ -275,7 +274,7 @@ public class Ordenes {
                     plazaModificada.setEstadoplaza("ocupada");
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     // Creamos la reserva de las caravanas
-                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono,ClientesVO.generarPrecioAb(tipoAbono));
+                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono, ClientesVO.generarPrecioAb(tipoAbono));
                     ReservasDAO r = new ReservasDAO();
                     r.insertReservas(reserva);
                     return true;
@@ -291,7 +290,7 @@ public class Ordenes {
                     plazaModificada.setEstadoplaza("ocupada");
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     // Creamos la reserva de los turismos
-                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono,ClientesVO.generarPrecioAb(tipoAbono));
+                    ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono, ClientesVO.generarPrecioAb(tipoAbono));
                     ReservasDAO r = new ReservasDAO();
                     r.insertReservas(reserva);
                     return true;
@@ -352,40 +351,39 @@ public class Ordenes {
             }
         }
     }
-    
+
     // Metodo para conocer el estado del parking de cada una de las plazas en cada momento, el cual en una lista guardamos 
     // todo lo que tiene en ese momento y luego la recorremos y vamos imprimiendo su numero de plaza y sus posibles 4 estados.
     // L es libre sin abonar, O es ocupada sin abonar, R es reservada para los abonados y NR es no reserevada para los abonados
-    public static void estadoPlazas() throws SQLException{
-        PlazasDAO aux=new PlazasDAO();
-        List<PlazasVO> listaPlazas=new ArrayList<>();
-        String libre_ocupada="";
-        int abonada_no=0;
-        listaPlazas=aux.getAll();
+    public static void estadoPlazas() throws SQLException {
+        PlazasDAO aux = new PlazasDAO();
+        List<PlazasVO> listaPlazas = new ArrayList<>();
+        String libre_ocupada = "";
+        int abonada_no = 0;
+        listaPlazas = aux.getAll();
         for (PlazasVO tmp : listaPlazas) {
-            System.out.print(tmp.getNumplaza()+" || ");
-            libre_ocupada=tmp.getEstadoplaza();
-            abonada_no=tmp.getEstadoReservado();
-       
+            System.out.print(tmp.getNumplaza() + " || ");
+            libre_ocupada = tmp.getEstadoplaza();
+            abonada_no = tmp.getEstadoReservado();
+
             switch (libre_ocupada) {
                 case "libre":
                     System.out.print("L ");
                     break;
-                    
+
                 case "ocupada":
                     System.out.print("O ");
                     break;
-                    
 
                 default:
                     System.out.print("Error");
             }
-            
+
             switch (abonada_no) {
                 case 0:
                     System.out.print("|| NR \r");
                     break;
-                    
+
                 case 1:
                     System.out.print("|| R \r");
                     break;
@@ -394,6 +392,38 @@ public class Ordenes {
             }
         }
     }
+
+    // Metodo para ver los abonos que caducan en un mes en concreto donde creamos dos listas, una donde guardaremos todo lo que tiene la
+    // tabla de abonados y otra donde al recorrer dicha lista y que cumpla la condicion del mes pues podamos meterla en la otra lista
+    // y asi devolver una lista con los abonados que caducasen en dicho mes
+    public static ArrayList<ReservasVO> caducidadMes(int mes) throws SQLException {
+        ReservasDAO aux = new ReservasDAO();
+        List<ReservasVO> listaAb = new ArrayList<>();
+        ArrayList<ReservasVO> caducidad = new ArrayList<>();
+        listaAb = aux.getAll();
+        for (ReservasVO abonados : listaAb) {
+            if (mes == abonados.getFecfinabono().getMonth().getValue()) {
+                caducidad.add(abonados);
+            }
+        }
+        return caducidad;
+    }
+
+    // Metodo para ver los abonos que caducan en los ultimos 10 días, el procedimiento es el mismo que el anterior, solo que ahora la condicion
+    // es mas compleja, si se cumple la añadimos y la devuelve
+    public static ArrayList<ReservasVO> caducidad10() throws SQLException {
+        ReservasDAO aux = new ReservasDAO();
+        List<ReservasVO> listaAb = new ArrayList<>();
+        ArrayList<ReservasVO> caducidad = new ArrayList<>();
+        listaAb = aux.getAll();
+        for (ReservasVO tmp : listaAb) {
+            if (tmp.getFecfinabono().getDayOfYear() > LocalDate.now().getDayOfYear() && tmp.getFecfinabono().getDayOfYear() > LocalDate.now().plusDays(10).getDayOfYear()) {
+                caducidad.add(tmp);
+            }
+        }
+        return caducidad;
+    }
+
 
     //    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
     //
