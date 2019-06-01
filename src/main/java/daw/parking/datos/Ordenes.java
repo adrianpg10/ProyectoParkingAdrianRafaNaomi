@@ -102,7 +102,7 @@ public class Ordenes {
                 break;
             case ABONO_CADUCIDAD:
                 System.out.println("Entrando a la caducidad de abono..");
- 
+                Ordenes.caducidadAbono();
                 break;
             case COPIA_SEGURIDAD_COPIAR:
                 System.out.println("Entrando a la zona de crear copia de seguridad..");
@@ -424,6 +424,32 @@ public class Ordenes {
         return caducidad;
     }
 
+    public static void caducidadAbono() throws SQLException {
+        Scanner teclado = new Scanner(System.in);
+        int mes;
+        System.out.println("Elige la opcion que desee:");
+        System.out.println("1- 1 mes en concreto");
+        System.out.println("2- Últimos 10 días");
+        int opt = teclado.nextInt();
+        switch (opt) {
+            case 1:
+                do {
+                    System.out.println("Escriba un numero de mes (1 al 12)");
+                    mes = teclado.nextInt();
+                } while (mes < 0 || mes > 12);
+                ArrayList<ReservasVO> listaMes = Ordenes.caducidadMes(mes);
+                listaMes.forEach(System.out::println);
+                break;
+
+            case 2:
+                System.out.println("Los abonos que van a caducar en los próximos 10 días son los siguientes: ");
+                ArrayList<ReservasVO> listaMes10 = Ordenes.caducidad10();
+                listaMes10.forEach(System.out::println);
+                break;
+            default:
+                System.out.println("Error, no hay mas opciones disponibles");
+        }
+    }
 
     //    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
     //
@@ -442,5 +468,4 @@ public class Ordenes {
     //
     //        
     //    }
-
 }
