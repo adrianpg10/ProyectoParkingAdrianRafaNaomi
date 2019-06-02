@@ -259,5 +259,26 @@ public class TicketsDAO implements ITickets {
         return importe;
 
     }
+ 
+    // En este metodo actualizamos el precio
+    public void actualizacionPrecio(String matricula, String numplaza) {
+
+        //Creamos una sentencia mysql para poder hacer una actualizacion en la columna mporteAbonado de la tabla Tickets
+        String sql = "update tickets set importeAbonado = ? where matricula = ?";
+
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+            //Llamamos al metodo importeVehiculo pasandole una matricula y el numero de la plaza
+            double precioTotal = importeVehiculo(matricula, numplaza);
+
+            //Le hacemos un set al precio y a la matricula
+            prest.setDouble(1, precioTotal);
+            prest.setString(2, matricula);
+            prest.executeUpdate();
+        } catch (SQLException error) {
+            System.out.println(error);
+
+        }
+    }
 
 }
