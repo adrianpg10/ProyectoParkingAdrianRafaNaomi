@@ -304,7 +304,7 @@ public class Ordenes {
     }
 
     // Metodo para modificar un abono
-    public static void modificarAbono() throws SQLException {
+    public static void modificarAbonoDatosPer() throws SQLException {
         Scanner teclado = new Scanner(System.in);
         String matricula, nif, nombre, ape1, ape2, tarjeta, email;
         ClientesDAO clienteDAO = new ClientesDAO();
@@ -313,13 +313,9 @@ public class Ordenes {
         ReservasDAO reservaD = new ReservasDAO();
         ArrayList<ReservasVO> listaReservas = new ArrayList<>();
         ReservasVO reserva = new ReservasVO();
-        try {
 
-            listaClientes = (ArrayList<ClientesVO>) clienteDAO.getAll();
-        } catch (SQLException sqle) {
-            System.out.println("No se ha podido realizar la operación:");
-            System.out.println(sqle.getMessage());
-        }
+        listaClientes = (ArrayList<ClientesVO>) clienteDAO.getAll();
+
         // Le pedimos la matricula para que comprueba si dicha matricula se encuentra en la lista de los clientes y si es asi,
         // buscamos a ese cliente por su clave primaria que es el dni y lo guardamos en un objeto de tipo cliente
         System.out.println("Se va a proceder a modificar el abono, introduzca la matricula para continuar..");
