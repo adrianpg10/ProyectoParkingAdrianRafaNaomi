@@ -414,7 +414,22 @@ public class PlazasDAO implements IPlazas {
                             plazaModificada.setEstadoplaza("libre");
 
                             p.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
-                            System.out.println("Plaza actualizada correctamente");     
+                            System.out.println("Plaza actualizada correctamente");
+                            // Se actualiza la fecha y hora en la BBDD para que quede reflejado
+                            ticket.actualizarFechaHoraBBDD(matri);
+                            // Guardamos el importe a pagar de dicho vehiculo gracias a su matricula y su numero de plaza
+                            double importe = ticket.importeVehiculo(matri, String.valueOf(i));
+                            // Se actualiza el importe en la BDDD para que quede reflejado
+                            ticket.actualizacionPrecioBBDD(matri, String.valueOf(i));
+                            System.out.println("Calculando importe a pagar..");
+                            System.out.println("El importe a pagar es de: " + importe);
+                            System.out.println("Por favor realice el pago:");
+                            double pago=teclado.nextDouble();
+                            if (pago==importe) {
+                                System.out.println("Vehiculo retirado");
+                            } else {
+                                System.out.println("Hasta que no pague no se retira el vehiculo");
+                            }
                             return;
 
                         }
@@ -439,7 +454,22 @@ public class PlazasDAO implements IPlazas {
                             plazaModificada.setEstadoplaza("libre");
 
                             p.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
-                            System.out.println("Plaza actualizada correctamente");                
+                            System.out.println("Plaza actualizada correctamente");
+                            // Se actualiza la fecha y hora en la BBDD para que quede reflejado
+                            ticket.actualizarFechaHoraBBDD(matri);
+                            // Guardamos el importe a pagar de dicho vehiculo gracias a su matricula y su numero de plaza
+                            double importe = ticket.importeVehiculo(matri, String.valueOf(i));
+                            // Se actualiza el importe en la BDDD para que quede reflejado
+                            ticket.actualizacionPrecioBBDD(matri, String.valueOf(i));
+                            System.out.println("Calculando importe a pagar..");
+                            System.out.println("El importe a pagar es de: " + importe);
+                            System.out.println("Por favor realice el pago:");
+                            double pago=teclado.nextDouble();
+                            if (pago==importe) {
+                                System.out.println("Vehiculo retirado");
+                            } else {
+                                System.out.println("Hasta que no pague no se retira el vehiculo");
+                            }
                             return;
 
                         }
@@ -464,7 +494,22 @@ public class PlazasDAO implements IPlazas {
                             plazaModificada.setEstadoplaza("libre");
 
                             p.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
-                            System.out.println("Plaza actualizada correctamente");              
+                            System.out.println("Plaza actualizada correctamente");
+                            // Se actualiza la fecha y hora en la BBDD para que quede reflejado
+                            ticket.actualizarFechaHoraBBDD(matri);
+                            // Guardamos el importe a pagar de dicho vehiculo gracias a su matricula y su numero de plaza
+                            double importe = ticket.importeVehiculo(matri, String.valueOf(i));
+                            // Se actualiza el importe en la BDDD para que quede reflejado
+                            ticket.actualizacionPrecioBBDD(matri, String.valueOf(i));
+                            System.out.println("Calculando importe a pagar..");
+                            System.out.println("El importe a pagar es de: " + importe);
+                            System.out.println("Por favor realice el pago:");
+                            double pago=teclado.nextDouble();
+                            if (pago==importe) {
+                                System.out.println("Vehiculo retirado");
+                            } else {
+                                System.out.println("Hasta que no pague no se retira el vehiculo");
+                            }
                             return;
 
                         }
@@ -475,7 +520,7 @@ public class PlazasDAO implements IPlazas {
                 // el metodo de su clase DAO
                 ticket.deleteTickets(ticketVO);
                 vehiculo.borrarVehiculo(vehiculoVO);
-                System.out.println("Vehiculo retirado satisfactoriamente");
+                
             }
 
         }
