@@ -181,14 +181,16 @@ public class ClientesDAO implements IClientes {
             try (PreparedStatement prest = con.prepareStatement(sql)) {
 
                 // Establecemos los parámetros de la sentencia
-                prest.setString(1, nuevosDatos.getNombre());
-                prest.setString(2, nuevosDatos.getApellido1());
-                prest.setString(3, nuevosDatos.getApellido2());
-                prest.setString(4, nuevosDatos.getNumTarjetaCredito());
-                prest.setInt(5, nuevosDatos.getTipoAbono());
-                prest.setString(6, nuevosDatos.getEmail());
-                prest.setString(7, nuevosDatos.getDni());
                 prest.setString(8, matricula);
+                prest.setString(1, nuevosDatos.getDni());
+                prest.setString(2, nuevosDatos.getNombre());
+                prest.setString(3, nuevosDatos.getApellido1());
+                prest.setString(4, nuevosDatos.getApellido2());
+                prest.setString(5, nuevosDatos.getNumTarjetaCredito());
+                prest.setInt(6, nuevosDatos.getTipoAbono());
+                prest.setString(7, nuevosDatos.getEmail());
+                
+                
 
                 numFilas = prest.executeUpdate();
             }
