@@ -14,8 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -205,4 +208,56 @@ public class TicketsDAO implements ITickets {
             return numFilas;
         }
     }
+
+    // Metodo para calcular el importe de cada vehiculo en cada plaza donde usamos la sentencia sql para consultar
+    // la fecha de inicio y fin y hora de inicio y fin de ese vehiculo en concreto con la matricula que le pasamos
+    public double importeVehiculo(String matricula, String numeroPlaza) throws SQLException {
+        double precio = 0.0;
+        LocalDateTime fin = null;
+        LocalDateTime inicio = null;
+
+        ResultSet res = null;
+        String sql = "select fecinipin, fecfinpin, horaInicio, horaFin from tickets where matricula = ?";
+
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+            prest.setString(1, matricula);
+            res = prest.executeQuery();
+
+            // Si la consulta tiene contenido guardamos en dos variables de tipo LocalDateTime el valor de la fecha y hora de inicio
+            // y de la fecha y hora de fin
+            if (res.next()) {
+                inicio = LocalDateTime.of(res.getDate("fecinipin").toLocalDate(), res.getTime("horaInicio").toLocalTime());
+                fin = LocalDateTime.of(res.getDate("fecfinpin").toLocalDate(), res.getTime("horaFin").toLocalTime());
+
+            }
+
+        }
+        ResultSet prec = null;
+
+        // Consultamos la tarifa de la plaza donde sea igual a la plaza que le pasamos en el metodo
+        String sql2 = "select tarifa from plazas where numplaza = ?";
+
+        try (PreparedStatement prest = con.prepareStatement(sql2)) {
+
+            prest.setString(1, numeroPlaza);
+            prec = prest.executeQuery();
+
+            // Si la consulta tiene contenido guardamos en una variable double la tarifa de dicho vehiculo
+            if (prec.next()) {
+                precio = prec.getDouble("tarifa");
+
+            }
+        }
+        
+        // Usamos chronounit para ver concretamente cuantos minutos han pasado desde que ha entrado el vehiculo hasta
+        // que sale
+        long minutos = ChronoUnit.MINUTES.between(inicio, fin);
+
+        // Y ya multiplicamos los minutos transcurridos por la tarifa de dicho vehiculo y nos sale lo que hay que pagar
+        double importe = precio * minutos;
+        return importe;
+
+    }
+
 }
