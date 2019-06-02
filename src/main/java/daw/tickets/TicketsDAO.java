@@ -249,7 +249,7 @@ public class TicketsDAO implements ITickets {
 
             }
         }
-        
+
         // Usamos chronounit para ver concretamente cuantos minutos han pasado desde que ha entrado el vehiculo hasta
         // que sale
         long minutos = ChronoUnit.MINUTES.between(inicio, fin);
@@ -259,9 +259,9 @@ public class TicketsDAO implements ITickets {
         return importe;
 
     }
- 
-    // En este metodo actualizamos el precio
-    public void actualizacionPrecio(String matricula, String numplaza) {
+
+    // En este metodo actualizamos el precio en la BBDD
+    public void actualizacionPrecioBBDD(String matricula, String numplaza) {
 
         //Creamos una sentencia mysql para poder hacer una actualizacion en la columna mporteAbonado de la tabla Tickets
         String sql = "update tickets set importeAbonado = ? where matricula = ?";
@@ -277,6 +277,26 @@ public class TicketsDAO implements ITickets {
             prest.executeUpdate();
         } catch (SQLException error) {
             System.out.println(error);
+
+        }
+    }
+
+    // Metodo para poder modificar en la BBDD la fecha y hora a la que sale el vehiculo y quede reflejado
+    public void actualizarFechaHoraBBDD(String matricula) throws SQLException {
+        // Declaramos una fecha y una hora y la instanciamos con now() para que guarde la actual y ya luego gracias 
+        // a la sentencia sql de update la actualizamos a la actual, siempre y cuando sea igual a la matricula que le
+        // pasamos
+        LocalDate fecha = LocalDate.now();
+        LocalTime hora = LocalTime.now();
+
+        String sql = "update tickets set fecfinpin = ?,horaFin = ? where matricula = ?";
+        try (PreparedStatement prest = con.prepareStatement(sql)) {
+
+            prest.setDate(1, Date.valueOf(fecha));
+            prest.setTime(2, Time.valueOf(hora));
+            prest.setString(3, matricula);
+
+            prest.executeUpdate();
 
         }
     }
