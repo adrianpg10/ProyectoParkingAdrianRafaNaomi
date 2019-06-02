@@ -4,6 +4,7 @@ import daw.clientes.ClientesVO;
 
 import java.sql.Connection;
 import daw.parking.datos.Conexion;
+import daw.parking.datos.Ordenes;
 import daw.tickets.TicketsDAO;
 import daw.tickets.TicketsVO;
 import daw.vehiculos.VehiculoDAO;
@@ -416,6 +417,7 @@ public class PlazasDAO implements IPlazas {
 
                             p.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                             System.out.println("Plaza actualizada correctamente");
+                            System.out.println("Han pasado "+Ordenes.tiempoTranscurrido(ticketVO.getHoraInicio(), ticketVO.getFecinipin())+" minutos");
                             return;
 
                         }
@@ -441,6 +443,8 @@ public class PlazasDAO implements IPlazas {
 
                             p.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                             System.out.println("Plaza actualizada correctamente");
+                            TicketsVO a=new TicketsVO();
+                            System.out.println("Han pasado "+Ordenes.tiempoTranscurrido(ticketVO.getHoraInicio(), ticketVO.getFecinipin())+" minutos");
                             return;
 
                         }
@@ -466,6 +470,7 @@ public class PlazasDAO implements IPlazas {
 
                             p.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                             System.out.println("Plaza actualizada correctamente");
+                            System.out.println("Han pasado "+Ordenes.tiempoTranscurrido(ticketVO.getHoraInicio(), ticketVO.getFecinipin())+" minutos");
                             return;
 
                         }

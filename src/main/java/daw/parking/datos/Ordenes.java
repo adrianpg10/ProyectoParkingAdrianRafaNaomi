@@ -21,8 +21,10 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -505,4 +507,15 @@ public class Ordenes {
     //
     //        
     //    }
+    
+    public static long tiempoTranscurrido(LocalTime tiempoInicio, LocalDate fechaInicio){
+        LocalDateTime horaEntrada=LocalDateTime.of(fechaInicio, tiempoInicio);
+        return ChronoUnit.MINUTES.between(horaEntrada, LocalDateTime.now());
+    }
+    
+    public static void main(String[] args) {
+        LocalTime a=LocalTime.of(15, 51, 0);
+        LocalDate b=LocalDate.of(2019, 6, 2);
+        System.out.println(Ordenes.tiempoTranscurrido(a, b)+ " minutos");
+    }
 }
