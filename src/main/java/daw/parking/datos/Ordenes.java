@@ -81,7 +81,8 @@ public class Ordenes {
                 break;
             case FACTURACION_ENTRE_FECHAS:
                 System.out.println("Entrando a la facturación entre fechas..");
-
+                Ordenes.facturacionEntreFechas();
+                Ordenes.realizarOrden(Menu.menu());
                 break;
             case FACTURACION_ABONADO:
                 System.out.println("Entrando a la facturación abonado..");
@@ -484,6 +485,54 @@ public class Ordenes {
 
         return cliente;
 
+    }
+    
+    // Metodo para poder obtener la facturacion entre dos fechas, donde el usuario escribe las fechas y las horas, y una vez instanciadas,
+    // guardamos en una lista de tickets, el contenido de todo lo que tiene la tabla tickets en este momento. Después, la reccorremos
+    // y si las fechas y horas se encuentran en un rango antes o después de las que introduce el usuario, pues el importe generado se
+    // va sumando y al final indicamos el total
+    public static void facturacionEntreFechas() throws SQLException{
+        Scanner teclado=new Scanner (System.in);
+        int d,m,a,d2,m2,a2,h,min,h2,min2;
+        LocalDate ld1; 
+        LocalDate ld2;
+        LocalTime lt1; 
+        LocalTime lt2;
+        System.out.println("Comenzaremos por la primera fecha..");
+        System.out.println("Escribe el dia/mes/año (por cada valor un enter)");
+        d=teclado.nextInt();
+        m=teclado.nextInt();
+        a=teclado.nextInt();
+        System.out.println("Escribe la hora y los minutos de la primera hora (por cada valor un enter)");             
+        h=teclado.nextInt();
+        min=teclado.nextInt();
+        System.out.println("------------------------------------------------------------------------------------");
+        System.out.println("Ahora por la segunda fecha..");
+        System.out.println("Escribe el dia/mes/año (por cada valor un enter)");
+        d2=teclado.nextInt();
+        m2=teclado.nextInt();
+        a2=teclado.nextInt();
+        System.out.println("Escribe la hora y los minutos de la segunda hora (por cada valor un enter)");             
+        h2=teclado.nextInt();
+        min2=teclado.nextInt();
+        
+        ld1=LocalDate.of(a, m, d);
+        lt1=LocalTime.of(h, min);
+        ld2=LocalDate.of(a2, m2, d2);
+        lt2=LocalTime.of(h2, min2);
+        
+        TicketsDAO ticketsDAO=new TicketsDAO();
+        ArrayList<TicketsVO> listaT=new ArrayList<>();
+        double importe=0.0;
+        listaT=(ArrayList<TicketsVO>) ticketsDAO.getAll();
+        for (TicketsVO ticket : listaT) {
+            if(ticket.getFecinipin().isAfter(ld1) && ticket.getFecfinpin().isBefore(ld2) && ticket.getHoraInicio().isAfter(lt1) && ticket.getHoraFin().isBefore(lt2)){
+                importe=importe+ticket.getImporteAbonado();
+            }
+        }
+        
+        System.out.println("El total del importe generado en el intervalo introducido es de "+Math.round(importe)+" €");
+        
     }
 
 }
