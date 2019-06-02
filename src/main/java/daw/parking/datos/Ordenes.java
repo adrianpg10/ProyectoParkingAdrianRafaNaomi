@@ -303,16 +303,13 @@ public class Ordenes {
         return false;
     }
 
-    // Metodo para modificar un abono
-    public static void modificarAbonoDatosPer() throws SQLException {
+    // Metodo para modificar un abono 
+    public static void modificarAbono() throws SQLException {
         Scanner teclado = new Scanner(System.in);
         String matricula, nif, nombre, ape1, ape2, tarjeta, email;
         ClientesDAO clienteDAO = new ClientesDAO();
         ArrayList<ClientesVO> listaClientes = new ArrayList<>();
         ClientesVO clienteVO = new ClientesVO();
-        ReservasDAO reservaD = new ReservasDAO();
-        ArrayList<ReservasVO> listaReservas = new ArrayList<>();
-        ReservasVO reserva = new ReservasVO();
 
         listaClientes = (ArrayList<ClientesVO>) clienteDAO.getAll();
 
@@ -343,12 +340,14 @@ public class Ordenes {
                 // Se actualiza el nuevo cliente con la mtricula y el cliente que creamos arriba
                 clienteDAO.updateClientes(matricula, clienteVO);
 
+
                 System.out.println("Se han modificado sus datos personales");
             } else {
                 System.out.println("No se ha podido modificar sus datos personales");
             }
         }
     }
+
 
     // Metodo para conocer el estado del parking de cada una de las plazas en cada momento, el cual en una lista guardamos 
     // todo lo que tiene en ese momento y luego la recorremos y vamos imprimiendo su numero de plaza y sus posibles 4 estados.

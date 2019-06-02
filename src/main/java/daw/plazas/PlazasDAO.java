@@ -33,45 +33,6 @@ public class PlazasDAO implements IPlazas {
         con = Conexion.getInstance();
     }
 
-    // Metodo para averiguar el numero de plazas libres de cada vehiculo
-    public void getEstadosPlaza() throws SQLException {
-
-        String plazasTurismo = "select count(*) from plazas where estadoplaza='libre' and tipoPlaza='Turismo'";
-        String plazasCaravana = "select count(*) from plazas where estadoplaza='libre' and tipoPlaza='Caravana'";
-        String plazasMotocicleta = "select count(*) from plazas where estadoplaza='libre' and tipoPlaza='Motocicleta'";
-
-        try (PreparedStatement prest = con.prepareStatement(plazasTurismo)) {
-
-            ResultSet res = null;
-            res = prest.executeQuery();
-            if (res.next()) {
-                int aux = res.getInt(1);
-                System.out.println("Plazas de turismo libres -->" + aux);
-            }
-        }
-        try (PreparedStatement prest = con.prepareStatement(plazasCaravana)) {
-
-            ResultSet res = null;
-            res = prest.executeQuery();
-
-            if (res.next()) {
-                int aux = res.getInt(1);
-                System.out.println("Plazas de caravana libres -->" + aux);
-            }
-        }
-        try (PreparedStatement prest = con.prepareStatement(plazasMotocicleta)) {
-
-            ResultSet res = null;
-            res = prest.executeQuery();
-
-            if (res.next()) {
-                int aux = res.getInt(1);
-                System.out.println("Plazas de motocicleta libres -->" + aux);
-            }
-        }
-
-    }
-
     @Override
     public List<PlazasVO> getAll() throws SQLException {
         List<PlazasVO> lista = new ArrayList<>();
@@ -225,6 +186,45 @@ public class PlazasDAO implements IPlazas {
             }
             return numFilas;
         }
+    }
+    
+    // Metodo para averiguar el numero de plazas libres de cada vehiculo
+    public void getEstadosPlaza() throws SQLException {
+
+        String plazasTurismo = "select count(*) from plazas where estadoplaza='libre' and tipoPlaza='Turismo'";
+        String plazasCaravana = "select count(*) from plazas where estadoplaza='libre' and tipoPlaza='Caravana'";
+        String plazasMotocicleta = "select count(*) from plazas where estadoplaza='libre' and tipoPlaza='Motocicleta'";
+
+        try (PreparedStatement prest = con.prepareStatement(plazasTurismo)) {
+
+            ResultSet res = null;
+            res = prest.executeQuery();
+            if (res.next()) {
+                int aux = res.getInt(1);
+                System.out.println("Plazas de turismo libres -->" + aux);
+            }
+        }
+        try (PreparedStatement prest = con.prepareStatement(plazasCaravana)) {
+
+            ResultSet res = null;
+            res = prest.executeQuery();
+
+            if (res.next()) {
+                int aux = res.getInt(1);
+                System.out.println("Plazas de caravana libres -->" + aux);
+            }
+        }
+        try (PreparedStatement prest = con.prepareStatement(plazasMotocicleta)) {
+
+            ResultSet res = null;
+            res = prest.executeQuery();
+
+            if (res.next()) {
+                int aux = res.getInt(1);
+                System.out.println("Plazas de motocicleta libres -->" + aux);
+            }
+        }
+
     }
 
     // Metodo para la asignacion de una plaza
