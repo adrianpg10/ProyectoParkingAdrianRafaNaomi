@@ -16,7 +16,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -52,7 +51,6 @@ public class PlazasDAO implements IPlazas {
                 p.setEstadoplaza(res.getString("estadoplaza"));
                 p.setTarifa(res.getDouble("tarifa"));
                 p.setEstadoReservado(res.getInt("estadoReservado"));
-                
 
                 //Añadimos el objeto a la lista
                 lista.add(p);
@@ -188,7 +186,7 @@ public class PlazasDAO implements IPlazas {
             return numFilas;
         }
     }
-    
+
     // Metodo para averiguar el numero de plazas libres de cada vehiculo
     public void getEstadosPlaza() throws SQLException {
 
@@ -279,7 +277,7 @@ public class PlazasDAO implements IPlazas {
                     plazasDAO.insertPlazas(plazasVO);
                     TicketsVO ticketVO = new TicketsVO(matri, i);
                     TicketsDAO ticketDAO = new TicketsDAO();
-                   
+
                     ticketDAO.insertTickets(ticketVO);
 
                     System.out.println("Ticket creado--> " + ticketVO);
@@ -416,8 +414,7 @@ public class PlazasDAO implements IPlazas {
                             plazaModificada.setEstadoplaza("libre");
 
                             p.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
-                            System.out.println("Plaza actualizada correctamente");
-                            System.out.println("Han pasado "+Ordenes.tiempoTranscurrido(ticketVO.getHoraInicio(), ticketVO.getFecinipin())+" minutos");
+                            System.out.println("Plaza actualizada correctamente");     
                             return;
 
                         }
@@ -442,9 +439,7 @@ public class PlazasDAO implements IPlazas {
                             plazaModificada.setEstadoplaza("libre");
 
                             p.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
-                            System.out.println("Plaza actualizada correctamente");
-                            TicketsVO a=new TicketsVO();
-                            System.out.println("Han pasado "+Ordenes.tiempoTranscurrido(ticketVO.getHoraInicio(), ticketVO.getFecinipin())+" minutos");
+                            System.out.println("Plaza actualizada correctamente");                
                             return;
 
                         }
@@ -469,8 +464,7 @@ public class PlazasDAO implements IPlazas {
                             plazaModificada.setEstadoplaza("libre");
 
                             p.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
-                            System.out.println("Plaza actualizada correctamente");
-                            System.out.println("Han pasado "+Ordenes.tiempoTranscurrido(ticketVO.getHoraInicio(), ticketVO.getFecinipin())+" minutos");
+                            System.out.println("Plaza actualizada correctamente");              
                             return;
 
                         }
@@ -485,6 +479,7 @@ public class PlazasDAO implements IPlazas {
             }
 
         }
+
     }
 
 }

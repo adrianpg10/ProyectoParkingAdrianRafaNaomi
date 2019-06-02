@@ -17,9 +17,7 @@ import daw.vehiculos.VehiculoDAO;
 import daw.vehiculos.VehiculoVO;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -38,7 +36,7 @@ import java.util.Scanner;
 public class Ordenes {
 
     // Metodo realizar orden que recibe un comando y contiene cada uno de sus metodos correspondientes
-    public static void realizarOrden(Comandos ordenes) throws SQLException, FileNotFoundException {
+    public static void realizarOrden(Comandos ordenes) throws SQLException, FileNotFoundException, ParseException {
 
         switch (ordenes) {
             case VOLVER_MENU:
@@ -342,14 +340,12 @@ public class Ordenes {
                 // Se actualiza el nuevo cliente con la mtricula y el cliente que creamos arriba
                 clienteDAO.updateClientes(matricula, clienteVO);
 
-
                 System.out.println("Se han modificado sus datos personales");
             } else {
                 System.out.println("No se ha podido modificar sus datos personales");
             }
         }
     }
-
 
     // Metodo para conocer el estado del parking de cada una de las plazas en cada momento, el cual en una lista guardamos 
     // todo lo que tiene en ese momento y luego la recorremos y vamos imprimiendo su numero de plaza y sus posibles 4 estados.
@@ -490,32 +486,4 @@ public class Ordenes {
 
     }
 
-    //    public static int calculoMinTarifa(LocalDate fechaInicio, LocalDate fechaFin, LocalTime horaInicio, LocalTime horaFin) throws ParseException {
-    //
-    //        int minutosTotales;
-    //
-    //        String inicio;
-    //        String fin;
-    //        // Guardamos en cada de una de las variables el formato toString de las fechas y horas que le hemos pasados
-    //        inicio = fechaInicio.getYear() + "-" + fechaInicio.getMonthValue() + "-" + fechaInicio.getDayOfMonth() + " " + horaInicio.getHour() + ":" + horaInicio.getMinute() + ":" + horaInicio.getSecond();
-    //        fin = fechaFin.getYear() + "-" + fechaFin.getMonthValue() + "-" + fechaFin.getDayOfMonth() + " " + horaFin.getHour() + ":" + horaFin.getMinute() + ":" + horaFin.getSecond();
-    //
-    //        // Ponemos el formato que tendrá la fehca/hora
-    //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd H:m:s");
-    //        Date fechaInicial = dateFormat.parse(inicio);
-    //        Date fechaFinal = dateFormat.parse(fin);
-    //
-    //        
-    //    }
-    
-    public static long tiempoTranscurrido(LocalTime tiempoInicio, LocalDate fechaInicio){
-        LocalDateTime horaEntrada=LocalDateTime.of(fechaInicio, tiempoInicio);
-        return ChronoUnit.MINUTES.between(horaEntrada, LocalDateTime.now());
-    }
-    
-    public static void main(String[] args) {
-        LocalTime a=LocalTime.of(15, 51, 0);
-        LocalDate b=LocalDate.of(2019, 6, 2);
-        System.out.println(Ordenes.tiempoTranscurrido(a, b)+ " minutos");
-    }
 }
