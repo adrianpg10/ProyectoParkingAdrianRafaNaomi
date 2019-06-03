@@ -268,11 +268,11 @@ public class PlazasDAO implements IPlazas {
             for (int i = 0; i <= 14; i++) {
                 if (plazasEstado[i].equalsIgnoreCase("libre")) {
                     daoVehiculo.insertarVehiculo(x);
-                    TicketsVO ticketUsuario = new TicketsVO(matri, i);
-                    daoTicket.insertTickets(ticketUsuario);
+                    TicketsVO ticket = new TicketsVO(matri, i);
+                    daoTicket.insertTickets(ticket);
                     PlazasVO plazaModificada = listaPlaza.get(i);
                     plazaModificada.setEstadoplaza("ocupada");
-                    System.out.println("Ticket--> "+ticketUsuario.toString());
+                    System.out.println("Retire su ticket--> "+ticket.toString());
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     return true;
 
@@ -286,11 +286,11 @@ public class PlazasDAO implements IPlazas {
             for (int i = 15; i <= 29; i++) {
                 if (plazasEstado[i].equalsIgnoreCase("libre")) {
                     daoVehiculo.insertarVehiculo(x);
-                    TicketsVO ticketUsuario = new TicketsVO(matri, i);
-                    daoTicket.insertTickets(ticketUsuario);
+                    TicketsVO ticket = new TicketsVO(matri, i);
+                    daoTicket.insertTickets(ticket);
                     PlazasVO plazaModificada = listaPlaza.get(i);
                     plazaModificada.setEstadoplaza("ocupada");
-                    System.out.println("Ticket--> "+ticketUsuario.toString());
+                    System.out.println("Retire su ticket--> "+ticket.toString());
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     return true;
 
@@ -305,11 +305,11 @@ public class PlazasDAO implements IPlazas {
             for (int i = 30; i <= 44; i++) {
                 if (plazasEstado[i].equalsIgnoreCase("libre")) {
                     daoVehiculo.insertarVehiculo(x);
-                    TicketsVO ticketUsuario = new TicketsVO(matri, i);
-                    daoTicket.insertTickets(ticketUsuario);
+                    TicketsVO ticket = new TicketsVO(matri, i);
+                    daoTicket.insertTickets(ticket);
                     PlazasVO plazaModificada = listaPlaza.get(i);
                     plazaModificada.setEstadoplaza("ocupada");
-                    System.out.println(ticketUsuario.toString());
+                    System.out.println("Retire su ticket--> "+ticket.toString());
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     return true;
                 }
