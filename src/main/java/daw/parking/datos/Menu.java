@@ -7,6 +7,7 @@ package daw.parking.datos;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 /**
@@ -120,7 +121,7 @@ public class Menu {
 
     }
 
-    public static void main(String[] args) throws SQLException, FileNotFoundException {
+    public static void main(String[] args) throws SQLException, FileNotFoundException, ParseException {
         Ordenes.realizarOrden(Menu.menu());
     }
 }
