@@ -8,6 +8,7 @@ package daw.clientes;
 import daw.plazas.PlazasDAO;
 import daw.plazas.PlazasVO;
 import daw.vehiculos.VehiculoDAO;
+import daw.vehiculos.VehiculoVO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -65,10 +66,17 @@ public class ClientesVO {
     // Metodo para asignacion de la plazaAbonado
     public static void asignacionPlzAbonado() throws SQLException {
         // Pide matricula y tipo de vehiculo
+        ClientesDAO aux=new ClientesDAO();
+        ClientesVO cliente=new ClientesVO();
+        ArrayList<ClientesVO>listaC=new ArrayList<>();
+        listaC=(ArrayList<ClientesVO>) aux.getAll();
         String[] plazasEstado = new String[45];
         ArrayList<PlazasVO> listaPlaza = new ArrayList<>();
         PlazasDAO plazas = new PlazasDAO();
+        listaPlaza=(ArrayList<PlazasVO>) plazas.getAll();
         VehiculoDAO vehiculos = new VehiculoDAO();
+        ArrayList<VehiculoVO>listaV=new ArrayList<>();
+        listaV=(ArrayList<VehiculoVO>) vehiculos.mostrarTodo();
         Scanner teclado = new Scanner(System.in);
         String matri;
         String dni;
@@ -82,6 +90,21 @@ public class ClientesVO {
             dni = teclado.nextLine();
         } while (!(dni.length() == 9));
 
+        for (int i = 0; i < listaC.size(); i++) {
+            if (listaC.get(i).getMatricula().equalsIgnoreCase(matri)&&listaC.get(i).getDni().equalsIgnoreCase(dni)) {
+                System.out.println("Eres abonado");
+                System.out.println("Escribe el tipo de vehiculo que tiene: ");
+                String tipo=teclado.nextLine();
+                for (int j = 0; j < listaV.size(); j++) {
+                    if (listaV.get(i).getTipoVehiculo().equalsIgnoreCase(tipo)) {
+                        
+                    }
+                }
+                
+            } else {
+                System.out.println("No eres abonado, no puedes realizar la acción");
+            }
+        }
     }
 
     // Getters y setters
