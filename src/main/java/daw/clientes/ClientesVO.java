@@ -75,21 +75,16 @@ public class ClientesVO {
     public static void asignacionPlzAbonado() throws SQLException, IOException {
         // Pide matricula y tipo de vehiculo
         ClientesDAO aux = new ClientesDAO();
-        ClientesVO cliente = new ClientesVO();
         ArrayList<ClientesVO> listaC = new ArrayList<>();
         listaC = (ArrayList<ClientesVO>) aux.getAll();
-        String[] plazasEstado = new String[45];
         ArrayList<PlazasVO> listaPlaza = new ArrayList<>();
         PlazasDAO plazas = new PlazasDAO();
         listaPlaza = (ArrayList<PlazasVO>) plazas.getAll();
-        VehiculoDAO vehiculos = new VehiculoDAO();
-        ArrayList<VehiculoVO> listaV = new ArrayList<>();
-        listaV = (ArrayList<VehiculoVO>) vehiculos.mostrarTodo();
         ArrayList<ReservasVO> listaR = new ArrayList<>();
         ReservasDAO r = new ReservasDAO();
         listaR = (ArrayList<ReservasVO>) r.getAll();
         String pin = "";
-        double tarifa=0.0;
+        double tarifa = 0.0;
 
         Scanner teclado = new Scanner(System.in);
         String matri;
@@ -144,18 +139,16 @@ public class ClientesVO {
 
                             flujo.flush();
                         }
-                        
+
                         // Por último actualizamos las plazas donde ya pasan a estar de reservada libre (1) a reservada ocupada (2)
                         for (int k = 0; k < listaPlaza.size(); k++) {
-                            if (listaPlaza.get(k).getNumplaza()==listaR.get(j).getNumplaza()) {
-                                tarifa=listaPlaza.get(i).getTarifa();
-                                plazas.updatePlazas(listaR.get(j).getNumplaza(), new PlazasVO(listaR.get(j).getNumplaza(), listaPlaza.get(k).getTipoPlaza(),listaPlaza.get(k).getEstadoplaza(),tarifa, 2));
+                            if (listaPlaza.get(k).getNumplaza() == listaR.get(j).getNumplaza()) {
+                                tarifa = listaPlaza.get(k).getTarifa();
+                                plazas.updatePlazas(listaR.get(j).getNumplaza(), new PlazasVO(listaR.get(j).getNumplaza(), listaPlaza.get(k).getTipoPlaza(), listaPlaza.get(k).getEstadoplaza(), tarifa, 2));
                             }
                         }
-                        
+
                     }
-                    
-                    
 
                 }
 
@@ -163,6 +156,52 @@ public class ClientesVO {
         } else {
             System.out.println("No eres abonado");
         }
+    }
+
+    // Metodo para retirar vehiculo abonado
+    public static void retirarPlzAbonado() throws SQLException {
+        ClientesDAO aux = new ClientesDAO();
+        ClientesVO cliente = new ClientesVO();
+        ArrayList<ClientesVO> listaC = new ArrayList<>();
+        listaC = (ArrayList<ClientesVO>) aux.getAll();
+        ArrayList<PlazasVO> listaPlaza = new ArrayList<>();
+        PlazasDAO plazas = new PlazasDAO();
+        listaPlaza = (ArrayList<PlazasVO>) plazas.getAll();
+        ArrayList<ReservasVO> listaR = new ArrayList<>();
+        ReservasDAO r = new ReservasDAO();
+        listaR = (ArrayList<ReservasVO>) r.getAll();
+        Scanner teclado = new Scanner(System.in);
+        String matricula, pin;
+        int num;
+        double tarifa = 0.0;
+        // Solicitamos los datos al usuario
+        do {
+            System.out.println("Introduce la matricula");
+            matricula = teclado.nextLine();
+        } while (matricula.length() != 7);
+        System.out.println("Introduce el numero de plaza");
+        num = teclado.nextInt();
+        teclado.nextLine();
+        System.out.println("Introduce el pin");
+        pin = teclado.nextLine();
+        int contador = 0;
+        // Si dichos datos se encuentram en la lista de las reservas, haremos dentro un bucle donde recorreremos la lista de plazas donde
+        // el numero de plaza sea igual que el de la reserva y asi poder actualizar la plaza a 1 que seria reservado sin ocupar
+        for (int i = 0; i < listaR.size(); i++) {
+            if (listaR.get(i).getMatricula().equalsIgnoreCase(matricula) && listaR.get(i).getNumplaza() == num && listaR.get(i).getPin_fijo().equalsIgnoreCase(pin)) {
+                contador++;
+                for (int k = 0; k < listaPlaza.size(); k++) {
+                    if (listaPlaza.get(k).getNumplaza() == listaR.get(i).getNumplaza()) {
+                        tarifa = listaPlaza.get(k).getTarifa();
+                        plazas.updatePlazas(listaR.get(i).getNumplaza(), new PlazasVO(listaR.get(i).getNumplaza(), listaPlaza.get(k).getTipoPlaza(), listaPlaza.get(k).getEstadoplaza(), tarifa, 1));
+                        System.out.println("Vehiculo abonado retirado");
+                    }
+                }
+            } else {
+                System.out.println("Error, su vehiculo abonado no se encuentra depositado");
+            }
+        }
+
     }
 
     // Getters y setters

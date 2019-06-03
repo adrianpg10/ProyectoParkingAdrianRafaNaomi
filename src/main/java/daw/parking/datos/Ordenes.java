@@ -77,7 +77,7 @@ public class Ordenes {
                 break;
             case RETIRAR_ABONADO:
                 System.out.println("Entrando a la zona de retirar abonado..");
-
+                Ordenes.retirarAbonado();
                 break;
             case ESTADO_PARKING:
                 System.out.println("Entrando al estado del parking..");
@@ -157,6 +157,10 @@ public class Ordenes {
 
     public static void depositarAbonado() throws SQLException, IOException {
         ClientesVO.asignacionPlzAbonado();
+    }
+    
+    public static void retirarAbonado() throws SQLException{
+        ClientesVO.retirarPlzAbonado();
     }
 
     // Metodo para dar del alta un abonado
