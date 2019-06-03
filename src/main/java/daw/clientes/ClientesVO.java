@@ -7,8 +7,16 @@ package daw.clientes;
 
 import daw.plazas.PlazasDAO;
 import daw.plazas.PlazasVO;
+import daw.reservas.ReservasDAO;
+import daw.reservas.ReservasVO;
 import daw.vehiculos.VehiculoDAO;
 import daw.vehiculos.VehiculoVO;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -64,19 +72,25 @@ public class ClientesVO {
     }
 
     // Metodo para asignacion de la plazaAbonado
-    public static void asignacionPlzAbonado() throws SQLException {
+    public static void asignacionPlzAbonado() throws SQLException, IOException {
         // Pide matricula y tipo de vehiculo
-        ClientesDAO aux=new ClientesDAO();
-        ClientesVO cliente=new ClientesVO();
-        ArrayList<ClientesVO>listaC=new ArrayList<>();
-        listaC=(ArrayList<ClientesVO>) aux.getAll();
+        ClientesDAO aux = new ClientesDAO();
+        ClientesVO cliente = new ClientesVO();
+        ArrayList<ClientesVO> listaC = new ArrayList<>();
+        listaC = (ArrayList<ClientesVO>) aux.getAll();
         String[] plazasEstado = new String[45];
         ArrayList<PlazasVO> listaPlaza = new ArrayList<>();
         PlazasDAO plazas = new PlazasDAO();
-        listaPlaza=(ArrayList<PlazasVO>) plazas.getAll();
+        listaPlaza = (ArrayList<PlazasVO>) plazas.getAll();
         VehiculoDAO vehiculos = new VehiculoDAO();
-        ArrayList<VehiculoVO>listaV=new ArrayList<>();
-        listaV=(ArrayList<VehiculoVO>) vehiculos.mostrarTodo();
+        ArrayList<VehiculoVO> listaV = new ArrayList<>();
+        listaV = (ArrayList<VehiculoVO>) vehiculos.mostrarTodo();
+        ArrayList<ReservasVO> listaR = new ArrayList<>();
+        ReservasDAO r = new ReservasDAO();
+        listaR = (ArrayList<ReservasVO>) r.getAll();
+        String pin = "";
+        double tarifa=0.0;
+
         Scanner teclado = new Scanner(System.in);
         String matri;
         String dni;
@@ -90,20 +104,64 @@ public class ClientesVO {
             dni = teclado.nextLine();
         } while (!(dni.length() == 9));
 
+        // Comprobamos la matricula y el dni que introduce el usuario que está en la lista de los clientes y va sumando
+        int contador = 0;
         for (int i = 0; i < listaC.size(); i++) {
-            if (listaC.get(i).getMatricula().equalsIgnoreCase(matri)&&listaC.get(i).getDni().equalsIgnoreCase(dni)) {
-                System.out.println("Eres abonado");
-                System.out.println("Escribe el tipo de vehiculo que tiene: ");
-                String tipo=teclado.nextLine();
-                for (int j = 0; j < listaV.size(); j++) {
-                    if (listaV.get(i).getTipoVehiculo().equalsIgnoreCase(tipo)) {
+            if (listaC.get(i).getMatricula().equalsIgnoreCase(matri) && listaC.get(i).getDni().equalsIgnoreCase(dni)) {
+                contador++;
+            }
+        }
+
+        // Si el contador es distinto de 0 hacemos de nuevo otro bucle para recorrer la lista de reservas y le indicamos que es abonado
+        if (contador != 0) {
+            for (int i = 0; i < listaC.size(); i++) {
+                if (listaC.get(i).getMatricula().equalsIgnoreCase(matri) && listaC.get(i).getDni().equalsIgnoreCase(dni)) {
+
+                    for (int j = 0; j < listaR.size(); j++) {
+                        System.out.println("Eres abonado");
+                        if (listaR.get(j).getMatricula().equalsIgnoreCase(matri)) {
+                            // Guardamos el pin del usuario que se encuentra en la lista de reservas en una variable 
+                            //para luego poder usarla
+                            pin = listaR.get(j).getPin_fijo();
+
+                            // Establecemos el nombre a la carpeta que vamos a crear de pines
+                            String cadena = "./pines/";
+                            System.out.println("Se ha creado el directorio " + cadena);
+
+                            // Creamos la carpeta
+                            Path subCarpeta = Paths.get(cadena);
+                            Files.createDirectories(subCarpeta);
+
+                            String idfichero = "";
+
+                            // Establecemos el nombre del fichero que sera el dni que se encuentra en la lista
+                            idfichero = subCarpeta + "/" + listaC.get(i).getDni() + ".txt";
+                            BufferedWriter flujo = new BufferedWriter(new FileWriter(idfichero));
+
+                            // Guardamos dentro de cada fichero el pin de dicho usuario
+                            flujo.write(pin);
+                            flujo.newLine();
+
+                            flujo.flush();
+                        }
+                        
+                        // Por último actualizamos las plazas donde ya pasan a estar de reservada libre (1) a reservada ocupada (2)
+                        for (int k = 0; k < listaPlaza.size(); k++) {
+                            if (listaPlaza.get(k).getNumplaza()==listaR.get(j).getNumplaza()) {
+                                tarifa=listaPlaza.get(i).getTarifa();
+                                plazas.updatePlazas(listaR.get(j).getNumplaza(), new PlazasVO(listaR.get(j).getNumplaza(), listaPlaza.get(k).getTipoPlaza(),listaPlaza.get(k).getEstadoplaza(),tarifa, 2));
+                            }
+                        }
                         
                     }
+                    
+                    
+
                 }
-                
-            } else {
-                System.out.println("No eres abonado, no puedes realizar la acción");
+
             }
+        } else {
+            System.out.println("No eres abonado");
         }
     }
 
