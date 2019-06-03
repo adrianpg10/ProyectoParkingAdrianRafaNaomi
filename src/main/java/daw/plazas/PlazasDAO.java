@@ -247,7 +247,6 @@ public class PlazasDAO implements IPlazas {
         VehiculoDAO daoVehiculo = new VehiculoDAO();
         PlazasDAO daoPlazas = new PlazasDAO();
 
-     
         VehiculoVO x = new VehiculoVO(matri, tipo);
         String[] plazasEstado = new String[45];
         ArrayList<PlazasVO> listaPlaza = new ArrayList<>();
@@ -265,14 +264,14 @@ public class PlazasDAO implements IPlazas {
         // Controlamos de si el tipo introducido es una motocicleta, si esta libre ponemos el vehiculo en la plaza y se actualiza a 
         // ocupada y posteriormente mostramos el ticket para el usuario
         if (x.getTipoVehiculo().equalsIgnoreCase("motocicleta")) {
-            for (int i = 0; i <= 14; i++) {
+            for (int i = 0; i < 14; i++) {
                 if (plazasEstado[i].equalsIgnoreCase("libre")) {
                     daoVehiculo.insertarVehiculo(x);
                     TicketsVO ticket = new TicketsVO(matri, i);
                     daoTicket.insertTickets(ticket);
                     PlazasVO plazaModificada = listaPlaza.get(i);
                     plazaModificada.setEstadoplaza("ocupada");
-                    System.out.println("Retire su ticket--> "+ticket.toString());
+                    System.out.println("Retire su ticket--> " + ticket.toString());
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     return true;
 
@@ -283,14 +282,14 @@ public class PlazasDAO implements IPlazas {
         // Controlamos de si el tipo introducido es una caravana, si esta libre ponemos el vehiculo en la plaza y se actualiza a 
         // ocupada y posteriormente mostramos el ticket para el usuario
         if (x.getTipoVehiculo().equalsIgnoreCase("caravana")) {
-            for (int i = 15; i <= 29; i++) {
+            for (int i = 16; i < 29; i++) {
                 if (plazasEstado[i].equalsIgnoreCase("libre")) {
                     daoVehiculo.insertarVehiculo(x);
                     TicketsVO ticket = new TicketsVO(matri, i);
                     daoTicket.insertTickets(ticket);
                     PlazasVO plazaModificada = listaPlaza.get(i);
                     plazaModificada.setEstadoplaza("ocupada");
-                    System.out.println("Retire su ticket--> "+ticket.toString());
+                    System.out.println("Retire su ticket--> " + ticket.toString());
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     return true;
 
@@ -298,18 +297,18 @@ public class PlazasDAO implements IPlazas {
             }
 
         }
-        
+
         // Controlamos de si el tipo introducido es un turismo, si esta libre ponemos el vehiculo en la plaza y se actualiza a 
         // ocupada y posteriormente mostramos el ticket para el usuario
         if (x.getTipoVehiculo().equalsIgnoreCase("turismo")) {
-            for (int i = 30; i <= 44; i++) {
+            for (int i = 30; i < 44; i++) {
                 if (plazasEstado[i].equalsIgnoreCase("libre")) {
                     daoVehiculo.insertarVehiculo(x);
                     TicketsVO ticket = new TicketsVO(matri, i);
                     daoTicket.insertTickets(ticket);
                     PlazasVO plazaModificada = listaPlaza.get(i);
                     plazaModificada.setEstadoplaza("ocupada");
-                    System.out.println("Retire su ticket--> "+ticket.toString());
+                    System.out.println("Retire su ticket--> " + ticket.toString());
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     return true;
                 }
@@ -360,12 +359,10 @@ public class PlazasDAO implements IPlazas {
                 // Si el tipo es motocicleta y la plaza esta libre la pasa y busca la que este ocupada, cuando la encuentra
                 // y obtiene el valor, se actualiza quedando de nuevo libre
                 if (tipo.equalsIgnoreCase("motocicleta")) {
-                    int contador = 1;
-                    for (int i = 0; i <= 14; i++) {
+                    for (int i = numeroPlaza; i < 14; i++) {
 
                         if (plazasEstado[i].equalsIgnoreCase("libre")) {
-                            i = i + contador;
-                            contador++;
+
                         }
 
                         if (plazasEstado[i].equalsIgnoreCase("ocupada")) {
@@ -400,12 +397,10 @@ public class PlazasDAO implements IPlazas {
                 // Si el tipo es caravana y la plaza esta libre la pasa y busca la que este ocupada, cuando la encuentra
                 // y obtiene el valor, se actualiza quedando de nuevo libre
                 if (tipo.equalsIgnoreCase("caravana")) {
-                    int contador = 1;
-                    for (int i = 15; i <= 29; i++) {
+                    for (int i = numeroPlaza; i < 29; i++) {
 
                         if (plazasEstado[i].equalsIgnoreCase("libre")) {
-                            i = i + contador;
-                            contador++;
+
                         }
 
                         if (plazasEstado[i].equalsIgnoreCase("ocupada")) {
@@ -440,12 +435,10 @@ public class PlazasDAO implements IPlazas {
                 // Si el tipo es turismo y la plaza esta libre la pasa y busca la que este ocupada, cuando la encuentra
                 // y obtiene el valor, se actualiza quedando de nuevo libre
                 if (tipo.equalsIgnoreCase("turismo")) {
-                    int contador = 1;
-                    for (int i = 30; i <= 44; i++) {
+                    for (int i = numeroPlaza; i < 44; i++) {
 
                         if (plazasEstado[i].equalsIgnoreCase("libre")) {
-                            i = i + contador;
-                            contador++;
+
                         }
 
                         if (plazasEstado[i].equalsIgnoreCase("ocupada")) {
