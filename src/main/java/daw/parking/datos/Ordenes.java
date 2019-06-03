@@ -15,7 +15,13 @@ import daw.tickets.TicketsDAO;
 import daw.tickets.TicketsVO;
 import daw.vehiculos.VehiculoDAO;
 import daw.vehiculos.VehiculoVO;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -36,7 +42,7 @@ import java.util.Scanner;
 public class Ordenes {
 
     // Metodo realizar orden que recibe un comando y contiene cada uno de sus metodos correspondientes
-    public static void realizarOrden(Comandos ordenes) throws SQLException, FileNotFoundException, ParseException {
+    public static void realizarOrden(Comandos ordenes) throws SQLException, FileNotFoundException, ParseException, IOException {
 
         switch (ordenes) {
             case VOLVER_MENU:
@@ -149,7 +155,7 @@ public class Ordenes {
         aux2.getEstadosPlaza();
     }
 
-    public static void depositarAbonado() throws SQLException {
+    public static void depositarAbonado() throws SQLException, IOException {
         ClientesVO.asignacionPlzAbonado();
     }
 
@@ -240,6 +246,11 @@ public class Ordenes {
         String[] plazasEstado = new String[45];
         ArrayList<PlazasVO> listaPlaza = new ArrayList<>();
 
+        Scanner teclado = new Scanner(System.in);
+        int num;
+        System.out.println("Introduce numero de plaza");
+        num = teclado.nextInt();
+
         try {
             // Guardamos todo lo que tengamos de las plazas y posteriormente guardamos el estado de las plazas
             listaPlaza = (ArrayList<PlazasVO>) daoPlazas.getAll();
@@ -256,10 +267,10 @@ public class Ordenes {
         // turismo, miraremos sus correspondientes numeros de plazas y las recorreremos una a una y si esta libre se ocupara
         // y actualizaremos la plaza
         if (tipoVehiculo.equalsIgnoreCase("motocicleta")) {
-            for (int i = 0; i < 14; i++) {
-                if (plazasEstado[i].equalsIgnoreCase("libre")) {
+            for (int i = num; i < 14; i++) {
+                if (plazasEstado[i].equalsIgnoreCase("ocupada")) {
                     PlazasVO plazaModificada = listaPlaza.get(i);
-                    plazaModificada.setEstadoplaza("ocupada");
+                    plazaModificada.setEstadoReservado(1);
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     // Creamos la reserva de las motocicletas
                     ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono, ClientesVO.generarPrecioAb(tipoAbono));
@@ -271,10 +282,10 @@ public class Ordenes {
             }
         }
         if (tipoVehiculo.equalsIgnoreCase("caravana")) {
-            for (int i = 15; i < 29; i++) {
-                if (plazasEstado[i].equalsIgnoreCase("libre")) {
+            for (int i = num; i < 29; i++) {
+                if (plazasEstado[i].equalsIgnoreCase("ocupada")) {
                     PlazasVO plazaModificada = listaPlaza.get(i);
-                    plazaModificada.setEstadoplaza("ocupada");
+                    plazaModificada.setEstadoReservado(1);
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     // Creamos la reserva de las caravanas
                     ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono, ClientesVO.generarPrecioAb(tipoAbono));
@@ -287,10 +298,10 @@ public class Ordenes {
 
         }
         if (tipoVehiculo.equalsIgnoreCase("turismo")) {
-            for (int i = 30; i < 44; i++) {
-                if (plazasEstado[i].equalsIgnoreCase("libre")) {
+            for (int i = num; i < 44; i++) {
+                if (plazasEstado[i].equalsIgnoreCase("ocupada")) {
                     PlazasVO plazaModificada = listaPlaza.get(i);
-                    plazaModificada.setEstadoplaza("ocupada");
+                    plazaModificada.setEstadoReservado(1);
                     daoPlazas.updatePlazas(listaPlaza.get(i).getNumplaza(), plazaModificada);
                     // Creamos la reserva de los turismos
                     ReservasVO reserva = new ReservasVO(matricula, listaPlaza.get(i).getNumplaza(), ReservasVO.generarPin(), LocalDate.now(), fecFinAbono, ClientesVO.generarPrecioAb(tipoAbono));
@@ -382,6 +393,10 @@ public class Ordenes {
 
                 case 1:
                     System.out.print("|| R \r");
+                    break;
+
+                case 2:
+                    System.out.print("|| RO \r");
                     break;
                 default:
                     System.out.println("Error");
@@ -486,53 +501,53 @@ public class Ordenes {
         return cliente;
 
     }
-    
+
     // Metodo para poder obtener la facturacion entre dos fechas, donde el usuario escribe las fechas y las horas, y una vez instanciadas,
     // guardamos en una lista de tickets, el contenido de todo lo que tiene la tabla tickets en este momento. Después, la reccorremos
     // y si las fechas y horas se encuentran en un rango antes o después de las que introduce el usuario, pues el importe generado se
     // va sumando y al final indicamos el total
-    public static void facturacionEntreFechas() throws SQLException{
-        Scanner teclado=new Scanner (System.in);
-        int d,m,a,d2,m2,a2,h,min,h2,min2;
-        LocalDate ld1; 
+    public static void facturacionEntreFechas() throws SQLException {
+        Scanner teclado = new Scanner(System.in);
+        int d, m, a, d2, m2, a2, h, min, h2, min2;
+        LocalDate ld1;
         LocalDate ld2;
-        LocalTime lt1; 
+        LocalTime lt1;
         LocalTime lt2;
         System.out.println("Comenzaremos por la primera fecha..");
         System.out.println("Escribe el dia/mes/año (por cada valor un enter)");
-        d=teclado.nextInt();
-        m=teclado.nextInt();
-        a=teclado.nextInt();
-        System.out.println("Escribe la hora y los minutos de la primera hora (por cada valor un enter)");             
-        h=teclado.nextInt();
-        min=teclado.nextInt();
+        d = teclado.nextInt();
+        m = teclado.nextInt();
+        a = teclado.nextInt();
+        System.out.println("Escribe la hora y los minutos de la primera hora (por cada valor un enter)");
+        h = teclado.nextInt();
+        min = teclado.nextInt();
         System.out.println("------------------------------------------------------------------------------------");
         System.out.println("Ahora por la segunda fecha..");
         System.out.println("Escribe el dia/mes/año (por cada valor un enter)");
-        d2=teclado.nextInt();
-        m2=teclado.nextInt();
-        a2=teclado.nextInt();
-        System.out.println("Escribe la hora y los minutos de la segunda hora (por cada valor un enter)");             
-        h2=teclado.nextInt();
-        min2=teclado.nextInt();
-        
-        ld1=LocalDate.of(a, m, d);
-        lt1=LocalTime.of(h, min);
-        ld2=LocalDate.of(a2, m2, d2);
-        lt2=LocalTime.of(h2, min2);
-        
-        TicketsDAO ticketsDAO=new TicketsDAO();
-        ArrayList<TicketsVO> listaT=new ArrayList<>();
-        double importe=0.0;
-        listaT=(ArrayList<TicketsVO>) ticketsDAO.getAll();
+        d2 = teclado.nextInt();
+        m2 = teclado.nextInt();
+        a2 = teclado.nextInt();
+        System.out.println("Escribe la hora y los minutos de la segunda hora (por cada valor un enter)");
+        h2 = teclado.nextInt();
+        min2 = teclado.nextInt();
+
+        ld1 = LocalDate.of(a, m, d);
+        lt1 = LocalTime.of(h, min);
+        ld2 = LocalDate.of(a2, m2, d2);
+        lt2 = LocalTime.of(h2, min2);
+
+        TicketsDAO ticketsDAO = new TicketsDAO();
+        ArrayList<TicketsVO> listaT = new ArrayList<>();
+        double importe = 0.0;
+        listaT = (ArrayList<TicketsVO>) ticketsDAO.getAll();
         for (TicketsVO ticket : listaT) {
-            if(ticket.getFecinipin().isAfter(ld1) && ticket.getFecfinpin().isBefore(ld2) && ticket.getHoraInicio().isAfter(lt1) && ticket.getHoraFin().isBefore(lt2)){
-                importe=importe+ticket.getImporteAbonado();
+            if (ticket.getFecinipin().isAfter(ld1) && ticket.getFecfinpin().isBefore(ld2) && ticket.getHoraInicio().isAfter(lt1) && ticket.getHoraFin().isBefore(lt2)) {
+                importe = importe + ticket.getImporteAbonado();
             }
         }
-        
-        System.out.println("El total del importe generado en el intervalo introducido es de "+Math.round(importe)+" €");
-        
+
+        System.out.println("El total del importe generado en el intervalo introducido es de " + Math.round(importe) + " €");
+
     }
 
 }
