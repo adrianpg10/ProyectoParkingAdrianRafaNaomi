@@ -23,6 +23,15 @@ public class PlazasVO {
     public PlazasVO() {
     }
 
+    // Constructor parametrizado
+    public PlazasVO(int numplaza, String tipoPlaza, String estadoplaza, Double tarifa, int estadoReservado) {
+        this.numplaza = numplaza;
+        this.tipoPlaza = tipoPlaza;
+        this.estadoplaza = estadoplaza;
+        this.tarifa = tarifa;
+        this.estadoReservado = estadoReservado;
+    }
+
 
 
     // Constructor parametrizado al que se le pasa un tipo de plaza y la hacemos libre
