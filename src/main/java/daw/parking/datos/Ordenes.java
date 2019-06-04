@@ -79,6 +79,7 @@ public class Ordenes {
             case RETIRAR_ABONADO:
                 System.out.println("Entrando a la zona de retirar abonado..");
                 Ordenes.retirarAbonado();
+                Ordenes.realizarOrden(Menu.menu());
                 break;
             case ESTADO_PARKING:
                 System.out.println("Entrando al estado del parking..");
@@ -94,6 +95,7 @@ public class Ordenes {
             case FACTURACION_ABONADO:
                 System.out.println("Entrando a la facturación abonado..");
                 Ordenes.facturacionAbonados();
+                Ordenes.realizarOrden(Menu.menu());
                 break;
             case ABONO_ALTA:
                 System.out.println("Entrando al alta de abono..");
@@ -108,6 +110,7 @@ public class Ordenes {
             case ABONO_BAJA:
                 System.out.println("Entrando a la baja de abono..");
                 Ordenes.eliminarAbono();
+                Ordenes.realizarOrden(Menu.menu());
                 break;
             case ABONO_CADUCIDAD:
                 System.out.println("Entrando a la caducidad de abono..");
