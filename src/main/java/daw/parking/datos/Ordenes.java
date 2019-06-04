@@ -416,31 +416,31 @@ public class Ordenes {
     // tabla de abonados y otra donde al recorrer dicha lista y que cumpla la condicion del mes pues podamos meterla en la otra lista
     // y asi devolver una lista con los abonados que caducasen en dicho mes
     public static ArrayList<ReservasVO> caducidadMes(int mes) throws SQLException {
-        ReservasDAO aux = new ReservasDAO();
+        ReservasDAO r = new ReservasDAO();
         List<ReservasVO> listaAb = new ArrayList<>();
-        ArrayList<ReservasVO> caducidad = new ArrayList<>();
-        listaAb = aux.getAll();
+        ArrayList<ReservasVO> listaCa = new ArrayList<>();
+        listaAb = r.getAll();
         for (ReservasVO abonados : listaAb) {
             if (mes == abonados.getFecfinabono().getMonth().getValue()) {
-                caducidad.add(abonados);
+                listaCa.add(abonados);
             }
         }
-        return caducidad;
+        return listaCa;
     }
 
     // Metodo para ver los abonos que caducan en los ultimos 10 días, el procedimiento es el mismo que el anterior, solo que ahora la condicion
     // es mas compleja, si se cumple la añadimos y la devuelve
     public static ArrayList<ReservasVO> caducidad10() throws SQLException {
-        ReservasDAO aux = new ReservasDAO();
+        ReservasDAO r = new ReservasDAO();
         List<ReservasVO> listaAb = new ArrayList<>();
-        ArrayList<ReservasVO> caducidad = new ArrayList<>();
-        listaAb = aux.getAll();
-        for (ReservasVO tmp : listaAb) {
-            if (tmp.getFecfinabono().getDayOfYear() > LocalDate.now().getDayOfYear() && tmp.getFecfinabono().getDayOfYear() > LocalDate.now().plusDays(10).getDayOfYear()) {
-                caducidad.add(tmp);
+        ArrayList<ReservasVO> listaCa = new ArrayList<>();
+        listaAb = r.getAll();
+        for (ReservasVO reserva : listaAb) {
+            if (reserva.getFecfinabono().getDayOfYear() > LocalDate.now().getDayOfYear() && reserva.getFecfinabono().getDayOfYear() > LocalDate.now().plusDays(10).getDayOfYear()) {
+                listaCa.add(reserva);
             }
         }
-        return caducidad;
+        return listaCa;
     }
 
     // Metodo principal de caducidad de abonados que contiene un menu donde el usuario puede elegir entre 1 mes en concreto o los
