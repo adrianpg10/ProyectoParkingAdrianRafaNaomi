@@ -99,6 +99,7 @@ public class Ordenes {
                 break;
             case ABONO_ALTA:
                 System.out.println("Entrando al alta de abono..");
+                Ordenes.depositarVehiculo();
                 Ordenes.altaAbono();
                 Ordenes.realizarOrden(Menu.menu());
                 break;
@@ -551,12 +552,12 @@ public class Ordenes {
         double importe = 0.0;
         listaT = (ArrayList<TicketsVO>) ticketsDAO.getAll();
         for (TicketsVO ticket : listaT) {
-            if (ticket.getFecinipin().isAfter(ld1) && ticket.getFecfinpin().isBefore(ld2) && ticket.getHoraInicio().isAfter(lt1) && ticket.getHoraFin().isBefore(lt2)) {
+            if (ticket.getFecinipin().isAfter(ld1) && ticket.getFecfinpin().isBefore(ld2) || ticket.getHoraInicio().isAfter(lt1) && ticket.getHoraFin().isBefore(lt2)) {
                 importe = importe + ticket.getImporteAbonado();
             }
         }
 
-        System.out.println("El total del importe generado en el intervalo introducido es de " + decimales.format(importe) + " €");
+        System.out.println("El total del importe generado en el intervalo introducido es de " + importe + " €");
 
     }
 
