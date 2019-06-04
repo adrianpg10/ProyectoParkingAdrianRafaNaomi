@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -92,7 +93,7 @@ public class Ordenes {
                 break;
             case FACTURACION_ABONADO:
                 System.out.println("Entrando a la facturación abonado..");
-
+                Ordenes.facturacionAbonados();
                 break;
             case ABONO_ALTA:
                 System.out.println("Entrando al alta de abono..");
@@ -158,8 +159,8 @@ public class Ordenes {
     public static void depositarAbonado() throws SQLException, IOException {
         ClientesVO.asignacionPlzAbonado();
     }
-    
-    public static void retirarAbonado() throws SQLException{
+
+    public static void retirarAbonado() throws SQLException {
         ClientesVO.retirarPlzAbonado();
     }
 
@@ -513,6 +514,8 @@ public class Ordenes {
     public static void facturacionEntreFechas() throws SQLException {
         Scanner teclado = new Scanner(System.in);
         int d, m, a, d2, m2, a2, h, min, h2, min2;
+        // Usamos la clase decimalformat para que el precio total solo tenga dos decimales
+        DecimalFormat decimales = new DecimalFormat("#.00");
         LocalDate ld1;
         LocalDate ld2;
         LocalTime lt1;
@@ -550,8 +553,55 @@ public class Ordenes {
             }
         }
 
-        System.out.println("El total del importe generado en el intervalo introducido es de " + Math.round(importe) + " €");
+        System.out.println("El total del importe generado en el intervalo introducido es de " + decimales.format(importe) + " €");
 
+    }
+
+    // Metodo para poder obtener la facturacion de los abonados este año, donde creamos dos lista, una de los clientes y otra de las
+    // reservas y las recorremos y comprobamos que si el año de la fecha de inicio del abono es igual a la actual, entonces se mete
+    // dentro y recorremos la lista de clientes y comprobamos que la matricula coincida con la que tenemos en reservas y ya ahí dentro
+    // hacemos un switch con los 4 tipos de abonos, donde su respectivo precio se va sumando
+    public static void facturacionAbonados() throws SQLException {
+        ReservasDAO r = new ReservasDAO();
+        ArrayList<ReservasVO> listaR = new ArrayList<>();
+        listaR = (ArrayList<ReservasVO>) r.getAll();
+        ClientesDAO c = new ClientesDAO();
+        ArrayList<ClientesVO> listaC = new ArrayList<>();
+        listaC = (ArrayList<ClientesVO>) c.getAll();
+        int importe = 0;
+        
+        System.out.println("Los abonados este año son los siguientes:");
+        for (ReservasVO tmp : listaR) {
+            if (tmp.getFeciniabono().getYear() == LocalDate.now().getYear()) {
+                for (ClientesVO clientesVO : listaC) {
+                    if (tmp.getMatricula().equalsIgnoreCase(clientesVO.getMatricula())) {
+                        System.out.println(tmp);
+                        int tipoAbono = clientesVO.getTipoAbono();
+                        switch (tipoAbono) {
+                            case 1:
+                                importe += 25;
+                                break;
+
+                            case 2:
+                                importe += 70;
+                                break;
+
+                            case 3:
+                                importe += 130;
+                                break;
+
+                            case 4:
+                                importe += 200;
+                                break;
+                            default:
+                                System.out.println("Error en el tipo de abono");
+                        }
+                    }
+                }
+
+            }
+        }
+        System.out.println("El total del importe generado en abonados es de: " + importe + "€");
     }
 
 }
